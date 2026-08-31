@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerador & Editor de Reviews da Steam</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2366c0f4'><path d='M12 2a10 10 0 0 0-10 10c0 4.42 2.87 8.17 6.84 9.5l2.67-3.9a3.5 3.5 0 0 1-.51-1.6 3.5 3.5 0 0 1 3.5-3.5c.34 0 .66.05.96.15l3.87-2.65A4.5 4.5 0 1 1 22 12c0 5.52-4.48 10-10 10z'/></svg>" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand-section">
+        <div class="brand-logo" title="Steam Review Editor">
+          <!-- Steam Icon -->
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.167 6.839 9.49l2.668-3.896c-.328-.485-.507-1.04-.507-1.594 0-1.657 1.343-3 3-3 .346 0 .676.058.985.166l3.872-2.658A4.475 4.475 0 0 0 17.5 9a4.5 4.5 0 1 0 4.5 4.5c0-.655-.14-1.277-.393-1.84l-2.66 3.886c.035.15.053.305.053.454 0 1.105-.895 2-2 2a1.996 1.996 0 0 1-1.414-.586l-4.14 2.842C11.66 21.895 11.828 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm5.5 10c-.828 0-1.5-.672-1.5-1.5s.672-1.5 1.5-1.5 1.5.672 1.5 1.5-.672 1.5-1.5 1.5z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">
+            Gerador & Editor de Reviews
+            <span class="brand-badge">Steam BBCode</span>
+          </h1>
+          <p class="brand-subtitle">Crie, formate e exporte análises para a Steam <span class="brand-author-tag">• Criado por <strong>Rafael Lannes</strong></span></p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btnToggleLayout" class="btn btn-secondary btn-sm" title="Alternar modo de exibição (Lado a Lado / Empilhado)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="3" x2="12" y2="21"></line></svg>
+          <span id="layoutToggleText">Lado a Lado</span>
+        </button>
+        <button id="btnOpenNewReviewModal" class="btn btn-primary btn-sm btn-new-review" title="Criar uma nova análise para um jogo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          Nova Review
+        </button>
+        <button id="btnOpenHistoryModal" class="btn btn-secondary btn-sm" title="Ver histórico de reviews salvas">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          Minhas Reviews
+          <span id="historyCountBadge" class="header-count-badge">0</span>
+        </button>
+        <button id="btnManageTemplates" class="btn btn-secondary btn-sm" title="Gerenciar e importar/exportar moldes">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+          Moldes
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="main-workspace">
+      <!-- Left Column: Review Editor -->
+      <section class="panel editor-panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            Editor de Análise
+          </div>
+          <div style="display: flex; gap: 6px;">
+            <button id="btnSaveTemplate" class="btn btn-secondary btn-sm" title="Salvar o texto atual como novo molde">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+              Salvar Molde
+            </button>
+            <button id="btnClearEditor" class="btn btn-secondary btn-sm" title="Limpar editor">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              Limpar
+            </button>
+          </div>
+        </div>
+
+        <!-- Active Review Project Bar -->
+        <div class="review-project-bar">
+          <div class="active-game-info">
+            <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Jogo Atual:</span>
+            <div id="activeGameTitleText" class="active-game-title">Minha Primeira Análise</div>
+            <button id="btnRenameActiveGame" class="btn-rename-game" title="Renomear jogo desta review">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+            </button>
+          </div>
+          <div id="saveStatusIndicator" class="save-status-indicator">
+            <span class="save-status-dot"></span>
+            <span id="saveStatusText">Salvo automaticamente</span>
+          </div>
+        </div>
+
+        <!-- Template Selector Bar -->
+        <div class="template-bar">
+          <label class="template-label" for="templateSelect">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+            Molde:
+          </label>
+          <div class="template-select-wrap">
+            <select id="templateSelect" class="select-input">
+              <!-- Populated via JavaScript -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="editor-toolbar">
+          <!-- Text Styling Group -->
+          <div class="toolbar-group">
+            <button class="tool-btn" data-action="bold" data-tooltip="Negrito [b] (Ctrl+B)">
+              <b>B</b>
+            </button>
+            <button class="tool-btn" data-action="italic" data-tooltip="Itálico [i] (Ctrl+I)">
+              <i>I</i>
+            </button>
+            <button class="tool-btn" data-action="underline" data-tooltip="Sublinhado [u] (Ctrl+U)">
+              <u>U</u>
+            </button>
+            <button class="tool-btn" data-action="strike" data-tooltip="Tachado [s]">
+              <s>S</s>
+            </button>
+          </div>
+
+          <!-- Headers Group -->
+          <div class="toolbar-group">
+            <button class="tool-btn" data-action="h1" data-tooltip="Título Principal [h1]">H1</button>
+            <button class="tool-btn" data-action="h2" data-tooltip="Subtítulo [h2]">H2</button>
+            <button class="tool-btn" data-action="h3" data-tooltip="Seção [h3]">H3</button>
+          </div>
+
+          <!-- Special Steam Tags -->
+          <div class="toolbar-group">
+            <button id="btnOpenColorModal" class="tool-btn btn-accent" data-tooltip="Cor do Texto [color]">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"></path></svg>
+            </button>
+            <button id="btnOpenLinkModal" class="tool-btn" data-tooltip="Inserir Link [url] (Ctrl+K)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            </button>
+            <button class="tool-btn" data-action="quote" data-tooltip="Citação [quote]">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path></svg>
+            </button>
+            <button class="tool-btn" data-action="spoiler" data-tooltip="Ocultar Spoiler [spoiler] (Ctrl+Shift+S)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+            </button>
+          </div>
+
+          <!-- Lists & Elements -->
+          <div class="toolbar-group">
+            <button class="tool-btn" data-action="list" data-tooltip="Lista de Marcadores [list]">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+            </button>
+            <button class="tool-btn" data-action="olist" data-tooltip="Lista Numerada [olist]">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="10" y1="6" x2="21" y2="6"></line><line x1="10" y1="12" x2="21" y2="12"></line><line x1="10" y1="18" x2="21" y2="18"></line><path d="M4 6h1v4"></path><path d="M4 10h2"></path><path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"></path></svg>
+            </button>
+            <button class="tool-btn" data-action="hr" data-tooltip="Linha Divisória [hr]">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+            </button>
+            <button class="tool-btn" data-action="code" data-tooltip="Bloco de Código [code]">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            </button>
+          </div>
+
+          <!-- Star Rating Quick Inserter Button -->
+          <div class="toolbar-group">
+            <button id="btnOpenRatingModal" class="tool-btn btn-star" data-tooltip="Inserir Nota / Estrelas BBCode">
+              ★ Inserir Estrelas / Nota
+            </button>
+          </div>
+        </div>
+
+        <!-- Editor Input Area -->
+        <div class="editor-body">
+          <textarea
+            id="reviewEditor"
+            class="review-textarea"
+            placeholder="Digite sua análise aqui ou escolha um molde acima..."
+            maxlength="8000"
+            spellcheck="true"
+          ></textarea>
+        </div>
+
+        <!-- Footer / Character Counter -->
+        <div class="editor-footer">
+          <div class="char-counter-container">
+            <div class="counter-text" id="charCounter">0 / 8.000</div>
+            <div class="progress-bar-wrap">
+              <div id="progressBar" class="progress-bar-fill"></div>
+            </div>
+          </div>
+          <div class="editor-stats">
+            <span class="stat-item">Palavras: <span id="wordCounter">0</span></span>
+            <span class="stat-item">Linhas: <span id="lineCounter">0</span></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Live Steam Preview, Scratchpad & Export -->
+      <section class="panel preview-panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            Visualização & Notas
+          </div>
+          <div class="preview-tabs">
+            <button id="tabPreview" class="tab-btn active" title="Visualização ao vivo com estilo da Steam">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+              Visualização Steam
+            </button>
+            <button id="tabNotes" class="tab-btn notes-tab" title="Bloco de notas pessoal e persistente deste jogo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+              Bloco de Notas
+            </button>
+            <button id="tabRaw" class="tab-btn" title="Código BBCode puro">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              Código BBCode
+            </button>
+          </div>
+        </div>
+
+        <!-- Preview Body -->
+        <div class="preview-body">
+          <!-- 1. Steam Live Preview Mode -->
+          <div id="viewPreview" class="steam-review-card">
+            <div class="steam-review-header">
+              <div class="steam-thumb-icon" title="Recomendado">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                </svg>
+              </div>
+              <div class="steam-thumb-meta">
+                <div class="steam-verdict">RECOMENDADO</div>
+                <div class="steam-date">Postado: Agora mesmo (Pré-visualização em tempo real)</div>
+              </div>
+            </div>
+            <div id="previewContent" class="steam-content">
+              <!-- Rendered Steam BBCode will appear here -->
+            </div>
+          </div>
+
+          <!-- 2. Scratchpad / Notepad Mode (Right Panel) -->
+          <div id="viewNotes" class="notes-container">
+            <div class="notes-info-banner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              <span><strong>Bloco de Notas Pessoal:</strong> Anotações exclusivas deste jogo. Não contam no limite de 8.000 caracteres.</span>
+            </div>
+
+            <!-- Detached Window Notice (shown when popout window is open) -->
+            <div id="notesDetachedNotice" class="notes-detached-notice">
+              <strong style="color: var(--steam-blue); font-size: 0.95rem;">↗️ Bloco de notas aberto em janela flutuante</strong>
+              <p style="color: var(--text-secondary); font-size: 0.82rem;">As anotações continuam sincronizadas em tempo real. Você pode escrever na janela separada enquanto edita a review ao lado.</p>
+              <button id="btnReattachNotes" class="btn btn-secondary btn-sm">
+                Reacoplar Janela para Cá
+              </button>
+            </div>
+
+            <!-- Notes Main Area -->
+            <div id="notesMainControls" style="display: flex; flex-direction: column; flex: 1; overflow: hidden;">
+              <div class="notes-toolbar">
+                <div style="display: flex; gap: 6px; align-items: center;">
+                  <button id="btnPopoutNotes" class="btn btn-popout-notes btn-sm" title="Desprender bloco de notas em uma janela flutuante independente">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    Desprender Janela
+                  </button>
+                  <button id="btnInsertNoteToReview" class="btn btn-secondary btn-sm" title="Inserir texto ou seleção das anotações no editor da review">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    Inserir na Review
+                  </button>
+                </div>
+                <div style="display: flex; gap: 6px; align-items: center;">
+                  <button id="btnCopyNotes" class="btn btn-secondary btn-sm" title="Copiar todas as anotações">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    Copiar
+                  </button>
+                  <button id="btnClearNotes" class="btn btn-secondary btn-sm" title="Limpar bloco de notas">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    Limpar
+                  </button>
+                </div>
+              </div>
+              <textarea
+                id="gameNotesArea"
+                class="notes-textarea"
+                placeholder="Escreva aqui suas impressões, bugs encontrados, rascunhos, horas de jogo, tópicos para lembrar ou notas rápidas sobre este jogo..."
+                spellcheck="true"
+              ></textarea>
+              <div class="editor-footer">
+                <div style="font-size: 0.78rem; color: #fcd34d;">
+                  💾 Salvo automaticamente com esta review
+                </div>
+                <div class="editor-stats">
+                  <span class="stat-item">Caracteres das notas: <span id="notesCharCounter">0</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Raw BBCode Mode -->
+          <pre id="rawCodeOutput" class="raw-code-view"></pre>
+        </div>
+
+        <!-- Export Footer Actions -->
+        <div class="panel-footer">
+          <div class="footer-actions-left">
+            <button id="btnDownloadTxt" class="btn btn-secondary" title="Salvar análise em arquivo de texto">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Baixar .txt
+            </button>
+          </div>
+          <div class="footer-actions-right">
+            <button id="btnCopyFormatted" class="btn btn-primary btn-lg" title="Copiar código formatado para colar na Steam">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              Copiar Texto Formatado
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>Gerador & Editor de Reviews da Steam • Criado por <strong>Rafael Lannes</strong></p>
+    </footer>
+  </div>
+
+  <!-- ==========================================
+       MODALS
+       ========================================== -->
+
+  <!-- 1. Link Modal -->
+  <div id="linkModal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+          Inserir Link [url]
+        </h3>
+        <button class="modal-close" data-modal-close>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="linkTextInput">Texto visível do link:</label>
+          <input type="text" id="linkTextInput" class="form-input" placeholder="Ex: Página oficial do jogo" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="linkUrlInput">Endereço Web (URL):</label>
+          <input type="text" id="linkUrlInput" class="form-input" placeholder="https://store.steampowered.com" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-modal-close>Cancelar</button>
+        <button id="btnApplyLink" class="btn btn-primary">Inserir Link</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Color Modal -->
+  <div id="colorModal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><circle cx="12" cy="12" r="10"></circle></svg>
+          Escolher Cor do Texto [color]
+        </h3>
+        <button class="modal-close" data-modal-close>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Paleta de Cores Recomendadas:</label>
+          <div class="color-palette-grid">
+            <div class="color-swatch active" data-color="#66c0f4" style="background-color: #66c0f4;" title="Azul Steam"></div>
+            <div class="color-swatch" data-color="#a4d007" style="background-color: #a4d007;" title="Verde Steam"></div>
+            <div class="color-swatch" data-color="#ffd700" style="background-color: #ffd700;" title="Dourado / Estrela"></div>
+            <div class="color-swatch" data-color="#ef4444" style="background-color: #ef4444;" title="Vermelho Alerta"></div>
+            <div class="color-swatch" data-color="#f97316" style="background-color: #f97316;" title="Laranja"></div>
+            <div class="color-swatch" data-color="#a855f7" style="background-color: #a855f7;" title="Roxo / Épico"></div>
+            <div class="color-swatch" data-color="#ec4899" style="background-color: #ec4899;" title="Rosa"></div>
+            <div class="color-swatch" data-color="#06b6d4" style="background-color: #06b6d4;" title="Ciano"></div>
+            <div class="color-swatch" data-color="#ffffff" style="background-color: #ffffff;" title="Branco"></div>
+            <div class="color-swatch" data-color="#9ca3af" style="background-color: #9ca3af;" title="Cinza Claro"></div>
+            <div class="color-swatch" data-color="#4b5563" style="background-color: #4b5563;" title="Cinza Escuro"></div>
+            <div class="color-swatch" data-color="#38bdf8" style="background-color: #38bdf8;" title="Azul Céu"></div>
+          </div>
+        </div>
+        <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 8px;">
+          <label class="form-label" for="customColorInput">Cor Personalizada:</label>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span id="colorHexDisplay" style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--steam-blue);">#66c0f4</span>
+            <input type="color" id="customColorInput" value="#66c0f4" style="border: none; background: none; width: 36px; height: 36px; cursor: pointer;" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-modal-close>Cancelar</button>
+        <button id="btnApplyColor" class="btn btn-primary">Aplicar Cor</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Star Rating Modal -->
+  <div id="ratingModal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          ★ Inserir Avaliação / Estrelas
+        </h3>
+        <button class="modal-close" data-modal-close>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="rating-builder-box">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="form-label">Escala de Avaliação:</span>
+            <div class="rating-scale-toggle">
+              <button id="scale5Btn" class="scale-btn active">1 a 5 Estrelas</button>
+              <button id="scale10Btn" class="scale-btn">1 a 10 Estrelas</button>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; padding: 10px 0;">
+            <div id="starsInteractiveRow" class="stars-interactive-row">
+              <!-- Rendered via JS -->
+            </div>
+            <div id="ratingPreviewBadge" class="rating-preview-badge">
+              [b]Nota Final:[/b] ★★★★★ (5/5)
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="ratingCriterionInput">Nome do Critério / Categoria:</label>
+          <input type="text" id="ratingCriterionInput" class="form-input" value="Nota Final" placeholder="Ex: Gráficos, Jogabilidade, Nota Final..." />
+          <div class="criteria-presets" style="margin-top: 6px;">
+            <span class="preset-chip" data-preset="Nota Final">Nota Final</span>
+            <span class="preset-chip" data-preset="Gráficos">Gráficos</span>
+            <span class="preset-chip" data-preset="Jogabilidade">Jogabilidade</span>
+            <span class="preset-chip" data-preset="História">História</span>
+            <span class="preset-chip" data-preset="Trilha Sonora">Trilha Sonora</span>
+            <span class="preset-chip" data-preset="Otimização">Otimização</span>
+            <span class="preset-chip" data-preset="Custo-Benefício">Custo-Benefício</span>
+            <span class="preset-chip" data-preset="Dificuldade">Dificuldade</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="formatStyleSelect">Formato da Saída:</label>
+          <select id="formatStyleSelect" class="select-input">
+            <option value="stars-score">Estrelas + Nota Numérica (Ex: ★★★★☆ 4/5)</option>
+            <option value="stars-only">Apenas Estrelas (Ex: ★★★★☆)</option>
+            <option value="bar">Barra de Progresso (Ex: [████████░░] 8/10)</option>
+            <option value="simple">Apenas Numérico (Ex: 5/5)</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-modal-close>Cancelar</button>
+        <button id="btnInsertRating" class="btn btn-primary">Inserir na Análise</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Save Template Modal -->
+  <div id="saveTemplateModal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path></svg>
+          Salvar como Novo Molde
+        </h3>
+        <button class="modal-close" data-modal-close>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="templateNameInput">Nome do seu molde de review:</label>
+          <input type="text" id="templateNameInput" class="form-input" placeholder="Ex: Meu Molde de RPG, Análise Curta..." />
+          <small style="color: var(--text-muted); font-size: 0.75rem; margin-top: 4px;">Este molde será salvo no armazenamento local do seu navegador e ficará disponível para uso futuro.</small>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-modal-close>Cancelar</button>
+        <button id="btnConfirmSaveTemplate" class="btn btn-primary">Salvar Molde</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Manage Templates Modal -->
+  <div id="manageTemplatesModal" class="modal-backdrop">
+    <div class="modal-card" style="max-width: 580px;">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+          Gerenciador de Moldes Personalizados
+        </h3>
+        <button class="modal-close" data-modal-close>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Seus Moldes Salvos:</label>
+          <div id="customTemplatesList" class="template-list">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid var(--border-color); padding-top: 12px; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
+          <button id="btnExportTemplates" class="btn btn-secondary btn-sm" title="Baixar todos os moldes em JSON">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Exportar Moldes (JSON)
+          </button>
+          <button id="btnImportTemplates" class="btn btn-secondary btn-sm" title="Importar moldes de um arquivo JSON">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            Importar Moldes (JSON)
+          </button>
+          <input type="file" id="importFileInput" accept=".json" style="display: none;" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-modal-close>Concluir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Nova Review Modal -->
+  <div id="newReviewModal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          Criar Nova Review
+        </h3>
+        <button class="modal-close" data-modal-close>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="newGameTitleInput">Nome do Jogo:</label>
+          <input type="text" id="newGameTitleInput" class="form-input" placeholder="Ex: Elden Ring, Hollow Knight, Cyberpunk 2077..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="newReviewTemplateSelect">Molde Inicial:</label>
+          <select id="newReviewTemplateSelect" class="select-input">
+            <option value="builtin-prompt-standard">Molde Padrão (Estrutura Completa)</option>
+            <option value="builtin-checklist">Checklist Gamer Clássico</option>
+            <option value="builtin-express">Review Express (Rápida & Direta)</option>
+            <option value="builtin-technical">Análise Técnica & Performance</option>
+            <option value="blank">Em Branco (Começar do Zero)</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-modal-close>Cancelar</button>
+        <button id="btnConfirmCreateReview" class="btn btn-primary">Criar e Abrir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Histórico de Reviews Modal / Drawer -->
+  <div id="historyModal" class="modal-backdrop">
+    <div class="modal-card" style="max-width: 650px;">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          Histórico de Reviews
+        </h3>
+        <button class="modal-close" data-modal-close>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="history-search-wrap">
+          <svg class="history-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="historySearchInput" class="history-search-input" placeholder="Buscar review pelo nome do jogo..." />
+        </div>
+        <div id="historyReviewsList" class="history-grid">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content: space-between;">
+        <button id="btnHistoryNewReview" class="btn btn-primary btn-sm">
+          + Nova Review
+        </button>
+        <button class="btn btn-secondary btn-sm" data-modal-close>Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. Renomear Jogo Modal -->
+  <div id="renameReviewModal" class="modal-backdrop">
+    <div class="modal-card" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+          Renomear Jogo
+        </h3>
+        <button class="modal-close" data-modal-close>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="renameGameTitleInput">Novo nome do jogo:</label>
+          <input type="text" id="renameGameTitleInput" class="form-input" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-modal-close>Cancelar</button>
+        <button id="btnConfirmRenameGame" class="btn btn-primary">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/bbcode.js"></script>
+  <script src="js/rating.js"></script>
+  <script src="js/templates.js"></script>
+  <script src="js/reviews.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
