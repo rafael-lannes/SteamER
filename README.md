@@ -1,4 +1,4 @@
-# 🎮 Gerador & Editor de Reviews da Steam
+# 🎮 SteamER - Steam Easy Review
 
 > **Criado por Rafael Lannes**
 
