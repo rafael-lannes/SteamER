@@ -1,4 +1,4 @@
-# 🎮 SteamER - Steam Easy Review
+# 🎮 SteamER - "Steam Easy Review"
 
 > **Criado por Rafael Lannes**
 

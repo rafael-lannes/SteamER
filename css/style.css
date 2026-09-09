@@ -116,18 +116,19 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
-  background: linear-gradient(135deg, #1999e3 0%, #112d4e 100%);
+  width: 42px;
+  height: 42px;
   border-radius: var(--radius-md);
   box-shadow: var(--glow-blue);
-  color: #fff;
+  overflow: hidden;
+  border: 1px solid rgba(102, 192, 244, 0.4);
 }
 
-.brand-logo svg {
-  width: 24px;
-  height: 24px;
-  fill: currentColor;
+.brand-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .brand-title {
