@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const appContainer = document.querySelector('.app-container');
   const editor = document.getElementById('reviewEditor');
   const previewContent = document.getElementById('previewContent');
-  const rawCodeOutput = document.getElementById('rawCodeOutput');
   const charCounter = document.getElementById('charCounter');
   const progressBar = document.getElementById('progressBar');
   const wordCounter = document.getElementById('wordCounter');
@@ -34,10 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // DOM Elements - Right Panel Tabs & Views
   const tabPreview = document.getElementById('tabPreview');
   const tabNotes = document.getElementById('tabNotes');
-  const tabRaw = document.getElementById('tabRaw');
   const viewPreview = document.getElementById('viewPreview');
   const viewNotes = document.getElementById('viewNotes');
-  const viewRaw = document.getElementById('viewRaw');
 
   // DOM Elements - Scratchpad / Notepad
   const gameNotesArea = document.getElementById('gameNotesArea');
@@ -322,10 +319,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       previewContent.innerHTML = renderedHtml;
     }
-
-    if (rawCodeOutput) {
-      rawCodeOutput.textContent = raw || '(Vazio)';
-    }
   }
 
   // Textarea input events
@@ -377,16 +370,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================
-  // Right Panel Tabs (Live Preview, Notes, Raw BBCode)
+  // Right Panel Tabs (Live Preview vs Notes)
   // ==========================================
   function switchRightPanelTab(tabName) {
     tabPreview.classList.toggle('active', tabName === 'preview');
     tabNotes.classList.toggle('active', tabName === 'notes');
-    tabRaw.classList.toggle('active', tabName === 'raw');
 
     viewPreview.style.display = (tabName === 'preview') ? 'block' : 'none';
     viewNotes.classList.toggle('active', tabName === 'notes');
-    viewRaw.classList.toggle('active', tabName === 'raw');
 
     if (tabName === 'notes' && (!popoutNotesWindow || popoutNotesWindow.closed)) {
       gameNotesArea.focus();
@@ -395,7 +386,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   tabPreview.addEventListener('click', () => switchRightPanelTab('preview'));
   tabNotes.addEventListener('click', () => switchRightPanelTab('notes'));
-  tabRaw.addEventListener('click', () => switchRightPanelTab('raw'));
 
   // ==========================================
   // Scratchpad Actions (Insert, Copy, Clear)
