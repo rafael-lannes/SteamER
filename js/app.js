@@ -1,42 +1,61 @@
 /**
- * Steam Review Generator & Editor - Main Application Controller
+ * SteamER - Steam Easy Review
+ * Main Application Controller
  * Features:
- * - Dynamic Responsive Side-by-Side / Stacked Layout
- * - Relocated Scratchpad / Notepad in Right Panel Tabs
+ * - Dynamic Single-Page-App Views (Editor Workspace & Dedicated "Minhas Reviews" Dashboard)
+ * - Complete JSON Backup System (Export all reviews & notes, Validated Import with replace/merge)
+ * - Recommendation Selector (👍 Recomendo / 👎 Não Recomendo) with Live Steam Preview sync
+ * - Multi-Review Projects with LocalStorage Persistence, Multi-Criteria Sorting & Live Search
  * - Detachable Popout Window for Notes with Real-time 2-Way Sync
- * - Multi-Review Projects with LocalStorage Persistence & History
  * - Steam BBCode Formatting & Real-time Live Preview
  * - Character Counter (8,000 max limit) & One-click Clipboard Export
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // DOM Elements - Editor & Stats
+  // ==========================================
+  // DOM Elements - Navigation & Views
+  // ==========================================
   const appContainer = document.querySelector('.app-container');
-  const editor = document.getElementById('reviewEditor');
-  const previewContent = document.getElementById('previewContent');
-  const charCounter = document.getElementById('charCounter');
-  const progressBar = document.getElementById('progressBar');
-  const wordCounter = document.getElementById('wordCounter');
-  const lineCounter = document.getElementById('lineCounter');
-  const charWarningBanner = document.getElementById('charWarningBanner');
-  const templateSelect = document.getElementById('templateSelect');
+  const navBtnEditor = document.getElementById('navBtnEditor');
+  const navBtnReviews = document.getElementById('navBtnReviews');
+  const reviewsNavBadge = document.getElementById('reviewsNavBadge');
+  const viewEditorWorkspace = document.getElementById('viewEditorWorkspace');
+  const viewReviewsDashboard = document.getElementById('viewReviewsDashboard');
 
-  // DOM Elements - Active Project & Header
+  // Header Actions
   const btnToggleLayout = document.getElementById('btnToggleLayout');
   const layoutToggleText = document.getElementById('layoutToggleText');
+  const btnOpenNewReviewModal = document.getElementById('btnOpenNewReviewModal');
+  const btnOpenBackupModal = document.getElementById('btnOpenBackupModal');
+  const btnManageTemplates = document.getElementById('btnManageTemplates');
+
+  // Editor DOM Elements
   const activeGameTitleText = document.getElementById('activeGameTitleText');
   const btnRenameActiveGame = document.getElementById('btnRenameActiveGame');
   const saveStatusIndicator = document.getElementById('saveStatusIndicator');
   const saveStatusText = document.getElementById('saveStatusText');
-  const historyCountBadge = document.getElementById('historyCountBadge');
+  const templateSelect = document.getElementById('templateSelect');
+  const editor = document.getElementById('reviewEditor');
+  const charCounter = document.getElementById('charCounter');
+  const progressBar = document.getElementById('progressBar');
+  const wordCounter = document.getElementById('wordCounter');
+  const lineCounter = document.getElementById('lineCounter');
 
-  // DOM Elements - Right Panel Tabs & Views
+  // Recommendation Selector
+  const btnRecommendPositive = document.getElementById('btnRecommendPositive');
+  const btnRecommendNegative = document.getElementById('btnRecommendNegative');
+
+  // Live Preview DOM Elements
   const tabPreview = document.getElementById('tabPreview');
   const tabNotes = document.getElementById('tabNotes');
   const viewPreview = document.getElementById('viewPreview');
   const viewNotes = document.getElementById('viewNotes');
+  const steamThumbIcon = document.getElementById('steamThumbIcon');
+  const steamThumbSvg = document.getElementById('steamThumbSvg');
+  const steamVerdictText = document.getElementById('steamVerdictText');
+  const previewContent = document.getElementById('previewContent');
 
-  // DOM Elements - Scratchpad / Notepad
+  // Scratchpad / Notepad DOM Elements
   const gameNotesArea = document.getElementById('gameNotesArea');
   const notesCharCounter = document.getElementById('notesCharCounter');
   const notesMainControls = document.getElementById('notesMainControls');
@@ -47,25 +66,56 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnCopyNotes = document.getElementById('btnCopyNotes');
   const btnClearNotes = document.getElementById('btnClearNotes');
 
-  // DOM Elements - Modals
-  const btnOpenNewReviewModal = document.getElementById('btnOpenNewReviewModal');
+  // Dashboard "Minhas Reviews" DOM Elements
+  const btnDashboardNewReview = document.getElementById('btnDashboardNewReview');
+  const btnDashboardBackup = document.getElementById('btnDashboardBackup');
+  const dashStatTotal = document.getElementById('dashStatTotal');
+  const dashStatPos = document.getElementById('dashStatPos');
+  const dashStatNeg = document.getElementById('dashStatNeg');
+  const dashStatWords = document.getElementById('dashStatWords');
+  const dashboardSearchInput = document.getElementById('dashboardSearchInput');
+  const btnDashboardClearSearch = document.getElementById('btnDashboardClearSearch');
+  const filterChips = document.querySelectorAll('.filter-chip');
+  const dashboardSortSelect = document.getElementById('dashboardSortSelect');
+  const btnDashViewGrid = document.getElementById('btnDashViewGrid');
+  const btnDashViewBlog = document.getElementById('btnDashViewBlog');
+  const dashboardReviewsGrid = document.getElementById('dashboardReviewsGrid');
+  const dashboardReviewsBlog = document.getElementById('dashboardReviewsBlog');
+  const dashboardEmptyState = document.getElementById('dashboardEmptyState');
+  const emptyStateTitle = document.getElementById('emptyStateTitle');
+  const emptyStateDesc = document.getElementById('emptyStateDesc');
+  const btnEmptyStateNewReview = document.getElementById('btnEmptyStateNewReview');
+  const btnOpenAboutModal = document.getElementById('btnOpenAboutModal');
+  const aboutModal = document.getElementById('aboutModal');
+
+  // Modals DOM Elements
   const newReviewModal = document.getElementById('newReviewModal');
   const newGameTitleInput = document.getElementById('newGameTitleInput');
+  const btnNewReviewPos = document.getElementById('btnNewReviewPos');
+  const btnNewReviewNeg = document.getElementById('btnNewReviewNeg');
   const newReviewTemplateSelect = document.getElementById('newReviewTemplateSelect');
   const btnConfirmCreateReview = document.getElementById('btnConfirmCreateReview');
-
-  const btnOpenHistoryModal = document.getElementById('btnOpenHistoryModal');
-  const historyModal = document.getElementById('historyModal');
-  const historySearchInput = document.getElementById('historySearchInput');
-  const historyReviewsList = document.getElementById('historyReviewsList');
-  const btnHistoryNewReview = document.getElementById('btnHistoryNewReview');
+  let newReviewRecommendState = true;
 
   const renameReviewModal = document.getElementById('renameReviewModal');
   const renameGameTitleInput = document.getElementById('renameGameTitleInput');
   const btnConfirmRenameGame = document.getElementById('btnConfirmRenameGame');
   let pendingRenameId = null;
 
-  // Formatting Modals
+  // Backup Modal DOM Elements
+  const backupModal = document.getElementById('backupModal');
+  const btnExportFullBackup = document.getElementById('btnExportFullBackup');
+  const btnSelectBackupFile = document.getElementById('btnSelectBackupFile');
+  const backupFileInput = document.getElementById('backupFileInput');
+  const importPreviewBox = document.getElementById('importPreviewBox');
+  const importFileStatusDot = document.getElementById('importFileStatusDot');
+  const importFileName = document.getElementById('importFileName');
+  const importSummaryText = document.getElementById('importSummaryText');
+  const btnImportReplaceAll = document.getElementById('btnImportReplaceAll');
+  const btnImportMerge = document.getElementById('btnImportMerge');
+  let pendingImportContent = null;
+
+  // Formatting Modals & Builders
   const linkModal = document.getElementById('linkModal');
   const linkUrlInput = document.getElementById('linkUrlInput');
   const linkTextInput = document.getElementById('linkTextInput');
@@ -101,13 +151,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnDownloadTxt = document.getElementById('btnDownloadTxt');
   const btnClearEditor = document.getElementById('btnClearEditor');
   const btnSaveTemplate = document.getElementById('btnSaveTemplate');
-  const btnManageTemplates = document.getElementById('btnManageTemplates');
   const toastContainer = document.getElementById('toastContainer');
 
   // Application State
   let currentActiveReview = null;
   let autoSaveTimeout = null;
   let popoutNotesWindow = null;
+  let currentDashboardFilter = 'all';
+  let currentDashboardViewMode = 'grid'; // 'grid' | 'blog'
+  let currentMainView = 'editor'; // 'editor' | 'reviews'
 
   const ratingBuilder = new StarRatingBuilder({
     maxScale: 5,
@@ -118,6 +170,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const MAX_STEAM_CHARS = 8000;
   const WARN_STEAM_CHARS = 7500;
+
+  const SVG_THUMB_UP = `<path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>`;
+  const SVG_THUMB_DOWN = `<path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3"></path>`;
 
   // ==========================================
   // Toast Notifications
@@ -145,6 +200,28 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => toast.remove(), 300);
     }, duration);
   }
+
+  // ==========================================
+  // SPA View Switcher (Editor vs Minhas Reviews)
+  // ==========================================
+  function switchMainView(viewName) {
+    currentMainView = viewName;
+    if (viewName === 'editor') {
+      navBtnEditor.classList.add('active');
+      navBtnReviews.classList.remove('active');
+      viewEditorWorkspace.classList.add('active');
+      viewReviewsDashboard.classList.remove('active');
+    } else {
+      navBtnEditor.classList.remove('active');
+      navBtnReviews.classList.add('active');
+      viewEditorWorkspace.classList.remove('active');
+      viewReviewsDashboard.classList.add('active');
+      renderDashboard();
+    }
+  }
+
+  navBtnEditor.addEventListener('click', () => switchMainView('editor'));
+  navBtnReviews.addEventListener('click', () => switchMainView('reviews'));
 
   // ==========================================
   // Layout Preference & Toggle
@@ -210,12 +287,16 @@ document.addEventListener('DOMContentLoaded', () => {
     autoSaveTimeout = setTimeout(() => {
       ReviewManager.update(currentActiveReview.id, {
         content: editor.value,
-        notes: gameNotesArea.value
+        notes: gameNotesArea.value,
+        recommended: currentActiveReview.recommended
       });
 
       if (dot) dot.classList.remove('saving');
       if (saveStatusText) saveStatusText.textContent = 'Salvo automaticamente';
-      updateHistoryBadge();
+      updateNavBadge();
+      if (currentMainView === 'reviews') {
+        renderDashboard();
+      }
     }, 350);
   }
 
@@ -229,6 +310,9 @@ document.addEventListener('DOMContentLoaded', () => {
       activeGameTitleText.textContent = review.title || 'Análise Sem Título';
     }
 
+    // Recommendation State
+    setRecommendationUI(typeof review.recommended === 'boolean' ? review.recommended : true, false);
+
     // Load content & notes
     editor.value = review.content || '';
     gameNotesArea.value = review.notes || '';
@@ -241,13 +325,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Refresh UI states
     updateNotesStats();
     updateEditorStats();
-    updateHistoryBadge();
+    updateNavBadge();
   }
 
-  function updateHistoryBadge() {
+  function updateNavBadge() {
     const total = ReviewManager.getAll().length;
-    if (historyCountBadge) {
-      historyCountBadge.textContent = total;
+    if (reviewsNavBadge) {
+      reviewsNavBadge.textContent = total;
     }
   }
 
@@ -265,6 +349,52 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     updateNotesBadge();
   }
+
+  // ==========================================
+  // Recommendation Selector & Live Steam Preview
+  // ==========================================
+  function setRecommendationUI(isRecommended, triggerSave = true) {
+    if (currentActiveReview) {
+      currentActiveReview.recommended = isRecommended;
+    }
+
+    // Toggle Buttons in Editor
+    if (btnRecommendPositive && btnRecommendNegative) {
+      btnRecommendPositive.classList.toggle('active', isRecommended);
+      btnRecommendNegative.classList.toggle('active', !isRecommended);
+    }
+
+    // Update Live Steam Preview Card
+    if (steamThumbIcon && steamThumbSvg && steamVerdictText) {
+      if (isRecommended) {
+        steamThumbIcon.className = 'steam-thumb-icon positive';
+        steamThumbIcon.title = 'Recomendado';
+        steamThumbSvg.innerHTML = SVG_THUMB_UP;
+        steamVerdictText.className = 'steam-verdict';
+        steamVerdictText.textContent = 'RECOMENDADO';
+      } else {
+        steamThumbIcon.className = 'steam-thumb-icon negative';
+        steamThumbIcon.title = 'Não Recomendado';
+        steamThumbSvg.innerHTML = SVG_THUMB_DOWN;
+        steamVerdictText.className = 'steam-verdict negative';
+        steamVerdictText.textContent = 'NÃO RECOMENDADO';
+      }
+    }
+
+    if (triggerSave) {
+      triggerAutoSave();
+    }
+  }
+
+  btnRecommendPositive.addEventListener('click', () => {
+    setRecommendationUI(true, true);
+    showToast('Classificação definida como: 👍 Recomendo');
+  });
+
+  btnRecommendNegative.addEventListener('click', () => {
+    setRecommendationUI(false, true);
+    showToast('Classificação definida como: 👎 Não Recomendo', 'warning');
+  });
 
   // ==========================================
   // Editor Character Counter & Live Render
@@ -289,15 +419,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentLen >= MAX_STEAM_CHARS) {
       charCounter.className = 'counter-text danger';
       progressBar.className = 'progress-bar-fill danger';
-      if (charWarningBanner) charWarningBanner.style.display = 'block';
     } else if (currentLen >= WARN_STEAM_CHARS) {
       charCounter.className = 'counter-text warning';
       progressBar.className = 'progress-bar-fill warning';
-      if (charWarningBanner) charWarningBanner.style.display = 'none';
     } else {
       charCounter.className = 'counter-text';
       progressBar.className = 'progress-bar-fill';
-      if (charWarningBanner) charWarningBanner.style.display = 'none';
     }
 
     // Word & Line stats
@@ -693,22 +820,574 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================
+  // Dedicated "Minhas Reviews" Dashboard Controller
+  // ==========================================
+  function renderDashboard() {
+    const allReviews = ReviewManager.getAll();
+
+    // 1. Calculate and update stats cards
+    let positiveCount = 0;
+    let negativeCount = 0;
+    let totalWordsCount = 0;
+
+    allReviews.forEach(r => {
+      if (r.recommended !== false) positiveCount++;
+      else negativeCount++;
+
+      const words = (r.content || '').trim() ? (r.content || '').trim().split(/\s+/).length : 0;
+      totalWordsCount += words;
+    });
+
+    if (dashStatTotal) dashStatTotal.textContent = allReviews.length;
+    if (dashStatPos) dashStatPos.textContent = positiveCount;
+    if (dashStatNeg) dashStatNeg.textContent = negativeCount;
+    if (dashStatWords) dashStatWords.textContent = totalWordsCount.toLocaleString('pt-BR');
+
+    // 2. Filter reviews
+    const searchQuery = (dashboardSearchInput ? dashboardSearchInput.value.trim().toLowerCase() : '');
+    if (btnDashboardClearSearch) {
+      btnDashboardClearSearch.style.display = searchQuery ? 'block' : 'none';
+    }
+
+    let filtered = allReviews.filter(rev => {
+      // Search text filter
+      if (searchQuery) {
+        const titleMatch = (rev.title || '').toLowerCase().includes(searchQuery);
+        const contentMatch = (rev.content || '').toLowerCase().includes(searchQuery);
+        const notesMatch = (rev.notes || '').toLowerCase().includes(searchQuery);
+        if (!titleMatch && !contentMatch && !notesMatch) return false;
+      }
+
+      // Filter chips
+      if (currentDashboardFilter === 'pos') {
+        return rev.recommended !== false;
+      } else if (currentDashboardFilter === 'neg') {
+        return rev.recommended === false;
+      } else if (currentDashboardFilter === 'notes') {
+        return (rev.notes || '').trim().length > 0;
+      }
+      return true;
+    });
+
+    // 3. Sort reviews
+    const sortMode = dashboardSortSelect ? dashboardSortSelect.value : 'date-desc';
+    filtered.sort((a, b) => {
+      if (sortMode === 'date-desc') return (b.updatedAt || 0) - (a.updatedAt || 0);
+      if (sortMode === 'date-asc') return (a.updatedAt || 0) - (b.updatedAt || 0);
+      if (sortMode === 'title-asc') return (a.title || '').localeCompare(b.title || '');
+      if (sortMode === 'title-desc') return (b.title || '').localeCompare(a.title || '');
+      if (sortMode === 'size-desc') return (b.content || '').length - (a.content || '').length;
+      if (sortMode === 'size-asc') return (a.content || '').length - (b.content || '').length;
+      if (sortMode === 'recommend-pos') return (b.recommended === false ? 0 : 1) - (a.recommended === false ? 0 : 1);
+      if (sortMode === 'recommend-neg') return (a.recommended === false ? 0 : 1) - (b.recommended === false ? 0 : 1);
+      return 0;
+    });
+
+    // 4. Render Grid Cards, Blog Feed or Empty State
+    dashboardReviewsGrid.innerHTML = '';
+    dashboardReviewsBlog.innerHTML = '';
+
+    if (filtered.length === 0) {
+      dashboardReviewsGrid.style.display = 'none';
+      dashboardReviewsBlog.style.display = 'none';
+      dashboardEmptyState.style.display = 'flex';
+      if (allReviews.length === 0) {
+        emptyStateTitle.textContent = 'Nenhuma análise salva ainda';
+        emptyStateDesc.textContent = 'Clique no botão abaixo para criar a sua primeira análise de jogo com o SteamER!';
+        btnEmptyStateNewReview.style.display = 'inline-flex';
+      } else {
+        emptyStateTitle.textContent = 'Nenhum resultado encontrado';
+        emptyStateDesc.textContent = 'Nenhuma análise corresponde aos filtros ou termo de busca pesquisado.';
+        btnEmptyStateNewReview.style.display = 'none';
+      }
+      return;
+    }
+
+    dashboardEmptyState.style.display = 'none';
+
+    // ----------------------------------------------------
+    // MODE A: GRID / CARDS VIEW
+    // ----------------------------------------------------
+    if (currentDashboardViewMode === 'grid') {
+      dashboardReviewsGrid.style.display = 'grid';
+      dashboardReviewsBlog.style.display = 'none';
+
+      filtered.forEach(rev => {
+        const isCurrentActive = currentActiveReview && currentActiveReview.id === rev.id;
+        const isPos = rev.recommended !== false;
+        const card = document.createElement('div');
+        card.className = `dash-review-card ${isCurrentActive ? 'active-in-editor' : ''}`;
+
+        const formattedDate = ReviewManager.formatDate(rev.updatedAt || rev.createdAt);
+        const charsCount = (rev.content || '').length;
+        const wordsCount = (rev.content || '').trim() ? (rev.content || '').trim().split(/\s+/).length : 0;
+        const hasNotes = (rev.notes || '').trim().length > 0;
+
+        const cleanSnippet = (rev.content || '')
+          .replace(/\[\/?.*?\]/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+
+        card.innerHTML = `
+          <div class="dash-card-header">
+            <div class="dash-card-title-group">
+              <div class="dash-card-title">
+                <span>${SteamBBCode.escapeHtml(rev.title || 'Análise Sem Título')}</span>
+              </div>
+              <div class="dash-card-recommend-badge ${isPos ? 'pos' : 'neg'}">
+                <svg viewBox="0 0 24 24" fill="currentColor">${isPos ? SVG_THUMB_UP : SVG_THUMB_DOWN}</svg>
+                <span>${isPos ? 'Recomendado' : 'Não Recomendado'}</span>
+              </div>
+            </div>
+            ${isCurrentActive ? '<span class="history-active-badge">Aberta no Editor</span>' : ''}
+          </div>
+
+          <div class="dash-card-snippet">
+            ${cleanSnippet || '<span style="color:#626c75; font-style:italic;">(Análise vazia)</span>'}
+          </div>
+
+          <div class="dash-card-meta-row">
+            <span>🕒 ${formattedDate}</span>
+            <span>${charsCount.toLocaleString('pt-BR')} chars • ${wordsCount.toLocaleString('pt-BR')} pal.</span>
+            ${hasNotes ? '<span style="color:#fcd34d;">📝 Notas</span>' : ''}
+          </div>
+
+          <div class="dash-card-actions">
+            <div class="dash-card-actions-left">
+              <button class="btn btn-primary btn-sm btn-card-open" title="Abrir esta review no editor" data-id="${rev.id}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Abrir no Editor
+              </button>
+              <button class="btn btn-secondary btn-sm btn-card-copy" title="Copiar código formatado BBCode" data-id="${rev.id}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                Copiar
+              </button>
+            </div>
+            <div class="dash-card-actions-right">
+              <button class="btn btn-secondary btn-sm btn-card-dup" title="Duplicar esta review" data-id="${rev.id}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              </button>
+              <button class="btn btn-secondary btn-sm btn-card-rename" title="Renomear jogo" data-id="${rev.id}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+              </button>
+              <button class="btn btn-danger btn-sm btn-card-del" title="Excluir review" data-id="${rev.id}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              </button>
+            </div>
+          </div>
+        `;
+
+        // Event Handlers for Grid Card Actions
+        card.querySelector('.btn-card-open').addEventListener('click', () => {
+          loadReviewIntoUI(rev);
+          switchMainView('editor');
+          showToast(`Review "${rev.title}" aberta no editor!`);
+        });
+
+        card.querySelector('.btn-card-copy').addEventListener('click', () => {
+          const text = rev.content || '';
+          if (!text.trim()) {
+            showToast('Esta review está vazia.', 'warning');
+            return;
+          }
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(() => {
+              showToast(`BBCode de "${rev.title}" copiado com sucesso!`);
+            });
+          }
+        });
+
+        card.querySelector('.btn-card-dup').addEventListener('click', () => {
+          try {
+            const cloned = ReviewManager.duplicate(rev.id);
+            renderDashboard();
+            updateNavBadge();
+            showToast(`Cópia de "${rev.title}" criada!`);
+          } catch (e) {
+            showToast(e.message, 'danger');
+          }
+        });
+
+        card.querySelector('.btn-card-rename').addEventListener('click', () => {
+          openRenameModal(rev.id, rev.title);
+        });
+
+        card.querySelector('.btn-card-del').addEventListener('click', () => {
+          if (confirm(`Tem certeza que deseja excluir a análise de "${rev.title}"?`)) {
+            ReviewManager.delete(rev.id);
+            if (currentActiveReview && currentActiveReview.id === rev.id) {
+              const nextActive = ReviewManager.getOrCreateActive();
+              loadReviewIntoUI(nextActive);
+            }
+            renderDashboard();
+            updateNavBadge();
+            showToast(`Análise de "${rev.title}" excluída.`);
+          }
+        });
+
+        dashboardReviewsGrid.appendChild(card);
+      });
+    }
+
+    // ----------------------------------------------------
+    // MODE B: STEAM BLOG FEED VIEW
+    // ----------------------------------------------------
+    if (currentDashboardViewMode === 'blog') {
+      dashboardReviewsGrid.style.display = 'none';
+      dashboardReviewsBlog.style.display = 'flex';
+
+      filtered.forEach(rev => {
+        const isCurrentActive = currentActiveReview && currentActiveReview.id === rev.id;
+        const isPos = rev.recommended !== false;
+        const blogCard = document.createElement('article');
+        blogCard.className = `steam-blog-card ${isCurrentActive ? 'active-in-editor' : ''}`;
+
+        const formattedDate = ReviewManager.formatDate(rev.updatedAt || rev.createdAt);
+        const charsCount = (rev.content || '').length;
+        const wordsCount = (rev.content || '').trim() ? (rev.content || '').trim().split(/\s+/).length : 0;
+        const hasNotes = (rev.notes || '').trim().length > 0;
+        const renderedHtml = SteamBBCode.render(rev.content || '');
+
+        blogCard.innerHTML = `
+          <header class="steam-blog-header">
+            <div class="steam-blog-header-left">
+              <div class="steam-thumb-icon ${isPos ? 'positive' : 'negative'}" title="${isPos ? 'Recomendado' : 'Não Recomendado'}">
+                <svg viewBox="0 0 24 24" fill="currentColor">${isPos ? SVG_THUMB_UP : SVG_THUMB_DOWN}</svg>
+              </div>
+              <div class="steam-blog-game-badge">
+                <div class="steam-blog-game-title">
+                  <span>${SteamBBCode.escapeHtml(rev.title || 'Análise Sem Título')}</span>
+                </div>
+                <div class="steam-blog-verdict-row">
+                  <span class="steam-blog-verdict-text ${isPos ? 'pos' : 'neg'}">${isPos ? 'RECOMENDADO' : 'NÃO RECOMENDADO'}</span>
+                  <span style="color:var(--text-muted); font-size:0.75rem;">• Postado: ${formattedDate}</span>
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              ${isCurrentActive ? '<span class="history-active-badge">Aberta no Editor</span>' : ''}
+            </div>
+          </header>
+
+          <div class="steam-blog-body steam-content">
+            ${renderedHtml || '<p style="color: #626c75; font-style: italic;">(Análise vazia)</p>'}
+          </div>
+
+          ${hasNotes ? `
+            <div class="steam-blog-notes-box">
+              <div class="steam-blog-notes-header">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <span>Bloco de Notas Pessoal deste jogo:</span>
+              </div>
+              <div class="steam-blog-notes-content">${SteamBBCode.escapeHtml(rev.notes)}</div>
+            </div>
+          ` : ''}
+
+          <footer class="steam-blog-footer">
+            <div class="steam-blog-stats">
+              <span>🕒 Última edição: ${formattedDate}</span>
+              <span style="margin: 0 6px;">•</span>
+              <span>${charsCount.toLocaleString('pt-BR')} caracteres</span>
+              <span style="margin: 0 6px;">•</span>
+              <span>${wordsCount.toLocaleString('pt-BR')} palavras</span>
+            </div>
+            <div class="steam-blog-actions">
+              <button class="btn btn-primary btn-sm btn-blog-open" title="Abrir esta review no editor" data-id="${rev.id}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar Análise
+              </button>
+              <button class="btn btn-secondary btn-sm btn-blog-copy" title="Copiar código formatado BBCode" data-id="${rev.id}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                Copiar BBCode
+              </button>
+              <button class="btn btn-secondary btn-sm btn-blog-download" title="Baixar análise em arquivo .txt" data-id="${rev.id}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Baixar .txt
+              </button>
+              <button class="btn btn-secondary btn-sm btn-blog-dup" title="Duplicar esta review" data-id="${rev.id}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              </button>
+              <button class="btn btn-danger btn-sm btn-blog-del" title="Excluir review" data-id="${rev.id}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              </button>
+            </div>
+          </footer>
+        `;
+
+        // Event Handlers for Blog Actions
+        blogCard.querySelector('.btn-blog-open').addEventListener('click', () => {
+          loadReviewIntoUI(rev);
+          switchMainView('editor');
+          showToast(`Review "${rev.title}" aberta no editor!`);
+        });
+
+        blogCard.querySelector('.btn-blog-copy').addEventListener('click', () => {
+          const text = rev.content || '';
+          if (!text.trim()) {
+            showToast('Esta review está vazia.', 'warning');
+            return;
+          }
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(() => {
+              showToast(`BBCode de "${rev.title}" copiado com sucesso!`);
+            });
+          }
+        });
+
+        blogCard.querySelector('.btn-blog-download').addEventListener('click', () => {
+          const text = rev.content || '';
+          if (!text.trim()) {
+            showToast('Esta review está vazia para download.', 'warning');
+            return;
+          }
+          const safeTitle = (rev.title || 'steam_review').replace(/[^a-zA-Z0-9_-]/g, '_').toLowerCase();
+          const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `${safeTitle}_${new Date().toISOString().split('T')[0]}.txt`;
+          a.click();
+          URL.revokeObjectURL(url);
+          showToast(`Download de "${rev.title}" iniciado!`);
+        });
+
+        blogCard.querySelector('.btn-blog-dup').addEventListener('click', () => {
+          try {
+            ReviewManager.duplicate(rev.id);
+            renderDashboard();
+            updateNavBadge();
+            showToast(`Cópia de "${rev.title}" criada!`);
+          } catch (e) {
+            showToast(e.message, 'danger');
+          }
+        });
+
+        blogCard.querySelector('.btn-blog-del').addEventListener('click', () => {
+          if (confirm(`Tem certeza que deseja excluir a análise de "${rev.title}"?`)) {
+            ReviewManager.delete(rev.id);
+            if (currentActiveReview && currentActiveReview.id === rev.id) {
+              const nextActive = ReviewManager.getOrCreateActive();
+              loadReviewIntoUI(nextActive);
+            }
+            renderDashboard();
+            updateNavBadge();
+            showToast(`Análise de "${rev.title}" excluída.`);
+          }
+        });
+
+        dashboardReviewsBlog.appendChild(blogCard);
+      });
+    }
+  }
+
+  // View Mode Switcher Listeners (Cards vs Blog)
+  if (btnDashViewGrid && btnDashViewBlog) {
+    btnDashViewGrid.addEventListener('click', () => {
+      currentDashboardViewMode = 'grid';
+      btnDashViewGrid.classList.add('active');
+      btnDashViewBlog.classList.remove('active');
+      renderDashboard();
+    });
+
+    btnDashViewBlog.addEventListener('click', () => {
+      currentDashboardViewMode = 'blog';
+      btnDashViewBlog.classList.add('active');
+      btnDashViewGrid.classList.remove('active');
+      renderDashboard();
+    });
+  }
+
+  // Dashboard Filters & Search Listeners
+  if (dashboardSearchInput) {
+    dashboardSearchInput.addEventListener('input', () => renderDashboard());
+  }
+
+  if (btnDashboardClearSearch) {
+    btnDashboardClearSearch.addEventListener('click', () => {
+      dashboardSearchInput.value = '';
+      renderDashboard();
+      dashboardSearchInput.focus();
+    });
+  }
+
+  filterChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      filterChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      currentDashboardFilter = chip.dataset.filter;
+      renderDashboard();
+    });
+  });
+
+  if (dashboardSortSelect) {
+    dashboardSortSelect.addEventListener('change', () => renderDashboard());
+  }
+
+  if (btnDashboardNewReview) {
+    btnDashboardNewReview.addEventListener('click', () => openNewReviewPrompt());
+  }
+
+  if (btnEmptyStateNewReview) {
+    btnEmptyStateNewReview.addEventListener('click', () => openNewReviewPrompt());
+  }
+
+  if (btnDashboardBackup) {
+    btnDashboardBackup.addEventListener('click', () => openModal(backupModal));
+  }
+
+  // About Modal Listener
+  if (btnOpenAboutModal && aboutModal) {
+    btnOpenAboutModal.addEventListener('click', () => openModal(aboutModal));
+  }
+
+  // ==========================================
+  // Backup System Controller (Export & Validated Import)
+  // ==========================================
+  if (btnOpenBackupModal) {
+    btnOpenBackupModal.addEventListener('click', () => {
+      importPreviewBox.style.display = 'none';
+      pendingImportContent = null;
+      openModal(backupModal);
+    });
+  }
+
+  // 1. Export JSON Backup
+  if (btnExportFullBackup) {
+    btnExportFullBackup.addEventListener('click', () => {
+      const jsonStr = ReviewManager.exportFullBackupJSON();
+      const dateStr = new Date().toISOString().split('T')[0];
+      const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `steamer_backup_${dateStr}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Backup completo baixado com sucesso!');
+    });
+  }
+
+  // 2. Select Import File
+  if (btnSelectBackupFile && backupFileInput) {
+    btnSelectBackupFile.addEventListener('click', () => {
+      backupFileInput.value = '';
+      backupFileInput.click();
+    });
+
+    backupFileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const content = event.target.result;
+          const parsed = JSON.parse(content);
+          const validation = ReviewManager.validateBackupData(parsed);
+
+          if (!validation.valid) {
+            importPreviewBox.style.display = 'flex';
+            importFileStatusDot.style.backgroundColor = 'var(--status-danger)';
+            importFileName.textContent = file.name;
+            importSummaryText.innerHTML = `<span style="color:#ef4444;">❌ <strong>Arquivo Inválido:</strong> ${validation.error}</span>`;
+            btnImportReplaceAll.style.display = 'none';
+            btnImportMerge.style.display = 'none';
+            pendingImportContent = null;
+            return;
+          }
+
+          // Valid backup
+          pendingImportContent = content;
+          importPreviewBox.style.display = 'flex';
+          importFileStatusDot.style.backgroundColor = 'var(--steam-green)';
+          importFileName.textContent = file.name;
+          importSummaryText.innerHTML = `
+            <div>✅ <strong>Arquivo de Backup Válido!</strong></div>
+            <div style="margin-top:4px;">• <strong>${validation.reviewCount}</strong> review(s) encontradas</div>
+            <div>• <strong>${validation.templateCount}</strong> molde(s) personalizados encontrados</div>
+            <div style="margin-top:6px; font-size:0.78rem; color:#fcd34d;">Escolha abaixo se deseja <strong>Substituir Tudo</strong> ou <strong>Mesclar</strong> com suas reviews atuais.</div>
+          `;
+          btnImportReplaceAll.style.display = 'inline-flex';
+          btnImportMerge.style.display = 'inline-flex';
+        } catch (err) {
+          importPreviewBox.style.display = 'flex';
+          importFileStatusDot.style.backgroundColor = 'var(--status-danger)';
+          importFileName.textContent = file.name;
+          importSummaryText.innerHTML = `<span style="color:#ef4444;">❌ <strong>Erro ao ler JSON:</strong> ${err.message}</span>`;
+          btnImportReplaceAll.style.display = 'none';
+          btnImportMerge.style.display = 'none';
+          pendingImportContent = null;
+        }
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  // 3. Confirm Import (Replace vs Merge)
+  if (btnImportReplaceAll) {
+    btnImportReplaceAll.addEventListener('click', () => {
+      if (!pendingImportContent) return;
+      if (confirm('Atenção: A opção "Substituir Tudo" apagará as análises locais atuais e restaurará o estado do arquivo de backup. Deseja continuar?')) {
+        try {
+          const res = ReviewManager.importBackupJSON(pendingImportContent, 'replace');
+          populateTemplateSelect();
+          const active = ReviewManager.getOrCreateActive();
+          loadReviewIntoUI(active);
+          renderDashboard();
+          updateNavBadge();
+          closeModal(backupModal);
+          showToast(`Restauração concluída! ${res.reviewsCount} review(s) restauradas.`);
+        } catch (err) {
+          showToast(err.message, 'danger');
+        }
+      }
+    });
+  }
+
+  if (btnImportMerge) {
+    btnImportMerge.addEventListener('click', () => {
+      if (!pendingImportContent) return;
+      try {
+        const res = ReviewManager.importBackupJSON(pendingImportContent, 'merge');
+        populateTemplateSelect();
+        const active = ReviewManager.getOrCreateActive();
+        loadReviewIntoUI(active);
+        renderDashboard();
+        updateNavBadge();
+        closeModal(backupModal);
+        showToast(`Mesclagem concluída! ${res.reviewsCount} nova(s) review(s) adicionadas.`);
+      } catch (err) {
+        showToast(err.message, 'danger');
+      }
+    });
+  }
+
+  // ==========================================
   // Create New Review Flow
   // ==========================================
   function openNewReviewPrompt() {
     newGameTitleInput.value = '';
+    newReviewRecommendState = true;
+    btnNewReviewPos.classList.add('active');
+    btnNewReviewNeg.classList.remove('active');
     newReviewTemplateSelect.value = 'builtin-prompt-standard';
     openModal(newReviewModal);
     setTimeout(() => newGameTitleInput.focus(), 100);
   }
 
   btnOpenNewReviewModal.addEventListener('click', openNewReviewPrompt);
-  if (btnHistoryNewReview) {
-    btnHistoryNewReview.addEventListener('click', () => {
-      closeModal(historyModal);
-      openNewReviewPrompt();
-    });
-  }
+
+  btnNewReviewPos.addEventListener('click', () => {
+    newReviewRecommendState = true;
+    btnNewReviewPos.classList.add('active');
+    btnNewReviewNeg.classList.remove('active');
+  });
+
+  btnNewReviewNeg.addEventListener('click', () => {
+    newReviewRecommendState = false;
+    btnNewReviewNeg.classList.add('active');
+    btnNewReviewPos.classList.remove('active');
+  });
 
   btnConfirmCreateReview.addEventListener('click', () => {
     const title = newGameTitleInput.value.trim() || 'Nova Análise de Jogo';
@@ -720,112 +1399,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (tpl) initialContent = tpl.content;
     }
 
-    const created = ReviewManager.create(title, initialContent, '');
+    const created = ReviewManager.create(title, initialContent, '', newReviewRecommendState);
     loadReviewIntoUI(created);
     closeModal(newReviewModal);
+    switchMainView('editor');
     showToast(`Review para "${title}" criada com sucesso!`);
   });
-
-  // ==========================================
-  // Review History Modal & Management
-  // ==========================================
-  btnOpenHistoryModal.addEventListener('click', () => {
-    historySearchInput.value = '';
-    renderHistoryList();
-    openModal(historyModal);
-    setTimeout(() => historySearchInput.focus(), 100);
-  });
-
-  historySearchInput.addEventListener('input', () => {
-    renderHistoryList(historySearchInput.value.trim().toLowerCase());
-  });
-
-  function renderHistoryList(filterQuery = '') {
-    const allReviews = ReviewManager.getAll();
-    historyReviewsList.innerHTML = '';
-
-    const filtered = filterQuery
-      ? allReviews.filter(r => (r.title || '').toLowerCase().includes(filterQuery) || (r.content || '').toLowerCase().includes(filterQuery))
-      : allReviews;
-
-    if (filtered.length === 0) {
-      historyReviewsList.innerHTML = `
-        <div style="text-align: center; padding: 30px; color: var(--text-muted);">
-          <p style="font-size: 0.9rem;">${filterQuery ? 'Nenhuma review encontrada para esta busca.' : 'Nenhuma review salva no histórico ainda.'}</p>
-        </div>
-      `;
-      return;
-    }
-
-    filtered.forEach(rev => {
-      const isActive = currentActiveReview && currentActiveReview.id === rev.id;
-      const card = document.createElement('div');
-      card.className = `history-card ${isActive ? 'active' : ''}`;
-
-      const formattedDate = ReviewManager.formatDate(rev.updatedAt || rev.createdAt);
-      const charsCount = (rev.content || '').length;
-      const hasNotes = (rev.notes || '').trim().length > 0;
-      
-      const cleanSnippet = (rev.content || 'Sem texto')
-        .replace(/\[\/?.*?\]/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-
-      card.innerHTML = `
-        <div class="history-card-header">
-          <div class="history-card-title">
-            <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px;color:${isActive ? 'var(--steam-blue)' : 'var(--text-muted)'};"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
-            <span>${rev.title || 'Análise Sem Título'}</span>
-          </div>
-          ${isActive ? '<span class="history-active-badge">Aberta Agora</span>' : ''}
-        </div>
-        <div class="history-snippet">${cleanSnippet || '(Análise vazia)'}</div>
-        <div class="history-card-footer">
-          <div class="history-meta-tags">
-            <span class="history-date">🕒 ${formattedDate}</span>
-            <span>• ${charsCount.toLocaleString('pt-BR')} chars</span>
-            ${hasNotes ? '<span style="color:#fcd34d;">• 📝 Notas</span>' : ''}
-          </div>
-          <div class="history-actions">
-            <button class="btn btn-secondary btn-sm btn-action-rename" title="Renomear título" data-id="${rev.id}">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-            </button>
-            <button class="btn btn-danger btn-sm btn-action-delete" title="Excluir do histórico" data-id="${rev.id}">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-            </button>
-          </div>
-        </div>
-      `;
-
-      card.addEventListener('click', (e) => {
-        if (e.target.closest('.history-actions')) return;
-        loadReviewIntoUI(rev);
-        closeModal(historyModal);
-        showToast(`Review "${rev.title}" carregada!`);
-      });
-
-      card.querySelector('.btn-action-rename').addEventListener('click', (e) => {
-        e.stopPropagation();
-        openRenameModal(rev.id, rev.title);
-      });
-
-      card.querySelector('.btn-action-delete').addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (confirm(`Tem certeza que deseja excluir a análise de "${rev.title}" do histórico?`)) {
-          ReviewManager.delete(rev.id);
-          showToast(`Análise de "${rev.title}" excluída.`);
-          if (currentActiveReview && currentActiveReview.id === rev.id) {
-            const nextActive = ReviewManager.getOrCreateActive();
-            loadReviewIntoUI(nextActive);
-          }
-          renderHistoryList(historySearchInput.value.trim().toLowerCase());
-          updateHistoryBadge();
-        }
-      });
-
-      historyReviewsList.appendChild(card);
-    });
-  }
 
   // ==========================================
   // Rename Review Flow
@@ -861,7 +1440,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
       closeModal(renameReviewModal);
-      renderHistoryList(historySearchInput.value.trim().toLowerCase());
+      renderDashboard();
       showToast('Nome do jogo atualizado!');
     }
   });
@@ -1347,4 +1926,5 @@ document.addEventListener('DOMContentLoaded', () => {
   // Get active review or create initial one
   const activeReview = ReviewManager.getOrCreateActive(initialContent);
   loadReviewIntoUI(activeReview);
+  updateNavBadge();
 });
