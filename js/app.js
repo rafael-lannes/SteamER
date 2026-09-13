@@ -16,11 +16,28 @@ document.addEventListener('DOMContentLoaded', () => {
   // DOM Elements - Navigation & Views
   // ==========================================
   const appContainer = document.querySelector('.app-container');
+  const brandLogoBtn = document.getElementById('brandLogoBtn');
+  const navBtnHome = document.getElementById('navBtnHome');
   const navBtnEditor = document.getElementById('navBtnEditor');
   const navBtnReviews = document.getElementById('navBtnReviews');
   const reviewsNavBadge = document.getElementById('reviewsNavBadge');
+  const viewHome = document.getElementById('viewHome');
   const viewEditorWorkspace = document.getElementById('viewEditorWorkspace');
   const viewReviewsDashboard = document.getElementById('viewReviewsDashboard');
+
+  // Home View DOM Elements
+  const btnHomeNewReview = document.getElementById('btnHomeNewReview');
+  const btnHomeImportBackup = document.getElementById('btnHomeImportBackup');
+  const btnHomeGoEditor = document.getElementById('btnHomeGoEditor');
+  const btnHomeGoReviews = document.getElementById('btnHomeGoReviews');
+  const homeReviewsCountBadge = document.getElementById('homeReviewsCountBadge');
+  const homeResumeSection = document.getElementById('homeResumeSection');
+  const homeActiveVerdictBadge = document.getElementById('homeActiveVerdictBadge');
+  const homeActiveVerdictText = document.getElementById('homeActiveVerdictText');
+  const homeActiveGameTitle = document.getElementById('homeActiveGameTitle');
+  const homeActiveGameSnippet = document.getElementById('homeActiveGameSnippet');
+  const homeActiveGameMeta = document.getElementById('homeActiveGameMeta');
+  const btnHomeResumeActive = document.getElementById('btnHomeResumeActive');
 
   // Header Actions
   const btnToggleLayout = document.getElementById('btnToggleLayout');
@@ -159,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let popoutNotesWindow = null;
   let currentDashboardFilter = 'all';
   let currentDashboardViewMode = 'grid'; // 'grid' | 'blog'
-  let currentMainView = 'editor'; // 'editor' | 'reviews'
+  let currentMainView = 'home'; // 'home' | 'editor' | 'reviews'
 
   const ratingBuilder = new StarRatingBuilder({
     maxScale: 5,
@@ -202,26 +219,99 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // SPA View Switcher (Editor vs Minhas Reviews)
+  // SPA View Switcher (Home vs Editor vs Minhas Reviews)
   // ==========================================
   function switchMainView(viewName) {
     currentMainView = viewName;
-    if (viewName === 'editor') {
-      navBtnEditor.classList.add('active');
-      navBtnReviews.classList.remove('active');
-      viewEditorWorkspace.classList.add('active');
-      viewReviewsDashboard.classList.remove('active');
-    } else {
-      navBtnEditor.classList.remove('active');
-      navBtnReviews.classList.add('active');
-      viewEditorWorkspace.classList.remove('active');
-      viewReviewsDashboard.classList.add('active');
+
+    // Toggle Nav Button States
+    if (navBtnHome) navBtnHome.classList.toggle('active', viewName === 'home');
+    if (navBtnEditor) navBtnEditor.classList.toggle('active', viewName === 'editor');
+    if (navBtnReviews) navBtnReviews.classList.toggle('active', viewName === 'reviews');
+
+    // Toggle Workspace Views
+    if (viewHome) viewHome.classList.toggle('active', viewName === 'home');
+    if (viewEditorWorkspace) viewEditorWorkspace.classList.toggle('active', viewName === 'editor');
+    if (viewReviewsDashboard) viewReviewsDashboard.classList.toggle('active', viewName === 'reviews');
+
+    if (viewName === 'home') {
+      renderHome();
+    } else if (viewName === 'reviews') {
       renderDashboard();
     }
   }
 
-  navBtnEditor.addEventListener('click', () => switchMainView('editor'));
-  navBtnReviews.addEventListener('click', () => switchMainView('reviews'));
+  if (navBtnHome) navBtnHome.addEventListener('click', () => switchMainView('home'));
+  if (navBtnEditor) navBtnEditor.addEventListener('click', () => switchMainView('editor'));
+  if (navBtnReviews) navBtnReviews.addEventListener('click', () => switchMainView('reviews'));
+  if (brandLogoBtn) brandLogoBtn.addEventListener('click', () => switchMainView('home'));
+
+  // ==========================================
+  // Home View Controller
+  // ==========================================
+  function renderHome() {
+    const allReviews = ReviewManager.getAll();
+    if (homeReviewsCountBadge) {
+      homeReviewsCountBadge.textContent = allReviews.length;
+    }
+
+    if (currentActiveReview && homeResumeSection) {
+      homeResumeSection.style.display = 'flex';
+      if (homeActiveGameTitle) {
+        homeActiveGameTitle.textContent = currentActiveReview.title || 'Análise Sem Título';
+      }
+
+      const isPos = currentActiveReview.recommended !== false;
+      if (homeActiveVerdictBadge && homeActiveVerdictText) {
+        homeActiveVerdictBadge.className = `dash-card-recommend-badge ${isPos ? 'pos' : 'neg'}`;
+        const svgElem = homeActiveVerdictBadge.querySelector('svg');
+        if (svgElem) svgElem.innerHTML = isPos ? SVG_THUMB_UP : SVG_THUMB_DOWN;
+        homeActiveVerdictText.textContent = isPos ? 'Recomendado' : 'Não Recomendado';
+      }
+
+      if (homeActiveGameSnippet) {
+        const cleanSnippet = (currentActiveReview.content || '')
+          .replace(/\[\/?.*?\]/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+        homeActiveGameSnippet.textContent = cleanSnippet || '(Análise sem texto ainda...)';
+      }
+
+      if (homeActiveGameMeta) {
+        const formattedDate = ReviewManager.formatDate(currentActiveReview.updatedAt || currentActiveReview.createdAt);
+        const charsCount = (currentActiveReview.content || '').length;
+        const wordsCount = (currentActiveReview.content || '').trim() ? (currentActiveReview.content || '').trim().split(/\s+/).length : 0;
+        homeActiveGameMeta.innerHTML = `<span>🕒 Última edição: ${formattedDate}</span> • <span>${charsCount.toLocaleString('pt-BR')} caracteres</span> • <span>${wordsCount.toLocaleString('pt-BR')} palavras</span>`;
+      }
+    } else if (homeResumeSection) {
+      homeResumeSection.style.display = 'none';
+    }
+  }
+
+  // Home Quick Action Handlers
+  if (btnHomeNewReview) {
+    btnHomeNewReview.addEventListener('click', () => openNewReviewPrompt());
+  }
+
+  if (btnHomeImportBackup) {
+    btnHomeImportBackup.addEventListener('click', () => {
+      importPreviewBox.style.display = 'none';
+      pendingImportContent = null;
+      openModal(backupModal);
+    });
+  }
+
+  if (btnHomeGoEditor) {
+    btnHomeGoEditor.addEventListener('click', () => switchMainView('editor'));
+  }
+
+  if (btnHomeGoReviews) {
+    btnHomeGoReviews.addEventListener('click', () => switchMainView('reviews'));
+  }
+
+  if (btnHomeResumeActive) {
+    btnHomeResumeActive.addEventListener('click', () => switchMainView('editor'));
+  }
 
   // ==========================================
   // Layout Preference & Toggle
@@ -296,6 +386,8 @@ document.addEventListener('DOMContentLoaded', () => {
       updateNavBadge();
       if (currentMainView === 'reviews') {
         renderDashboard();
+      } else if (currentMainView === 'home') {
+        renderHome();
       }
     }, 350);
   }
@@ -326,12 +418,18 @@ document.addEventListener('DOMContentLoaded', () => {
     updateNotesStats();
     updateEditorStats();
     updateNavBadge();
+    if (currentMainView === 'home') {
+      renderHome();
+    }
   }
 
   function updateNavBadge() {
     const total = ReviewManager.getAll().length;
     if (reviewsNavBadge) {
       reviewsNavBadge.textContent = total;
+    }
+    if (homeReviewsCountBadge) {
+      homeReviewsCountBadge.textContent = total;
     }
   }
 
@@ -1927,4 +2025,5 @@ document.addEventListener('DOMContentLoaded', () => {
   const activeReview = ReviewManager.getOrCreateActive(initialContent);
   loadReviewIntoUI(activeReview);
   updateNavBadge();
+  switchMainView('home');
 });

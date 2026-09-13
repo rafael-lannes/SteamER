@@ -11,7 +11,7 @@
   <div class="app-container">
     <!-- Header -->
     <header class="app-header">
-      <div class="brand-section">
+      <div class="brand-section" id="brandLogoBtn" style="cursor: pointer;" title="Ir para a Página Inicial">
         <div class="brand-logo" title="SteamER - Steam Easy Review">
           <img src="assets/logo.jpg" alt="SteamER Logo" class="brand-logo-img" />
         </div>
@@ -26,7 +26,11 @@
 
       <!-- Navigation Tabs (SPA View Switcher) -->
       <nav class="header-nav">
-        <button id="navBtnEditor" class="nav-tab-btn active" title="Ir para o Editor de Análise">
+        <button id="navBtnHome" class="nav-tab-btn active" title="Ir para a Página Inicial">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span>Início</span>
+        </button>
+        <button id="navBtnEditor" class="nav-tab-btn" title="Ir para o Editor de Análise">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
           <span>Editor</span>
         </button>
@@ -60,11 +64,198 @@
 
     <!-- Main Workspace Views Container -->
     <main class="main-workspace">
-      
+
+      <!-- ==========================================
+           VIEW 0: Home / Landing Page
+           ========================================== -->
+      <div id="viewHome" class="workspace-view home-view active">
+        <div class="home-container">
+          
+          <!-- Hero Section -->
+          <section class="home-hero-card">
+            <div class="home-hero-main">
+              <div class="home-hero-brand">
+                <img src="assets/logo.jpg" alt="SteamER Logo" class="home-hero-logo" />
+                <div>
+                  <h1 class="home-hero-title">
+                    SteamER
+                    <span class="brand-badge">Steam Easy Review</span>
+                  </h1>
+                  <p class="home-hero-subtitle">
+                    A ferramenta moderna e rápida para criar, formatar, organizar e exportar análises perfeitas para a <strong>Steam</strong>.
+                  </p>
+                </div>
+              </div>
+
+              <div class="home-badges-wrap">
+                <span class="home-badge-item">🎮 BBCode Nativo da Steam</span>
+                <span class="home-badge-item">👁️ Prévia ao Vivo em Tempo Real</span>
+                <span class="home-badge-item">📝 Bloco de Notas por Jogo</span>
+                <span class="home-badge-item">⭐ Construtor de Notas e Estrelas</span>
+                <span class="home-badge-item">💾 Backup JSON Completo</span>
+                <span class="home-badge-item">🔒 100% Offline & Local</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Quick Actions Grid -->
+          <section class="home-section">
+            <div class="home-section-header">
+              <h2 class="home-section-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;color:var(--steam-blue);"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                O que você deseja fazer agora?
+              </h2>
+              <p class="home-section-desc">Escolha uma das ações rápidas para começar ou gerenciar suas análises.</p>
+            </div>
+
+            <div class="home-actions-grid">
+              <!-- Action 1: Nova Review -->
+              <div class="home-action-card home-card-primary" id="btnHomeNewReview">
+                <div class="home-action-icon-wrap action-icon-new">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </div>
+                <div class="home-action-info">
+                  <h3 class="home-action-title">Nova Review</h3>
+                  <p class="home-action-desc">Inicie uma nova análise escolhendo o nome do jogo, veredito inicial e um molde pré-definido.</p>
+                </div>
+                <button class="btn btn-primary btn-sm home-card-btn">
+                  Criar Análise &rarr;
+                </button>
+              </div>
+
+              <!-- Action 2: Importar Backup -->
+              <div class="home-action-card" id="btnHomeImportBackup">
+                <div class="home-action-icon-wrap action-icon-backup">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                </div>
+                <div class="home-action-info">
+                  <h3 class="home-action-title">Importar / Backup</h3>
+                  <p class="home-action-desc">Restaure ou mescle todas as suas reviews e notas de um arquivo JSON salvo anteriormente.</p>
+                </div>
+                <button class="btn btn-secondary btn-sm home-card-btn">
+                  Abrir Backup &rarr;
+                </button>
+              </div>
+
+              <!-- Action 3: Ir para o Editor -->
+              <div class="home-action-card" id="btnHomeGoEditor">
+                <div class="home-action-icon-wrap action-icon-editor">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                </div>
+                <div class="home-action-info">
+                  <h3 class="home-action-title">Editor de Análise</h3>
+                  <p class="home-action-desc">Abra o editor completo com formatação BBCode, contagem de caracteres e prévia lado a lado.</p>
+                </div>
+                <button class="btn btn-secondary btn-sm home-card-btn">
+                  Acessar Editor &rarr;
+                </button>
+              </div>
+
+              <!-- Action 4: Minhas Reviews -->
+              <div class="home-action-card" id="btnHomeGoReviews">
+                <div class="home-action-icon-wrap action-icon-reviews">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                </div>
+                <div class="home-action-info">
+                  <h3 class="home-action-title">Minhas Reviews</h3>
+                  <p class="home-action-desc">Consulte todo o seu catálogo salvo em formato de Grade de Cards ou Feed Blog da Steam.</p>
+                </div>
+                <button class="btn btn-secondary btn-sm home-card-btn">
+                  Ver Biblioteca (<span id="homeReviewsCountBadge">0</span>) &rarr;
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Active Review Resume Box (if any active review exists) -->
+          <section id="homeResumeSection" class="home-resume-card" style="display: none;">
+            <div class="home-resume-header">
+              <span class="home-resume-tag">⚡ Review em Andamento no Editor</span>
+              <div id="homeActiveVerdictBadge" class="dash-card-recommend-badge pos">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                <span id="homeActiveVerdictText">Recomendado</span>
+              </div>
+            </div>
+            <div class="home-resume-content">
+              <div>
+                <h3 id="homeActiveGameTitle" class="home-resume-title">Minha Primeira Análise</h3>
+                <p id="homeActiveGameSnippet" class="home-resume-snippet">Texto da sua análise...</p>
+                <div id="homeActiveGameMeta" class="home-resume-meta">
+                  <span>🕒 Última edição: Hoje</span> • <span>0 caracteres</span>
+                </div>
+              </div>
+              <button id="btnHomeResumeActive" class="btn btn-primary btn-sm">
+                Continuar Editando
+              </button>
+            </div>
+          </section>
+
+          <!-- Features Overview Section -->
+          <section class="home-section">
+            <div class="home-section-header">
+              <h2 class="home-section-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;color:var(--steam-green);"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                Recursos e Funcionalidades
+              </h2>
+              <p class="home-section-desc">Tudo o que você precisa para produzir análises gamers de alta qualidade.</p>
+            </div>
+
+            <div class="home-features-grid">
+              <div class="home-feature-box">
+                <span class="home-feature-icon">⚡</span>
+                <h4 class="home-feature-title">Editor BBCode Nativo</h4>
+                <p class="home-feature-text">Adicione negrito, itálico, títulos H1/H2/H3, citações, spoilers interativos, listas, tabelas e cores com botões e atalhos rápidos de teclado.</p>
+              </div>
+
+              <div class="home-feature-box">
+                <span class="home-feature-icon">📰</span>
+                <h4 class="home-feature-title">Feed Steam & Prévia ao Vivo</h4>
+                <p class="home-feature-text">Visualize como sua análise ficará exatamente na comunidade da Steam ou navegue pelo seu acervo através da visualização em Blog Steam.</p>
+              </div>
+
+              <div class="home-feature-box">
+                <span class="home-feature-icon">📝</span>
+                <h4 class="home-feature-title">Bloco de Notas Desacoplável</h4>
+                <p class="home-feature-text">Faça anotações dedicadas para cada jogo sem contar no limite de 8.000 caracteres, com opção de desprender em uma janela flutuante independente.</p>
+              </div>
+
+              <div class="home-feature-box">
+                <span class="home-feature-icon">⭐</span>
+                <h4 class="home-feature-title">Notas por Estrelas & Moldes</h4>
+                <p class="home-feature-text">Construa notas de 1 a 5 ou 1 a 10 estrelas personalizadas para gráficos, gameplay e história, e salve seus próprios moldes estruturais.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Sobre & Créditos Section -->
+          <section class="home-about-section">
+            <div class="home-about-card">
+              <div class="home-about-left">
+                <div class="home-about-avatar">👨‍💻</div>
+                <div>
+                  <h3 class="home-about-title">Sobre o SteamER</h3>
+                  <p class="home-about-author">Desenvolvido com carinho por <strong>Rafael Lannes</strong></p>
+                  <p class="home-about-desc">
+                    O <strong>SteamER</strong> é um projeto focado em simplificar a vida de gamers e criadores de conteúdo ao escrever e publicar análises na plataforma Steam. Seus dados ficam 100% seguros e armazenados no seu próprio navegador.
+                  </p>
+                </div>
+              </div>
+              <div class="home-about-right">
+                <a href="https://rafael-lannes.github.io/" target="_blank" rel="noopener noreferrer" class="btn btn-primary home-github-btn" title="Acessar o portfólio e GitHub de Rafael Lannes">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  <span>Visitar Portfólio / GitHub</span>
+                </a>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+
       <!-- ==========================================
            VIEW 1: Editor & Preview Split Workspace
            ========================================== -->
-      <div id="viewEditorWorkspace" class="workspace-view active">
+      <div id="viewEditorWorkspace" class="workspace-view">
         <!-- Left Column: Review Editor -->
         <section class="panel editor-panel">
           <div class="panel-header">

@@ -8,17 +8,28 @@ Uma aplicação web moderna, rápida e responsiva criada para facilitar a criaç
 
 ## ✨ Funcionalidades Principais
 
-1. **Navegação em Abas (Editor vs Minhas Reviews)**:
-   - Alternância instantânea entre o **Editor de Análise** e a tela dedicada **Minhas Reviews**.
+1. **Página Inicial (Home / Landing Page)**:
+   - Tela de boas-vindas exibida ao acessar a aplicação.
+   - Acesso rápido aos principais fluxos: **Nova Review**, **Importar / Backup JSON**, **Editor de Análise** e **Minhas Reviews**.
+   - Painel de retomada da análise atualmente em andamento.
+   - Apresentação completa dos recursos e seção de créditos do desenvolvedor **Rafael Lannes** com link para portfólio/GitHub.
+
+2. **Navegação SPA Completa (Início / Editor / Minhas Reviews)**:
+   - Alternância fluida e instantânea entre **[ 🏠 Início ]**, **[ ✏️ Editor ]** e **[ 📚 Minhas Reviews ]**.
+   - Logo clicável no cabeçalho para retorno instantâneo à página inicial.
    - Contador de reviews salvas no cabeçalho.
 
-2. **Seletor de Veredito & Recomendação**:
+3. **Visualização em Blog / Feed Steam**:
+   - Modo de exibição na biblioteca para ler todas as suas reviews como se estivesse no feed da comunidade Steam.
+   - Renderização completa de BBCode (títulos, citações, spoilers, notas de estrelas, etc.).
+
+4. **Seletor de Veredito & Recomendação**:
    - Botões visuais no editor para definir se você **👍 Recomenda** ou **👎 Não Recomenda** o jogo.
    - Atualização em tempo real do card oficial da Steam com ícone positivo (verde/azul) ou negativo (vermelho).
    - Badges coloridas nos cards da biblioteca de reviews.
 
-3. **Nova Tela Dedicada "Minhas Reviews"**:
-   - Catálogo visual de todas as suas análises salvas.
+5. **Biblioteca "Minhas Reviews" com Busca e Filtros**:
+   - Catálogo visual de todas as suas análises salvas (modos Cards e Blog Steam).
    - **Estatísticas rápidas**: Total de análises, recomendadas 👍, não recomendadas 👎 e total de palavras escritas.
    - **Busca em tempo real**: Filtre por nome do jogo ou palavras contidas no texto da análise e nas anotações.
    - **Filtros rápidos**: *Todos*, *👍 Recomendados*, *👎 Não Recomendados* e *📝 Com Anotações*.
@@ -27,7 +38,7 @@ Uma aplicação web moderna, rápida e responsiva criada para facilitar a criaç
      - 🔤 Nome do jogo (A - Z) / (Z - A)
      - 📝 Mais longas / Mais curtas (quantidade de caracteres)
      - 👍 Recomendados primeiro / 👎 Não Recomendados primeiro
-   - **Ações nos cards**: Abrir no Editor, Copiar BBCode, Duplicar e Excluir.
+   - **Ações rápidas**: Abrir no Editor, Copiar BBCode, Baixar .txt, Duplicar e Excluir.
 
 4. **Sistema de Backup & Restauração Completa (JSON)**:
    - **Exportar Backup**: Gera e baixa um arquivo `.json` com todas as reviews, anotações de rascunho de cada jogo e moldes personalizados.
