@@ -2179,6 +2179,31 @@ html, body {
   margin-top: 4px;
 }
 
+/* Backup Reset Box Styles */
+.backup-reset-box {
+  background: linear-gradient(180deg, rgba(239, 68, 68, 0.08) 0%, rgba(26, 34, 46, 0.6) 100%);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
+}
+
+.reset-icon-badge {
+  background-color: rgba(239, 68, 68, 0.18);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.reset-warning-banner {
+  margin-top: 12px;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-left: 3px solid #ef4444;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  color: #e2e8f0;
+  line-height: 1.5;
+}
+
 /* ==========================================
    DASHBOARD VIEW MODE TOGGLE (CARDS vs BLOG)
    ========================================== */

@@ -346,6 +346,27 @@ class ReviewManager {
   }
 
   /**
+   * Reset and wipe all application data from LocalStorage
+   * Clears all reviews, active review pointer, custom templates, and preferences.
+   */
+  static resetAllData() {
+    try {
+      localStorage.removeItem(this.STORAGE_KEY);
+      localStorage.removeItem(this.ACTIVE_REVIEW_KEY);
+      if (window.TemplateManager && TemplateManager.STORAGE_KEY) {
+        localStorage.removeItem(TemplateManager.STORAGE_KEY);
+      } else {
+        localStorage.removeItem('steam_custom_templates');
+      }
+      localStorage.removeItem('steam_editor_layout_preference');
+      return true;
+    } catch (e) {
+      console.error('Error resetting application data:', e);
+      return false;
+    }
+  }
+
+  /**
    * Format timestamp into friendly Brazilian Portuguese date string
    */
   static formatDate(timestamp) {

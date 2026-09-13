@@ -130,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const importSummaryText = document.getElementById('importSummaryText');
   const btnImportReplaceAll = document.getElementById('btnImportReplaceAll');
   const btnImportMerge = document.getElementById('btnImportMerge');
+  const btnResetAllData = document.getElementById('btnResetAllData');
   let pendingImportContent = null;
 
   // Formatting Modals & Builders
@@ -1456,6 +1457,57 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast(`Mesclagem concluída! ${res.reviewsCount} nova(s) review(s) adicionadas.`);
       } catch (err) {
         showToast(err.message, 'danger');
+      }
+    });
+  }
+
+  // 4. Clean Start & Factory Reset (Apagar Tudo)
+  if (btnResetAllData) {
+    btnResetAllData.addEventListener('click', () => {
+      const confirmFirst = confirm(
+        '⚠️ AVISO DE SEGURANÇA:\n\n' +
+        'Esta ação apagará permanentemente TODAS as suas análises salvas, todas as anotações do bloco de notas e todos os seus moldes personalizados.\n\n' +
+        'Você já realizou o download de um arquivo de backup antes de continuar?\n\n' +
+        'Clique em "OK" para prosseguir com o RESET COMPLETO, ou "Cancelar" para voltar e fazer o download do seu backup.'
+      );
+
+      if (!confirmFirst) return;
+
+      const confirmSecond = confirm(
+        '🚨 CONFIRMAÇÃO FINAL:\n\n' +
+        'Tem certeza de que deseja redefinir o SteamER para as configurações originais de fábrica?\n\n' +
+        'Todos os dados locais serão apagados agora.'
+      );
+
+      if (!confirmSecond) return;
+
+      try {
+        ReviewManager.resetAllData();
+        
+        // Reset layout preference
+        initLayout();
+        
+        // Refresh template select dropdown
+        populateTemplateSelect();
+
+        // Create fresh clean initial review
+        const defaultTpl = TemplateManager.getTemplateById('builtin-prompt-standard');
+        const initialContent = defaultTpl ? defaultTpl.content : '';
+        const cleanActive = ReviewManager.getOrCreateActive(initialContent);
+        loadReviewIntoUI(cleanActive);
+
+        // Update dashboard & navigation badges
+        updateNavBadge();
+        renderDashboard();
+        renderHome();
+
+        // Close backup modal and redirect to Home
+        closeModal(backupModal);
+        switchMainView('home');
+
+        showToast('Aplicação redefinida com sucesso! Todos os dados foram limpos.');
+      } catch (err) {
+        showToast('Erro ao redefinir a aplicação: ' + err.message, 'danger');
       }
     });
   }

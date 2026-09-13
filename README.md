@@ -40,16 +40,17 @@ Uma aplicação web moderna, rápida e responsiva criada para facilitar a criaç
      - 👍 Recomendados primeiro / 👎 Não Recomendados primeiro
    - **Ações rápidas**: Abrir no Editor, Copiar BBCode, Baixar .txt, Duplicar e Excluir.
 
-4. **Sistema de Backup & Restauração Completa (JSON)**:
+6. **Sistema de Backup & Restauração Completa (JSON)**:
    - **Exportar Backup**: Gera e baixa um arquivo `.json` com todas as reviews, anotações de rascunho de cada jogo e moldes personalizados.
    - **Importar Backup Validado**: Lê arquivos `.json` de backup, realiza validação estrutural e oferece as opções de **Restaurar (Substituir Tudo)** ou **Mesclar Dados**.
+   - **Limpar Tudo & Reset de Fábrica**: Permite limpar todos os dados locais com avisos prévios de segurança recomendando o backup antes da redefinição.
 
-5. **Bloco de Notas Exclusivo por Jogo (Scratchpad)**:
+7. **Bloco de Notas Exclusivo por Jogo (Scratchpad)**:
    - Anotações persistentes salvas individualmente para cada jogo.
    - Não são publicadas na Steam e não consomem o limite de caracteres.
    - Suporte a **Desprender Janela (`↗️`)** flutuante independente sincronizada em tempo real.
 
-6. **Barra de Ferramentas com BBCode Steam Nativo**:
+8. **Barra de Ferramentas com BBCode Steam Nativo**:
    - Negrito (`[b]`), Itálico (`[i]`), Sublinhado (`[u]`), Tachado (`[s]`).
    - Títulos e Cabeçalhos (`[h1]`, `[h2]`, `[h3]`).
    - Cores personalizadas (`[color=#HEX]`) com paleta rápida e seletor hexadecimal.
@@ -57,7 +58,7 @@ Uma aplicação web moderna, rápida e responsiva criada para facilitar a criaç
    - Citações (`[quote]`) e Spoilers ocultos interativos (`[spoiler]`).
    - Listas demarcadas (`[list]`), numeradas (`[olist]`), linhas divisórias (`[hr]`) e blocos de código (`[code]`).
 
-7. **Sistema de Avaliação por Estrelas (BBCode)**:
+9. **Sistema de Avaliação por Estrelas (BBCode)**:
    - Escalas de **1 a 5** ou **1 a 10** estrelas com múltiplos estilos de formatação (`★★★★☆ 4/5`, `[████████░░] 8/10`, etc.).
 
 8. **Contador e Limitador Rígido de Caracteres (8.000)**:
