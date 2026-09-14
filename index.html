@@ -204,13 +204,23 @@
                 </div>
               </div>
 
-              <div class="home-badges-wrap">
-                <span class="home-badge-item">🎮 BBCode Nativo da Steam</span>
-                <span class="home-badge-item">👁️ Prévia ao Vivo em Tempo Real</span>
-                <span class="home-badge-item">📝 Bloco de Notas por Jogo</span>
-                <span class="home-badge-item">⭐ Construtor de Notas e Estrelas</span>
-                <span class="home-badge-item">💾 Backup JSON Completo</span>
-                <span class="home-badge-item">🔒 100% Offline & Local</span>
+              <div class="home-hero-meta-strip">
+                <span class="home-meta-pill">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                  BBCode Steam Nativo
+                </span>
+                <span class="home-meta-pill">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  Prévia em Tempo Real
+                </span>
+                <span class="home-meta-pill">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                  Backup JSON Portável
+                </span>
+                <span class="home-meta-pill">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  100% Local & Seguro
+                </span>
               </div>
             </div>
           </section>
@@ -220,9 +230,9 @@
             <div class="home-section-header">
               <h2 class="home-section-title">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;color:var(--steam-blue);"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-                O que você deseja fazer agora?
+                Ações Rápidas
               </h2>
-              <p class="home-section-desc">Escolha uma das ações rápidas para começar ou gerenciar suas análises.</p>
+              <p class="home-section-desc">Escolha uma ação para iniciar ou gerenciar seu catálogo de análises.</p>
             </div>
 
             <div class="home-actions-grid">
@@ -233,7 +243,7 @@
                 </div>
                 <div class="home-action-info">
                   <h3 class="home-action-title">Nova Review</h3>
-                  <p class="home-action-desc">Inicie uma nova análise escolhendo o nome do jogo, veredito inicial e um molde pré-definido.</p>
+                  <p class="home-action-desc">Inicie uma nova análise com o nome do jogo, veredito e moldes pré-configurados.</p>
                 </div>
                 <button class="btn btn-primary btn-sm home-card-btn">
                   Criar Análise &rarr;
@@ -247,7 +257,7 @@
                 </div>
                 <div class="home-action-info">
                   <h3 class="home-action-title">Importar / Backup</h3>
-                  <p class="home-action-desc">Restaure ou mescle todas as suas reviews e notas de um arquivo JSON salvo anteriormente.</p>
+                  <p class="home-action-desc">Restaure, mescle ou faça download de todo o acervo de análises e notas em JSON.</p>
                 </div>
                 <button class="btn btn-secondary btn-sm home-card-btn">
                   Abrir Backup &rarr;
@@ -261,7 +271,7 @@
                 </div>
                 <div class="home-action-info">
                   <h3 class="home-action-title">Editor de Análise</h3>
-                  <p class="home-action-desc">Abra o editor completo com formatação BBCode, contagem de caracteres e prévia lado a lado.</p>
+                  <p class="home-action-desc">Acesse o editor com ferramentas BBCode, limitador de 8.000 caracteres e prévia Steam.</p>
                 </div>
                 <button class="btn btn-secondary btn-sm home-card-btn">
                   Acessar Editor &rarr;
@@ -275,7 +285,7 @@
                 </div>
                 <div class="home-action-info">
                   <h3 class="home-action-title">Minhas Reviews</h3>
-                  <p class="home-action-desc">Consulte todo o seu catálogo salvo em formato de Grade de Cards ou Feed Blog da Steam.</p>
+                  <p class="home-action-desc">Navegue pelas suas análises em modo Grade de Cards ou Feed em Blog da Steam.</p>
                 </div>
                 <button class="btn btn-secondary btn-sm home-card-btn">
                   Ver Biblioteca (<span id="homeReviewsCountBadge">0</span>) &rarr;
@@ -312,34 +322,42 @@
             <div class="home-section-header">
               <h2 class="home-section-title">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;color:var(--steam-green);"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                Recursos e Funcionalidades
+                Recursos e Ferramentas
               </h2>
-              <p class="home-section-desc">Tudo o que você precisa para produzir análises gamers de alta qualidade.</p>
+              <p class="home-section-desc">Ferramentas construídas especificamente para a comunidade e curadores da Steam.</p>
             </div>
 
             <div class="home-features-grid">
               <div class="home-feature-box">
-                <span class="home-feature-icon">⚡</span>
-                <h4 class="home-feature-title">Editor BBCode Nativo</h4>
-                <p class="home-feature-text">Adicione negrito, itálico, títulos H1/H2/H3, citações, spoilers interativos, listas, tabelas e cores com botões e atalhos rápidos de teclado.</p>
+                <div class="home-feature-icon-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                </div>
+                <h3 class="home-feature-title">Editor BBCode Nativo</h3>
+                <p class="home-feature-text">Negrito, itálico, títulos H1/H2/H3, citações, spoilers interativos, listas, tabelas e cores com atalhos de teclado ágeis.</p>
               </div>
 
               <div class="home-feature-box">
-                <span class="home-feature-icon">📰</span>
-                <h4 class="home-feature-title">Feed Steam & Prévia ao Vivo</h4>
-                <p class="home-feature-text">Visualize como sua análise ficará exatamente na comunidade da Steam ou navegue pelo seu acervo através da visualização em Blog Steam.</p>
+                <div class="home-feature-icon-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                </div>
+                <h3 class="home-feature-title">Feed Steam & Prévia ao Vivo</h3>
+                <p class="home-feature-text">Veja como sua análise ficará exatamente na comunidade da Steam e leia seu acervo no modo Blog da Steam.</p>
               </div>
 
               <div class="home-feature-box">
-                <span class="home-feature-icon">📝</span>
-                <h4 class="home-feature-title">Bloco de Notas Desacoplável</h4>
-                <p class="home-feature-text">Faça anotações dedicadas para cada jogo sem contar no limite de 8.000 caracteres, com opção de desprender em uma janela flutuante independente.</p>
+                <div class="home-feature-icon-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </div>
+                <h3 class="home-feature-title">Bloco de Notas por Jogo</h3>
+                <p class="home-feature-text">Guarde rascunhos dedicados para cada jogo sem consumir o limite de 8.000 caracteres, com opção de janela flutuante independente.</p>
               </div>
 
               <div class="home-feature-box">
-                <span class="home-feature-icon">⭐</span>
-                <h4 class="home-feature-title">Notas por Estrelas & Moldes</h4>
-                <p class="home-feature-text">Construa notas de 1 a 5 ou 1 a 10 estrelas personalizadas para gráficos, gameplay e história, e salve seus próprios moldes estruturais.</p>
+                <div class="home-feature-icon-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+                <h3 class="home-feature-title">Avaliação por Estrelas & Moldes</h3>
+                <p class="home-feature-text">Insira notas de 1 a 5 ou 1 a 10 estrelas formatadas para gráficos, gameplay e história, e gerencie seus moldes reutilizáveis.</p>
               </div>
             </div>
           </section>
@@ -800,7 +818,7 @@
         <div class="about-description">
           <p>O <strong>SteamER (Steam Easy Review)</strong> é uma aplicação web moderna e rápida desenvolvida para gamers e criadores de conteúdo que desejam escrever, formatar e organizar análises completas para a plataforma <strong>Steam</strong>.</p>
           
-          <h4 style="color:#66c0f4; margin-top:14px; margin-bottom:8px; font-size:0.88rem;">Recursos Principais:</h4>
+          <h3 style="color:var(--steam-blue); margin-top:14px; margin-bottom:8px; font-size:0.95rem; font-weight:700;">Recursos Principais:</h3>
           <ul class="about-features-list">
             <li>✨ Editor com tags BBCode nativas da Steam e atalhos de teclado rápidos.</li>
             <li>👁️ Pré-visualização ao vivo fiel ao design dos cards da Steam.</li>
