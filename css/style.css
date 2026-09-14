@@ -46,7 +46,7 @@
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
-  --glow-accent: 0 0 10px rgba(102, 192, 244, 0.3);
+  --glow-accent: 0 0 0 2px rgba(102, 192, 244, 0.4);
   
   --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: "Cascadia Code", "Fira Code", Consolas, "Courier New", monospace;
@@ -91,7 +91,7 @@
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.65);
-  --glow-accent: 0 0 10px rgba(196, 214, 147, 0.35);
+  --glow-accent: 0 0 0 2px rgba(196, 214, 147, 0.45);
 }
 
 /* 3. STEAM 2011 (Coal / Gunmetal & Blue Steel UI Update) */
@@ -131,7 +131,7 @@
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.55);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.7);
-  --glow-accent: 0 0 10px rgba(56, 141, 200, 0.35);
+  --glow-accent: 0 0 0 2px rgba(56, 141, 200, 0.45);
 }
 
 /* 4. FRUTIGER AERO (Glossy Aqua / Crystal Vibrant Glass) */
@@ -171,7 +171,7 @@
   --shadow-sm: 0 2px 8px rgba(2, 132, 199, 0.25);
   --shadow-md: 0 4px 16px rgba(2, 132, 199, 0.35);
   --shadow-lg: 0 8px 30px rgba(2, 132, 199, 0.45);
-  --glow-accent: 0 0 14px rgba(56, 189, 248, 0.5);
+  --glow-accent: 0 0 0 2px rgba(56, 189, 248, 0.5);
 }
 
 /* 5. TELA OLED (Pure Pitch Black #000000 & Ultra High Contrast Neon) */
@@ -211,7 +211,7 @@
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.9);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.95);
   --shadow-lg: 0 8px 30px rgba(0, 0, 0, 1);
-  --glow-accent: 0 0 14px rgba(0, 240, 255, 0.45);
+  --glow-accent: 0 0 0 2px rgba(0, 240, 255, 0.6);
 }
 
 /* Reset & Base */
@@ -1336,7 +1336,6 @@ html, body {
 
 .star-icon.filled {
   color: var(--star-active);
-  text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
 }
 
 .star-icon:hover {
@@ -2174,8 +2173,8 @@ html, body {
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
-  padding: 2px 8px;
-  border-radius: 12px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
   width: fit-content;
 }
 
@@ -2288,8 +2287,8 @@ html, body {
 }
 
 .backup-icon-badge {
-  font-size: 1.4rem;
   background-color: rgba(102, 192, 244, 0.12);
+  color: var(--steam-blue);
   width: 36px;
   height: 36px;
   border-radius: var(--radius-sm);
@@ -2297,6 +2296,12 @@ html, body {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  border: 1px solid rgba(102, 192, 244, 0.2);
+}
+
+.backup-icon-badge svg {
+  width: 18px;
+  height: 18px;
 }
 
 .import-preview-box {
@@ -2353,6 +2358,11 @@ html, body {
   background-color: rgba(239, 68, 68, 0.18);
   color: #ef4444;
   border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.reset-icon-badge svg {
+  width: 18px;
+  height: 18px;
 }
 
 .reset-warning-banner {
@@ -2615,7 +2625,7 @@ html, body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
 }
 
 .about-features-list li {
@@ -2623,7 +2633,14 @@ html, body {
   color: var(--text-primary);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+}
+
+.about-features-list li::before {
+  content: '•';
+  color: var(--steam-blue);
+  font-size: 1.1rem;
+  line-height: 1;
 }
 
 .about-author-card {
@@ -2641,6 +2658,19 @@ html, body {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+.about-author-avatar-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background-color: rgba(102, 192, 244, 0.12);
+  border: 1px solid rgba(102, 192, 244, 0.2);
+  color: var(--steam-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .about-github-btn {

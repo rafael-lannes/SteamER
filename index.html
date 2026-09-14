@@ -69,7 +69,7 @@
         <!-- Unified Appearance & Layout Dropdown -->
         <div class="appearance-selector-wrap" id="appearanceSelectorWrap">
           <button id="btnAppearanceMenu" class="btn btn-secondary btn-sm appearance-picker-btn" type="button" title="Personalizar visual, tema de cores e layout" aria-haspopup="true" aria-expanded="false">
-            <span class="appearance-current-icon">🎨</span>
+            <svg class="appearance-current-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"></path></svg>
             <span id="appearanceCurrentLabel" class="appearance-current-label">Aparência</span>
             <svg class="appearance-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
@@ -297,7 +297,10 @@
           <!-- Active Review Resume Box (if any active review exists) -->
           <section id="homeResumeSection" class="home-resume-card" style="display: none;">
             <div class="home-resume-header">
-              <span class="home-resume-tag">⚡ Review em Andamento no Editor</span>
+              <span class="home-resume-tag">
+                <svg viewBox="0 0 24 24" fill="currentColor" style="width:12px;height:12px;display:inline-block;vertical-align:-1px;margin-right:4px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                Review em Andamento no Editor
+              </span>
               <div id="homeActiveVerdictBadge" class="dash-card-recommend-badge pos">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
                 <span id="homeActiveVerdictText">Recomendado</span>
@@ -308,7 +311,7 @@
                 <h3 id="homeActiveGameTitle" class="home-resume-title">Minha Primeira Análise</h3>
                 <p id="homeActiveGameSnippet" class="home-resume-snippet">Texto da sua análise...</p>
                 <div id="homeActiveGameMeta" class="home-resume-meta">
-                  <span>🕒 Última edição: Hoje</span> • <span>0 caracteres</span>
+                  <span>Última edição: Hoje</span> • <span>0 caracteres</span>
                 </div>
               </div>
               <button id="btnHomeResumeActive" class="btn btn-primary btn-sm">
@@ -366,10 +369,12 @@
           <section class="home-about-section">
             <div class="home-about-card">
               <div class="home-about-left">
-                <div class="home-about-avatar">👨‍💻</div>
+                <div class="home-about-avatar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </div>
                 <div>
                   <h3 class="home-about-title">Sobre o SteamER</h3>
-                  <p class="home-about-author">Desenvolvido com carinho por <strong>Rafael Lannes</strong></p>
+                  <p class="home-about-author">Desenvolvido por <strong>Rafael Lannes</strong></p>
                   <p class="home-about-desc">
                     O <strong>SteamER</strong> é um projeto de código aberto focado em simplificar a vida de gamers e criadores de conteúdo ao escrever e publicar análises na plataforma Steam. Seus dados ficam 100% seguros e armazenados no seu próprio navegador.
                   </p>
@@ -518,7 +523,8 @@
             <!-- Star Rating Quick Inserter Button -->
             <div class="toolbar-group">
               <button id="btnOpenRatingModal" class="tool-btn btn-star" data-tooltip="Inserir Nota / Estrelas BBCode">
-                ★ Inserir Estrelas / Nota
+                <svg viewBox="0 0 24 24" fill="currentColor" style="width:13px;height:13px;margin-right:4px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <span>Inserir Avaliação / Nota</span>
               </button>
             </div>
           </div>
@@ -597,7 +603,10 @@
 
               <!-- Detached Window Notice (shown when popout window is open) -->
               <div id="notesDetachedNotice" class="notes-detached-notice">
-                <strong style="color: var(--steam-blue); font-size: 0.95rem;">↗️ Bloco de notas aberto em janela flutuante</strong>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--steam-blue);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  <strong style="font-size: 0.95rem;">Bloco de notas aberto em janela flutuante</strong>
+                </div>
                 <p style="color: var(--text-secondary); font-size: 0.82rem;">As anotações continuam sincronizadas em tempo real. Você pode escrever na janela separada enquanto edita a review ao lado.</p>
                 <button id="btnReattachNotes" class="btn btn-secondary btn-sm">
                   Reacoplar Janela para Cá
@@ -635,8 +644,9 @@
                   spellcheck="true"
                 ></textarea>
                 <div class="editor-footer">
-                  <div style="font-size: 0.78rem; color: #fcd34d;">
-                    💾 Salvo automaticamente com esta review
+                  <div style="font-size: 0.78rem; color: var(--text-secondary); display: flex; align-items: center; gap: 6px;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--steam-blue);"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                    <span>Salvo automaticamente com esta review</span>
                   </div>
                   <div class="editor-stats">
                     <span class="stat-item">Caracteres das notas: <span id="notesCharCounter">0</span></span>
@@ -697,11 +707,17 @@
             </div>
             <div class="stat-card stat-card-pos">
               <div class="stat-card-number" id="dashStatPos">0</div>
-              <div class="stat-card-label">👍 Recomendados</div>
+              <div class="stat-card-label">
+                <svg viewBox="0 0 24 24" fill="currentColor" style="width:13px;height:13px;display:inline-block;vertical-align:-2px;margin-right:4px;color:var(--steam-blue);"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                Recomendados
+              </div>
             </div>
             <div class="stat-card stat-card-neg">
               <div class="stat-card-number" id="dashStatNeg">0</div>
-              <div class="stat-card-label">👎 Não Recomendados</div>
+              <div class="stat-card-label">
+                <svg viewBox="0 0 24 24" fill="currentColor" style="width:13px;height:13px;display:inline-block;vertical-align:-2px;margin-right:4px;color:var(--danger-color);"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3"></path></svg>
+                Não Recomendados
+              </div>
             </div>
             <div class="stat-card">
               <div class="stat-card-number" id="dashStatWords">0</div>
@@ -733,9 +749,18 @@
 
             <div class="filter-chips-wrap">
               <button class="filter-chip active" data-filter="all">Todos</button>
-              <button class="filter-chip chip-pos" data-filter="pos">👍 Recomendados</button>
-              <button class="filter-chip chip-neg" data-filter="neg">👎 Não Recomendados</button>
-              <button class="filter-chip chip-notes" data-filter="notes">📝 Com Anotações</button>
+              <button class="filter-chip chip-pos" data-filter="pos">
+                <svg viewBox="0 0 24 24" fill="currentColor" style="width:12px;height:12px;display:inline-block;vertical-align:-1px;margin-right:4px;"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                Recomendados
+              </button>
+              <button class="filter-chip chip-neg" data-filter="neg">
+                <svg viewBox="0 0 24 24" fill="currentColor" style="width:12px;height:12px;display:inline-block;vertical-align:-1px;margin-right:4px;"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3"></path></svg>
+                Não Recomendados
+              </button>
+              <button class="filter-chip chip-notes" data-filter="notes">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;display:inline-block;vertical-align:-1px;margin-right:4px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                Com Anotações
+              </button>
             </div>
 
             <div class="dashboard-sort-wrap">
@@ -744,14 +769,14 @@
                 Ordenar por:
               </label>
               <select id="dashboardSortSelect" class="select-input select-sm">
-                <option value="date-desc">🕒 Mais Recentes (Última edição)</option>
-                <option value="date-asc">🕒 Mais Antigas</option>
-                <option value="title-asc">🔤 Nome do Jogo (A - Z)</option>
-                <option value="title-desc">🔤 Nome do Jogo (Z - A)</option>
-                <option value="size-desc">📝 Mais Longas (Caracteres)</option>
-                <option value="size-asc">📝 Mais Curtas</option>
-                <option value="recommend-pos">👍 Recomendados primeiro</option>
-                <option value="recommend-neg">👎 Não Recomendados primeiro</option>
+                <option value="date-desc">Mais Recentes (Última edição)</option>
+                <option value="date-asc">Mais Antigas</option>
+                <option value="title-asc">Nome do Jogo (A - Z)</option>
+                <option value="title-desc">Nome do Jogo (Z - A)</option>
+                <option value="size-desc">Mais Longas (Caracteres)</option>
+                <option value="size-asc">Mais Curtas</option>
+                <option value="recommend-pos">Recomendados primeiro</option>
+                <option value="recommend-neg">Não Recomendados primeiro</option>
               </select>
             </div>
           </div>
@@ -769,11 +794,14 @@
 
         <!-- Empty State Container -->
         <div id="dashboardEmptyState" class="dashboard-empty-state" style="display: none;">
-          <div class="empty-state-icon">🎮</div>
+          <div class="empty-state-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:48px;height:48px;color:var(--text-muted);"><rect x="2" y="6" width="20" height="12" rx="3"></rect><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><line x1="15" y1="13" x2="15.01" y2="13"></line><line x1="18" y1="11" x2="18.01" y2="11"></line></svg>
+          </div>
           <h3 id="emptyStateTitle" class="empty-state-title">Nenhuma análise encontrada</h3>
           <p id="emptyStateDesc" class="empty-state-desc">Você ainda não possui análises salvas ou nenhuma corresponde aos filtros aplicados.</p>
           <button id="btnEmptyStateNewReview" class="btn btn-primary btn-sm" style="margin-top: 14px;">
-            + Criar Minha Primeira Review
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;margin-right:4px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            Criar Minha Primeira Review
           </button>
         </div>
       </div>
@@ -816,23 +844,25 @@
         </div>
 
         <div class="about-description">
-          <p>O <strong>SteamER (Steam Easy Review)</strong> é uma aplicação web moderna e rápida desenvolvida para gamers e criadores de conteúdo que desejam escrever, formatar e organizar análises completas para a plataforma <strong>Steam</strong>.</p>
+          <p>O <strong>SteamER (Steam Easy Review)</strong> é uma aplicação web rápida desenvolvida para jogadores e curadores que desejam escrever, formatar e organizar análises para a plataforma <strong>Steam</strong>.</p>
           
           <h3 style="color:var(--steam-blue); margin-top:14px; margin-bottom:8px; font-size:0.95rem; font-weight:700;">Recursos Principais:</h3>
           <ul class="about-features-list">
-            <li>✨ Editor com tags BBCode nativas da Steam e atalhos de teclado rápidos.</li>
-            <li>👁️ Pré-visualização ao vivo fiel ao design dos cards da Steam.</li>
-            <li>📰 Visualização em Blog / Feed Steam de todo o seu catálogo de reviews.</li>
-            <li>📝 Bloco de notas exclusivo por jogo com suporte a janela flutuante independente.</li>
-            <li>⭐ Construtor interativo de nota por estrelas e escalas de 1 a 10.</li>
-            <li>💾 Sistema de backup completo (exportação e importação JSON com validação).</li>
-            <li>🔒 100% privado e offline no armazenamento local do seu navegador.</li>
+            <li>Editor com tags BBCode nativas da Steam e atalhos de teclado ágeis.</li>
+            <li>Pré-visualização ao vivo fiel ao design dos cards da comunidade Steam.</li>
+            <li>Visualização em Blog / Feed Steam de todo o seu catálogo de reviews.</li>
+            <li>Bloco de notas exclusivo por jogo com suporte a janela flutuante independente.</li>
+            <li>Construtor interativo de nota por estrelas e escalas de 1 a 10.</li>
+            <li>Sistema de backup completo (exportação e importação JSON com validação).</li>
+            <li>Armazenamento local privado e direto no navegador.</li>
           </ul>
         </div>
 
         <div class="about-author-card">
           <div class="about-author-header">
-            <span style="font-size:1.4rem;">👨‍💻</span>
+            <div class="about-author-avatar-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
             <div>
               <strong style="color:#fff; font-size:0.95rem;">Desenvolvido por Rafael Lannes</strong>
               <p style="color:var(--text-secondary); font-size:0.8rem;">Game Developer & Software Engineer</p>
@@ -931,7 +961,8 @@
     <div class="modal-card">
       <div class="modal-header">
         <h3 class="modal-title">
-          ★ Inserir Avaliação / Estrelas
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;color:var(--star-gold);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          Inserir Avaliação / Estrelas
         </h3>
         <button class="modal-close" data-modal-close>&times;</button>
       </div>
@@ -1130,7 +1161,9 @@
         <!-- Export Section -->
         <div class="backup-section-box">
           <div class="backup-section-header">
-            <span class="backup-icon-badge">📥</span>
+            <span class="backup-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </span>
             <div>
               <strong style="color: #fff; font-size: 0.95rem;">Exportar Backup Completo (JSON)</strong>
               <p style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 2px;">Gera e baixa um arquivo JSON com todas as suas análises salvas, todas as anotações do bloco de notas e seus moldes personalizados.</p>
@@ -1145,7 +1178,9 @@
         <!-- Import Section -->
         <div class="backup-section-box" style="margin-top: 16px;">
           <div class="backup-section-header">
-            <span class="backup-icon-badge">📤</span>
+            <span class="backup-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            </span>
             <div>
               <strong style="color: #fff; font-size: 0.95rem;">Restaurar ou Importar Backup (JSON)</strong>
               <p style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 2px;">Selecione um arquivo de backup baixado do SteamER para validar e restaurar seus dados.</p>
@@ -1169,10 +1204,12 @@
             </div>
             <div class="import-action-buttons">
               <button id="btnImportReplaceAll" class="btn btn-danger btn-sm" title="Substitui todas as reviews locais pelas do arquivo">
-                ⚠️ Restaurar (Substituir Tudo)
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;margin-right:4px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                Restaurar (Substituir Tudo)
               </button>
               <button id="btnImportMerge" class="btn btn-primary btn-sm" title="Adiciona as reviews do arquivo mantendo as que você já tem salvas">
-                ➕ Mesclar Dados
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;margin-right:4px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Mesclar Dados
               </button>
             </div>
           </div>
@@ -1181,7 +1218,9 @@
         <!-- 3. Clean Start & Factory Reset Section -->
         <div class="backup-section-box backup-reset-box" style="margin-top: 16px;">
           <div class="backup-section-header">
-            <span class="backup-icon-badge reset-icon-badge">⚠️</span>
+            <span class="backup-icon-badge reset-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            </span>
             <div>
               <strong style="color: #fca5a5; font-size: 0.95rem;">Limpar Tudo & Início Limpo (Reset)</strong>
               <p style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 2px;">Apaga todas as análises salvas, todas as anotações do bloco de notas e os moldes personalizados, redefinindo o SteamER para o estado original de fábrica.</p>
@@ -1190,11 +1229,11 @@
 
           <div class="reset-warning-banner">
             <div style="display: flex; gap: 8px; align-items: flex-start;">
-              <span style="font-size: 1.1rem; line-height: 1;">📢</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;min-width:16px;color:#fca5a5;margin-top:2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
               <div>
                 <strong style="color: #fca5a5;">Aviso Importante:</strong> Esta ação é irreversível e removerá todos os dados do seu navegador.
-                <div style="margin-top: 4px; color: #ffd700; font-weight: 600;">
-                  💡 Recomendamos que você faça o download de um backup completo (opção 1 acima) antes de redefinir.
+                <div style="margin-top: 4px; color: var(--text-secondary); font-weight: 500;">
+                  Recomendamos exportar um backup completo antes de prosseguir com a redefinição.
                 </div>
               </div>
             </div>

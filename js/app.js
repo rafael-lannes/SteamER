@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const formattedDate = ReviewManager.formatDate(currentActiveReview.updatedAt || currentActiveReview.createdAt);
         const charsCount = (currentActiveReview.content || '').length;
         const wordsCount = (currentActiveReview.content || '').trim() ? (currentActiveReview.content || '').trim().split(/\s+/).length : 0;
-        homeActiveGameMeta.innerHTML = `<span>🕒 Última edição: ${formattedDate}</span> • <span>${charsCount.toLocaleString('pt-BR')} caracteres</span> • <span>${wordsCount.toLocaleString('pt-BR')} palavras</span>`;
+        homeActiveGameMeta.innerHTML = `<span>Última edição: ${formattedDate}</span> • <span>${charsCount.toLocaleString('pt-BR')} caracteres</span> • <span>${wordsCount.toLocaleString('pt-BR')} palavras</span>`;
       }
     } else if (homeResumeSection) {
       homeResumeSection.style.display = 'none';
@@ -563,12 +563,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   btnRecommendPositive.addEventListener('click', () => {
     setRecommendationUI(true, true);
-    showToast('Classificação definida como: 👍 Recomendo');
+    showToast('Classificação definida como: Recomendo');
   });
 
   btnRecommendNegative.addEventListener('click', () => {
     setRecommendationUI(false, true);
-    showToast('Classificação definida como: 👎 Não Recomendo', 'warning');
+    showToast('Classificação definida como: Não Recomendo', 'warning');
   });
 
   // ==========================================
@@ -853,7 +853,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <body>
   <div class="popout-header">
     <div class="popout-title">
-      <span>📝</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:var(--star-gold, #fcd34d);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
       <span id="popoutGameTitle">${SteamBBCode.escapeHtml(title)}</span>
     </div>
     <span class="popout-sync-badge">● Sincronizado</span>
@@ -861,15 +861,18 @@ document.addEventListener('DOMContentLoaded', () => {
   <div class="popout-toolbar">
     <div style="display: flex; gap: 6px;">
       <button id="btnPopoutInsertToReview" class="btn btn-primary" title="Enviar texto selecionado para a análise na janela principal">
-        ⬅️ Inserir na Review
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Inserir na Review
       </button>
       <button id="btnPopoutCopy" class="btn" title="Copiar anotações">
-        📋 Copiar
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        Copiar
       </button>
     </div>
     <div>
       <button id="btnPopoutClear" class="btn" title="Limpar anotações">
-        🗑️ Limpar
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+        Limpar
       </button>
     </div>
   </div>
@@ -968,7 +971,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (popoutTitle && currentActiveReview) {
         popoutTitle.textContent = currentActiveReview.title;
-        popoutNotesWindow.document.title = `📝 Bloco de Notas: ${currentActiveReview.title}`;
+        popoutNotesWindow.document.title = `Bloco de Notas: ${currentActiveReview.title}`;
       }
       if (popoutTextarea && gameNotesArea) {
         popoutTextarea.value = gameNotesArea.value;
@@ -1122,9 +1125,9 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
 
           <div class="dash-card-meta-row">
-            <span>🕒 ${formattedDate}</span>
+            <span>${formattedDate}</span>
             <span>${charsCount.toLocaleString('pt-BR')} chars • ${wordsCount.toLocaleString('pt-BR')} pal.</span>
-            ${hasNotes ? '<span style="color:#fcd34d;">📝 Notas</span>' : ''}
+            ${hasNotes ? '<span style="color:var(--star-gold); display:inline-flex; align-items:center; gap:3px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>Notas</span>' : ''}
           </div>
 
           <div class="dash-card-actions">
@@ -1260,7 +1263,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           <footer class="steam-blog-footer">
             <div class="steam-blog-stats">
-              <span>🕒 Última edição: ${formattedDate}</span>
+              <span>Última edição: ${formattedDate}</span>
               <span style="margin: 0 6px;">•</span>
               <span>${charsCount.toLocaleString('pt-BR')} caracteres</span>
               <span style="margin: 0 6px;">•</span>
@@ -1464,7 +1467,7 @@ document.addEventListener('DOMContentLoaded', () => {
             importPreviewBox.style.display = 'flex';
             importFileStatusDot.style.backgroundColor = 'var(--status-danger)';
             importFileName.textContent = file.name;
-            importSummaryText.innerHTML = `<span style="color:#ef4444;">❌ <strong>Arquivo Inválido:</strong> ${validation.error}</span>`;
+            importSummaryText.innerHTML = `<span style="color:#ef4444;"><strong>Arquivo Inválido:</strong> ${validation.error}</span>`;
             btnImportReplaceAll.style.display = 'none';
             btnImportMerge.style.display = 'none';
             pendingImportContent = null;
@@ -1477,10 +1480,10 @@ document.addEventListener('DOMContentLoaded', () => {
           importFileStatusDot.style.backgroundColor = 'var(--steam-green)';
           importFileName.textContent = file.name;
           importSummaryText.innerHTML = `
-            <div>✅ <strong>Arquivo de Backup Válido!</strong></div>
+            <div><strong style="color:var(--steam-green);">Arquivo de Backup Válido</strong></div>
             <div style="margin-top:4px;">• <strong>${validation.reviewCount}</strong> review(s) encontradas</div>
             <div>• <strong>${validation.templateCount}</strong> molde(s) personalizados encontrados</div>
-            <div style="margin-top:6px; font-size:0.78rem; color:#fcd34d;">Escolha abaixo se deseja <strong>Substituir Tudo</strong> ou <strong>Mesclar</strong> com suas reviews atuais.</div>
+            <div style="margin-top:6px; font-size:0.78rem; color:var(--text-secondary);">Escolha abaixo se deseja <strong>Substituir Tudo</strong> ou <strong>Mesclar</strong> com suas reviews atuais.</div>
           `;
           btnImportReplaceAll.style.display = 'inline-flex';
           btnImportMerge.style.display = 'inline-flex';
@@ -1488,7 +1491,7 @@ document.addEventListener('DOMContentLoaded', () => {
           importPreviewBox.style.display = 'flex';
           importFileStatusDot.style.backgroundColor = 'var(--status-danger)';
           importFileName.textContent = file.name;
-          importSummaryText.innerHTML = `<span style="color:#ef4444;">❌ <strong>Erro ao ler JSON:</strong> ${err.message}</span>`;
+          importSummaryText.innerHTML = `<span style="color:#ef4444;"><strong>Erro ao ler JSON:</strong> ${err.message}</span>`;
           btnImportReplaceAll.style.display = 'none';
           btnImportMerge.style.display = 'none';
           pendingImportContent = null;
@@ -1541,7 +1544,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnResetAllData) {
     btnResetAllData.addEventListener('click', () => {
       const confirmFirst = confirm(
-        '⚠️ AVISO DE SEGURANÇA:\n\n' +
+        'AVISO DE SEGURANÇA:\n\n' +
         'Esta ação apagará permanentemente TODAS as suas análises salvas, todas as anotações do bloco de notas e todos os seus moldes personalizados.\n\n' +
         'Você já realizou o download de um arquivo de backup antes de continuar?\n\n' +
         'Clique em "OK" para prosseguir com o RESET COMPLETO, ou "Cancelar" para voltar e fazer o download do seu backup.'
@@ -1550,7 +1553,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!confirmFirst) return;
 
       const confirmSecond = confirm(
-        '🚨 CONFIRMAÇÃO FINAL:\n\n' +
+        'CONFIRMAÇÃO FINAL:\n\n' +
         'Tem certeza de que deseja redefinir o SteamER para as configurações originais de fábrica?\n\n' +
         'Todos os dados locais serão apagados agora.'
       );
