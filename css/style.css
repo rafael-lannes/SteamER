@@ -1,15 +1,17 @@
 /* ==========================================================================
    Steam Review Generator & Editor - Stylesheet
-   Theme: Steam Dark UI (Blue/Navy/Slate/Glow)
+   Themes: Tema Padrão | Steam 2003 | Steam 2011 | Frutiger Aero
    ========================================================================== */
 
-:root {
-  /* Steam Color Palette */
+/* 1. TEMA PADRÃO (Modern Steam Dark UI) */
+:root,
+[data-theme="theme-default"] {
   --bg-main: #0e141b;
   --bg-surface: #171d25;
   --bg-surface-elevated: #1e2633;
   --bg-surface-input: #12171f;
   --bg-toolbar: #1a222e;
+  --header-bg: linear-gradient(180deg, #171a21 0%, #1b2838 100%);
   
   --border-color: #2a374a;
   --border-color-light: #3d4f68;
@@ -44,12 +46,172 @@
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
-  --glow-blue: 0 0 10px rgba(102, 192, 244, 0.3);
+  --glow-accent: 0 0 10px rgba(102, 192, 244, 0.3);
   
   --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: "Cascadia Code", "Fira Code", Consolas, "Courier New", monospace;
   --transition-fast: 0.15s ease;
   --transition-normal: 0.25s ease;
+}
+
+/* 2. STEAM 2003 (Classic Vintage Military Olive / Khaki Steam) */
+[data-theme="theme-steam2003"] {
+  --bg-main: #343d2f;
+  --bg-surface: #4a5742;
+  --bg-surface-elevated: #55634d;
+  --bg-surface-input: #293125;
+  --bg-toolbar: #3f4a38;
+  --header-bg: linear-gradient(180deg, #374232 0%, #4a5742 100%);
+  
+  --border-color: #5b6951;
+  --border-color-light: #738466;
+  --border-focus: #c5d39e;
+  
+  --steam-blue: #c4d693;
+  --steam-blue-hover: #dbe8b5;
+  --steam-blue-dark: #8c9e5e;
+  --steam-navy: #384233;
+  --steam-accent: #4d5c45;
+  --steam-green: #a7bb62;
+  --steam-green-hover: #bdd177;
+  --steam-green-dark: #6e823b;
+  
+  --text-primary: #dbe4c8;
+  --text-secondary: #a3ad92;
+  --text-muted: #78836a;
+  --text-highlight: #ffffff;
+  
+  --status-warning: #eab308;
+  --status-danger: #dc2626;
+  --status-success: #84cc16;
+  
+  --star-active: #facc15;
+  --star-inactive: #4a5442;
+  
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.65);
+  --glow-accent: 0 0 10px rgba(196, 214, 147, 0.35);
+}
+
+/* 3. STEAM 2011 (Coal / Gunmetal & Blue Steel UI Update) */
+[data-theme="theme-steam2011"] {
+  --bg-main: #131518;
+  --bg-surface: #1c1f24;
+  --bg-surface-elevated: #262a32;
+  --bg-surface-input: #16181d;
+  --bg-toolbar: #20242b;
+  --header-bg: linear-gradient(180deg, #17191d 0%, #23272f 100%);
+  
+  --border-color: #353b47;
+  --border-color-light: #495161;
+  --border-focus: #388dc8;
+  
+  --steam-blue: #388dc8;
+  --steam-blue-hover: #50a8e8;
+  --steam-blue-dark: #1f6ea8;
+  --steam-navy: #181b21;
+  --steam-accent: #2b313d;
+  --steam-green: #75b022;
+  --steam-green-hover: #8ecc2b;
+  --steam-green-dark: #4e7a14;
+  
+  --text-primary: #dcdedf;
+  --text-secondary: #8a939d;
+  --text-muted: #5c636d;
+  --text-highlight: #ffffff;
+  
+  --status-warning: #f59e0b;
+  --status-danger: #ef4444;
+  --status-success: #10b981;
+  
+  --star-active: #eab308;
+  --star-inactive: #383c45;
+  
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.7);
+  --glow-accent: 0 0 10px rgba(56, 141, 200, 0.35);
+}
+
+/* 4. FRUTIGER AERO (Glossy Aqua / Crystal Vibrant Glass) */
+[data-theme="theme-frutiger-aero"] {
+  --bg-main: #05263a;
+  --bg-surface: #0a3858;
+  --bg-surface-elevated: #0f4870;
+  --bg-surface-input: #072f48;
+  --bg-toolbar: #0c4064;
+  --header-bg: linear-gradient(180deg, #073554 0%, #0369a1 100%);
+  
+  --border-color: rgba(147, 218, 255, 0.35);
+  --border-color-light: rgba(186, 235, 255, 0.55);
+  --border-focus: #38bdf8;
+  
+  --steam-blue: #38bdf8;
+  --steam-blue-hover: #7dd3fc;
+  --steam-blue-dark: #0284c7;
+  --steam-navy: #073452;
+  --steam-accent: #0284c7;
+  --steam-green: #10b981;
+  --steam-green-hover: #34d399;
+  --steam-green-dark: #059669;
+  
+  --text-primary: #f0f9ff;
+  --text-secondary: #bae6fd;
+  --text-muted: #7dd3fc;
+  --text-highlight: #ffffff;
+  
+  --status-warning: #fbbf24;
+  --status-danger: #f87171;
+  --status-success: #34d399;
+  
+  --star-active: #fbbf24;
+  --star-inactive: #164e63;
+  
+  --shadow-sm: 0 2px 8px rgba(2, 132, 199, 0.25);
+  --shadow-md: 0 4px 16px rgba(2, 132, 199, 0.35);
+  --shadow-lg: 0 8px 30px rgba(2, 132, 199, 0.45);
+  --glow-accent: 0 0 14px rgba(56, 189, 248, 0.5);
+}
+
+/* 5. TELA OLED (Pure Pitch Black #000000 & Ultra High Contrast Neon) */
+[data-theme="theme-oled"] {
+  --bg-main: #000000;
+  --bg-surface: #09090b;
+  --bg-surface-elevated: #111115;
+  --bg-surface-input: #000000;
+  --bg-toolbar: #0c0c0f;
+  --header-bg: linear-gradient(180deg, #0d0d12 0%, #000000 100%);
+  
+  --border-color: #1f2029;
+  --border-color-light: #2e303d;
+  --border-focus: #00f0ff;
+  
+  --steam-blue: #00f0ff;
+  --steam-blue-hover: #38f4ff;
+  --steam-blue-dark: #00b4d8;
+  --steam-navy: #050508;
+  --steam-accent: #15151c;
+  --steam-green: #00ff88;
+  --steam-green-hover: #33ff9f;
+  --steam-green-dark: #00b359;
+  
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --text-highlight: #00f0ff;
+  
+  --status-warning: #ffd000;
+  --status-danger: #ff3366;
+  --status-success: #00ff88;
+  
+  --star-active: #ffd000;
+  --star-inactive: #222228;
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.9);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.95);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 1);
+  --glow-accent: 0 0 14px rgba(0, 240, 255, 0.45);
 }
 
 /* Reset & Base */
@@ -94,7 +256,7 @@ html, body {
 
 /* Header */
 .app-header {
-  background: linear-gradient(180deg, #171a21 0%, #1b2838 100%);
+  background: var(--header-bg);
   border-bottom: 1px solid var(--border-color);
   padding: 12px 24px;
   display: flex;
@@ -119,9 +281,9 @@ html, body {
   width: 42px;
   height: 42px;
   border-radius: var(--radius-md);
-  box-shadow: var(--glow-blue);
+  box-shadow: var(--glow-accent);
   overflow: hidden;
-  border: 1px solid rgba(102, 192, 244, 0.4);
+  border: 1px solid var(--border-color-light);
 }
 
 .brand-logo-img {
@@ -145,11 +307,11 @@ html, body {
   font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
-  background: rgba(102, 192, 244, 0.15);
+  background: var(--bg-surface-elevated);
   color: var(--steam-blue);
   padding: 2px 8px;
   border-radius: 12px;
-  border: 1px solid rgba(102, 192, 244, 0.3);
+  border: 1px solid var(--border-color-light);
 }
 
 .brand-subtitle {
@@ -198,10 +360,10 @@ html, body {
 }
 
 .nav-tab-btn.active {
-  background: linear-gradient(135deg, rgba(102, 192, 244, 0.2) 0%, rgba(27, 40, 56, 0.8) 100%);
-  color: #fff;
-  border-color: rgba(102, 192, 244, 0.4);
-  box-shadow: 0 0 10px rgba(102, 192, 244, 0.15);
+  background: linear-gradient(135deg, var(--steam-accent) 0%, var(--bg-surface-elevated) 100%);
+  color: var(--text-highlight);
+  border-color: var(--steam-blue);
+  box-shadow: var(--glow-accent);
 }
 
 .header-actions {
@@ -214,7 +376,7 @@ html, body {
 .app-footer {
   text-align: center;
   padding: 10px 24px;
-  background-color: #0c1015;
+  background-color: var(--bg-surface-input);
   border-top: 1px solid var(--border-color);
   font-size: 0.78rem;
   color: var(--text-muted);
@@ -437,20 +599,20 @@ html, body {
 }
 
 .tool-btn.btn-accent {
-  background-color: rgba(102, 192, 244, 0.15);
+  background-color: var(--bg-surface-elevated);
   color: var(--steam-blue);
-  border-color: rgba(102, 192, 244, 0.3);
+  border-color: var(--border-color-light);
 }
 
 .tool-btn.btn-accent:hover {
-  background-color: rgba(102, 192, 244, 0.25);
-  color: #fff;
+  background-color: var(--steam-accent);
+  color: var(--text-highlight);
   border-color: var(--steam-blue);
 }
 
 .tool-btn.btn-star {
   background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 165, 0, 0.1));
-  color: #ffd700;
+  color: var(--star-active);
   border-color: rgba(255, 215, 0, 0.3);
   padding: 0 10px;
   gap: 6px;
@@ -458,7 +620,7 @@ html, body {
 
 .tool-btn.btn-star:hover {
   background: linear-gradient(135deg, rgba(255, 215, 0, 0.25), rgba(255, 165, 0, 0.2));
-  border-color: #ffd700;
+  border-color: var(--star-active);
   box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
 }
 
@@ -472,8 +634,8 @@ html, body {
   bottom: 125%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #0b0f14;
-  color: #ffffff;
+  background-color: var(--bg-surface-elevated);
+  color: var(--text-highlight);
   font-size: 0.72rem;
   font-weight: 500;
   white-space: nowrap;
@@ -638,19 +800,19 @@ html, body {
   flex: 1;
   overflow-y: auto;
   padding: 16px;
-  background: radial-gradient(circle at top right, #1a2530 0%, #10141b 100%);
+  background: radial-gradient(circle at top right, var(--bg-toolbar) 0%, var(--bg-main) 100%);
   display: flex;
   flex-direction: column;
 }
 
 /* Steam Review Card Preview */
 .steam-review-card {
-  background: linear-gradient(180deg, #1e2837 0%, #151b24 100%);
-  border: 1px solid #2a374a;
+  background: linear-gradient(180deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   padding: 18px 22px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-  color: #acb2b8;
+  box-shadow: var(--shadow-md);
+  color: var(--text-primary);
   font-size: 0.93rem;
   line-height: 1.65;
 }
@@ -667,7 +829,7 @@ html, body {
 .steam-thumb-icon {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, #4c6b22 0%, #68962c 100%);
+  background: linear-gradient(135deg, var(--steam-green-dark) 0%, var(--steam-green) 100%);
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
@@ -678,7 +840,7 @@ html, body {
 }
 
 .steam-thumb-icon.positive {
-  background: linear-gradient(135deg, #38781b 0%, #588a1b 100%);
+  background: linear-gradient(135deg, var(--steam-green-dark) 0%, var(--steam-green) 100%);
   box-shadow: 0 0 10px rgba(104, 150, 44, 0.4);
 }
 
@@ -710,7 +872,7 @@ html, body {
 
 .steam-date {
   font-size: 0.75rem;
-  color: #626c75;
+  color: var(--text-muted);
 }
 
 /* Steam BBCode Rendered Styles */
@@ -723,9 +885,9 @@ html, body {
 .steam-content .bb-h1 {
   font-size: 1.4rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-highlight);
   margin: 16px 0 8px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 4px;
 }
 
@@ -733,7 +895,7 @@ html, body {
 .steam-content .bb-h2 {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #66c0f4;
+  color: var(--steam-blue);
   margin: 14px 0 6px 0;
 }
 
@@ -741,7 +903,7 @@ html, body {
 .steam-content .bb-h3 {
   font-size: 1.05rem;
   font-weight: 600;
-  color: #ebebeb;
+  color: var(--text-primary);
   margin: 12px 0 4px 0;
 }
 
@@ -752,7 +914,7 @@ html, body {
 .steam-content strong,
 .steam-content b {
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-highlight);
 }
 
 .steam-content em,
@@ -773,37 +935,37 @@ html, body {
 .steam-content hr {
   border: none;
   height: 1px;
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--border-color);
   margin: 16px 0;
 }
 
 .steam-content a.bb-link {
-  color: #66c0f4;
+  color: var(--steam-blue);
   text-decoration: none;
-  border-bottom: 1px dotted #66c0f4;
+  border-bottom: 1px dotted var(--steam-blue);
   transition: color var(--transition-fast);
 }
 
 .steam-content a.bb-link:hover {
-  color: #ffffff;
+  color: var(--text-highlight);
   border-bottom-style: solid;
 }
 
 .steam-content blockquote,
 .steam-content .bb-quote {
   background: rgba(0, 0, 0, 0.3);
-  border-left: 3px solid #66c0f4;
+  border-left: 3px solid var(--steam-blue);
   padding: 10px 14px;
   margin: 12px 0;
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   font-style: italic;
-  color: #c7d5e0;
+  color: var(--text-primary);
 }
 
 .steam-content .bb-quote-author {
   font-weight: 600;
   font-style: normal;
-  color: #66c0f4;
+  color: var(--steam-blue);
   margin-bottom: 4px;
   font-size: 0.85rem;
 }
@@ -830,13 +992,13 @@ html, body {
 /* Code block */
 .steam-content pre,
 .steam-content .bb-code {
-  background-color: #121417;
-  border: 1px solid #232933;
+  background-color: var(--bg-surface-input);
+  border: 1px solid var(--border-color);
   padding: 10px 14px;
   border-radius: var(--radius-sm);
   font-family: var(--font-mono);
   font-size: 0.85rem;
-  color: #c1d1e0;
+  color: var(--text-primary);
   overflow-x: auto;
   margin: 12px 0;
 }
@@ -867,14 +1029,14 @@ html, body {
 
 .steam-content table.bb-table th,
 .steam-content table.bb-table td {
-  border: 1px solid #2a374a;
+  border: 1px solid var(--border-color);
   padding: 6px 12px;
   text-align: left;
 }
 
 .steam-content table.bb-table th {
-  background-color: rgba(102, 192, 244, 0.1);
-  color: #fff;
+  background-color: var(--steam-accent);
+  color: var(--text-highlight);
   font-weight: 700;
 }
 
@@ -902,7 +1064,7 @@ html, body {
 
 /* Panel Footer / Export Area */
 .panel-footer {
-  background: linear-gradient(180deg, var(--bg-toolbar) 0%, #141b24 100%);
+  background: linear-gradient(180deg, var(--bg-toolbar) 0%, var(--bg-surface) 100%);
   border-top: 1px solid var(--border-color);
   padding: 12px 16px;
   display: flex;
@@ -948,16 +1110,16 @@ html, body {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #a4d007 0%, #537a00 100%);
+  background: linear-gradient(135deg, var(--steam-green) 0%, var(--steam-green-dark) 100%);
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #b8e608 0%, #639100 100%);
-  box-shadow: 0 0 12px rgba(164, 208, 7, 0.4);
+  background: linear-gradient(135deg, var(--steam-green-hover) 0%, var(--steam-green) 100%);
+  box-shadow: 0 0 12px var(--steam-green);
   transform: translateY(-1px);
 }
 
@@ -1344,29 +1506,30 @@ html, body {
    ========================================================================== */
 
 .btn-new-review {
-  background: linear-gradient(135deg, #1999e3 0%, #115082 100%);
+  background: linear-gradient(135deg, var(--steam-blue-dark) 0%, var(--steam-navy) 100%);
   color: #ffffff;
-  border-color: rgba(102, 192, 244, 0.4);
+  border: 1px solid var(--border-color-light);
 }
 
 .btn-new-review:hover {
-  background: linear-gradient(135deg, #2cb0fd 0%, #1562a0 100%);
-  box-shadow: 0 0 10px rgba(102, 192, 244, 0.4);
+  background: linear-gradient(135deg, var(--steam-blue) 0%, var(--steam-blue-dark) 100%);
+  box-shadow: var(--glow-accent);
 }
 
 .header-count-badge {
-  background-color: rgba(102, 192, 244, 0.2);
+  background-color: var(--bg-surface-elevated);
   color: var(--steam-blue);
   font-size: 0.72rem;
   font-weight: 700;
   padding: 1px 6px;
   border-radius: 10px;
   margin-left: 4px;
+  border: 1px solid var(--border-color);
 }
 
 /* Active Project Header Bar */
 .review-project-bar {
-  background: linear-gradient(90deg, #131b24 0%, #192330 100%);
+  background: linear-gradient(90deg, var(--bg-surface-input) 0%, var(--bg-surface) 100%);
   border-bottom: 1px solid var(--border-color);
   padding: 8px 16px;
   display: flex;
@@ -1385,7 +1548,7 @@ html, body {
 .active-game-title {
   font-size: 1rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-highlight);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1457,9 +1620,9 @@ html, body {
 }
 
 .btn-recommend-pos.active {
-  background: linear-gradient(135deg, rgba(104, 150, 44, 0.3) 0%, rgba(56, 120, 27, 0.8) 100%);
-  color: #a4d007;
-  border-color: rgba(164, 208, 7, 0.5);
+  background: linear-gradient(135deg, rgba(164, 208, 7, 0.25) 0%, var(--steam-navy) 100%);
+  color: var(--steam-green);
+  border-color: var(--steam-green);
   box-shadow: 0 0 8px rgba(164, 208, 7, 0.25);
 }
 
@@ -1635,7 +1798,7 @@ html, body {
 }
 
 .history-card {
-  background: linear-gradient(180deg, #18202b 0%, #131922 100%);
+  background: linear-gradient(180deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   padding: 12px 16px;
@@ -1649,15 +1812,15 @@ html, body {
 
 .history-card:hover {
   border-color: var(--border-color-light);
-  background: linear-gradient(180deg, #1d2735 0%, #171f2a 100%);
+  background: linear-gradient(180deg, var(--steam-accent) 0%, var(--bg-surface-elevated) 100%);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-sm);
 }
 
 .history-card.active {
   border-color: var(--steam-blue);
-  background: linear-gradient(180deg, #1b2d42 0%, #14202e 100%);
-  box-shadow: 0 0 10px rgba(102, 192, 244, 0.2);
+  background: linear-gradient(180deg, var(--steam-accent) 0%, var(--bg-surface) 100%);
+  box-shadow: var(--glow-accent);
 }
 
 .history-card-header {
@@ -1669,7 +1832,7 @@ html, body {
 .history-card-title {
   font-size: 0.98rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-highlight);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1679,11 +1842,11 @@ html, body {
   font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
-  background-color: rgba(102, 192, 244, 0.2);
+  background-color: var(--bg-surface-input);
   color: var(--steam-blue);
   padding: 2px 6px;
   border-radius: 4px;
-  border: 1px solid rgba(102, 192, 244, 0.4);
+  border: 1px solid var(--border-color-light);
 }
 
 .history-snippet {
@@ -1737,7 +1900,7 @@ html, body {
 }
 
 .dashboard-header-card {
-  background: linear-gradient(180deg, #171f2b 0%, #111720 100%);
+  background: linear-gradient(180deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: 18px 22px;
@@ -1758,7 +1921,7 @@ html, body {
 .dashboard-title {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-highlight);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -1797,7 +1960,7 @@ html, body {
 .stat-card-number {
   font-size: 1.5rem;
   font-weight: 800;
-  color: #fff;
+  color: var(--text-highlight);
   font-family: var(--font-mono);
 }
 
@@ -1809,7 +1972,7 @@ html, body {
 }
 
 .stat-card-pos .stat-card-number {
-  color: #a4d007;
+  color: var(--steam-green);
 }
 
 .stat-card-neg .stat-card-number {
@@ -1850,7 +2013,7 @@ html, body {
   background-color: var(--bg-surface-input);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
-  color: #ffffff;
+  color: var(--text-highlight);
   padding: 7px 32px 7px 34px;
   font-size: 0.85rem;
   transition: all var(--transition-fast);
@@ -1859,7 +2022,7 @@ html, body {
 .dashboard-search-input:focus {
   outline: none;
   border-color: var(--steam-blue);
-  box-shadow: 0 0 8px rgba(102, 192, 244, 0.25);
+  box-shadow: var(--glow-accent);
 }
 
 .btn-clear-search {
@@ -1908,14 +2071,14 @@ html, body {
 
 .filter-chip.active {
   background-color: var(--steam-accent);
-  color: #fff;
+  color: var(--text-highlight);
   border-color: var(--border-color);
 }
 
 .filter-chip.chip-pos.active {
   background: rgba(164, 208, 7, 0.2);
-  color: #a4d007;
-  border-color: rgba(164, 208, 7, 0.4);
+  color: var(--steam-green);
+  border-color: var(--steam-green);
 }
 
 .filter-chip.chip-neg.active {
@@ -1957,14 +2120,14 @@ html, body {
 }
 
 .dash-review-card {
-  background: linear-gradient(180deg, #19222f 0%, #121822 100%);
+  background: linear-gradient(180deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow-sm);
   transition: all var(--transition-fast);
   position: relative;
 }
@@ -1972,12 +2135,12 @@ html, body {
 .dash-review-card:hover {
   border-color: var(--border-color-light);
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-md);
 }
 
 .dash-review-card.active-in-editor {
   border-color: var(--steam-blue);
-  box-shadow: 0 0 12px rgba(102, 192, 244, 0.25);
+  box-shadow: var(--glow-accent);
 }
 
 .dash-card-header {
@@ -1997,7 +2160,7 @@ html, body {
 .dash-card-title {
   font-size: 1.05rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-highlight);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -2018,8 +2181,8 @@ html, body {
 
 .dash-card-recommend-badge.pos {
   background-color: rgba(164, 208, 7, 0.15);
-  color: #a4d007;
-  border: 1px solid rgba(164, 208, 7, 0.35);
+  color: var(--steam-green);
+  border: 1px solid var(--steam-green);
 }
 
 .dash-card-recommend-badge.neg {
@@ -2236,10 +2399,10 @@ html, body {
 }
 
 .dash-view-btn.active {
-  background: linear-gradient(135deg, rgba(102, 192, 244, 0.25) 0%, rgba(27, 40, 56, 0.9) 100%);
-  color: #ffffff;
-  border-color: rgba(102, 192, 244, 0.4);
-  box-shadow: 0 0 8px rgba(102, 192, 244, 0.2);
+  background: var(--steam-accent);
+  color: var(--text-highlight);
+  border-color: var(--steam-blue);
+  box-shadow: var(--glow-accent);
 }
 
 /* ==========================================
@@ -2255,10 +2418,10 @@ html, body {
 }
 
 .steam-blog-card {
-  background: linear-gradient(180deg, #1b2838 0%, #121a24 100%);
-  border: 1px solid #2a3f5a;
+  background: linear-gradient(180deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+  box-shadow: var(--shadow-md);
   overflow: hidden;
   transition: all var(--transition-fast);
   display: flex;
@@ -2266,13 +2429,13 @@ html, body {
 }
 
 .steam-blog-card:hover {
-  border-color: #385375;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  border-color: var(--border-color-light);
+  box-shadow: var(--shadow-lg);
 }
 
 .steam-blog-header {
-  background: linear-gradient(90deg, #1e2e42 0%, #151f2c 100%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(90deg, var(--bg-toolbar) 0%, var(--bg-surface) 100%);
+  border-bottom: 1px solid var(--border-color);
   padding: 14px 20px;
   display: flex;
   justify-content: space-between;
@@ -2296,7 +2459,7 @@ html, body {
 .steam-blog-game-title {
   font-size: 1.2rem;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--text-highlight);
   letter-spacing: 0.5px;
   display: flex;
   align-items: center;
@@ -2316,7 +2479,7 @@ html, body {
 }
 
 .steam-blog-verdict-text.pos {
-  color: #a4d007;
+  color: var(--steam-green);
 }
 
 .steam-blog-verdict-text.neg {
@@ -2325,7 +2488,7 @@ html, body {
 
 .steam-blog-body {
   padding: 22px 24px;
-  color: #c6d4df;
+  color: var(--text-primary);
   font-size: 0.95rem;
   line-height: 1.7;
 }
@@ -2358,8 +2521,8 @@ html, body {
 }
 
 .steam-blog-footer {
-  background-color: #0f1620;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background-color: var(--bg-surface-input);
+  border-top: 1px solid var(--border-color);
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
@@ -2417,8 +2580,8 @@ html, body {
   display: flex;
   align-items: center;
   gap: 16px;
-  background: linear-gradient(135deg, rgba(102, 192, 244, 0.12) 0%, rgba(27, 40, 56, 0.7) 100%);
-  border: 1px solid rgba(102, 192, 244, 0.3);
+  background: linear-gradient(135deg, var(--steam-accent) 0%, var(--bg-surface-elevated) 100%);
+  border: 1px solid var(--border-color-light);
   border-radius: var(--radius-md);
   padding: 16px 20px;
 }
@@ -2427,15 +2590,15 @@ html, body {
   width: 54px;
   height: 54px;
   border-radius: var(--radius-md);
-  box-shadow: 0 0 12px rgba(102, 192, 244, 0.4);
-  border: 1px solid rgba(102, 192, 244, 0.5);
+  box-shadow: var(--glow-accent);
+  border: 1px solid var(--border-color-light);
   object-fit: cover;
 }
 
 .about-hero-title {
   font-size: 1.4rem;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--text-highlight);
   margin-bottom: 2px;
 }
 
@@ -2498,7 +2661,7 @@ html, body {
   overflow-y: auto;
   flex: 1;
   padding: 24px 20px;
-  background: radial-gradient(circle at top center, #1b2634 0%, #0d1218 100%);
+  background: radial-gradient(circle at top center, var(--bg-surface-elevated) 0%, var(--bg-main) 100%);
 }
 
 .home-container {
@@ -2512,11 +2675,11 @@ html, body {
 
 /* Hero Section */
 .home-hero-card {
-  background: linear-gradient(135deg, #1b2a3a 0%, #121923 100%);
-  border: 1px solid #2b4058;
+  background: linear-gradient(135deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%);
+  border: 1px solid var(--border-color-light);
   border-radius: var(--radius-lg);
   padding: 28px 32px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  box-shadow: var(--shadow-lg);
   position: relative;
   overflow: hidden;
 }
@@ -2543,8 +2706,8 @@ html, body {
   width: 68px;
   height: 68px;
   border-radius: var(--radius-md);
-  box-shadow: 0 0 16px rgba(102, 192, 244, 0.4);
-  border: 2px solid rgba(102, 192, 244, 0.5);
+  box-shadow: var(--glow-accent);
+  border: 2px solid var(--border-color-light);
   object-fit: cover;
   flex-shrink: 0;
 }
@@ -2552,7 +2715,7 @@ html, body {
 .home-hero-title {
   font-size: 1.8rem;
   font-weight: 900;
-  color: #ffffff;
+  color: var(--text-highlight);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -2579,8 +2742,8 @@ html, body {
 }
 
 .home-badge-item {
-  background: rgba(102, 192, 244, 0.1);
-  border: 1px solid rgba(102, 192, 244, 0.25);
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color-light);
   color: var(--steam-blue);
   padding: 5px 12px;
   border-radius: 20px;
@@ -2602,7 +2765,7 @@ html, body {
 .home-section-title {
   font-size: 1.25rem;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--text-highlight);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -2622,8 +2785,8 @@ html, body {
 }
 
 .home-action-card {
-  background: linear-gradient(180deg, #1a2736 0%, #121a24 100%);
-  border: 1px solid #2a3c50;
+  background: linear-gradient(180deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   padding: 22px 20px;
   display: flex;
@@ -2632,23 +2795,23 @@ html, body {
   gap: 14px;
   cursor: pointer;
   transition: all var(--transition-fast);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-sm);
 }
 
 .home-action-card:hover {
   transform: translateY(-3px);
   border-color: var(--steam-blue);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+  box-shadow: var(--shadow-md);
 }
 
 .home-action-card.home-card-primary {
-  border-color: rgba(102, 192, 244, 0.45);
-  background: linear-gradient(180deg, #1d334a 0%, #141f2d 100%);
+  border-color: var(--steam-blue);
+  background: linear-gradient(180deg, var(--steam-accent) 0%, var(--bg-surface-elevated) 100%);
 }
 
 .home-action-card.home-card-primary:hover {
-  border-color: #66c0f4;
-  box-shadow: 0 8px 24px rgba(102, 192, 244, 0.25);
+  border-color: var(--steam-blue);
+  box-shadow: var(--glow-accent);
 }
 
 .home-action-icon-wrap {
@@ -2667,8 +2830,8 @@ html, body {
 }
 
 .action-icon-new {
-  background: linear-gradient(135deg, #1999e3 0%, #115082 100%);
-  box-shadow: 0 2px 8px rgba(25, 153, 227, 0.4);
+  background: linear-gradient(135deg, var(--steam-blue-dark) 0%, var(--steam-navy) 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .action-icon-backup {
@@ -2677,8 +2840,8 @@ html, body {
 }
 
 .action-icon-editor {
-  background: linear-gradient(135deg, #059669 0%, #064e3b 100%);
-  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.4);
+  background: linear-gradient(135deg, var(--steam-green-dark) 0%, var(--bg-main) 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .action-icon-reviews {
@@ -2689,7 +2852,7 @@ html, body {
 .home-action-title {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-highlight);
 }
 
 .home-action-desc {
@@ -2707,8 +2870,8 @@ html, body {
 
 /* Resume Active Review Card */
 .home-resume-card {
-  background: linear-gradient(90deg, rgba(25, 153, 227, 0.14) 0%, rgba(27, 40, 56, 0.75) 100%);
-  border: 1px solid rgba(102, 192, 244, 0.35);
+  background: linear-gradient(90deg, var(--steam-accent) 0%, var(--bg-surface-elevated) 100%);
+  border: 1px solid var(--border-color-light);
   border-radius: var(--radius-md);
   padding: 18px 22px;
   display: flex;
@@ -2886,6 +3049,873 @@ html, body {
     width: 100%;
   }
 }
+
+/* ==========================================
+   APPEARANCE (THEME & LAYOUT) DROPDOWN STYLES
+   ========================================== */
+.appearance-selector-wrap,
+.theme-selector-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.appearance-picker-btn,
+.theme-picker-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+}
+
+.appearance-picker-btn:hover,
+.theme-picker-btn:hover {
+  background-color: var(--steam-accent);
+  border-color: var(--border-color-light);
+  color: var(--text-highlight);
+}
+
+.appearance-current-icon,
+.theme-current-icon {
+  font-size: 0.95rem;
+}
+
+.appearance-current-label,
+.theme-current-label {
+  font-weight: 600;
+}
+
+.appearance-caret,
+.theme-caret {
+  transition: transform var(--transition-fast);
+}
+
+.appearance-selector-wrap.open .appearance-caret,
+.theme-selector-wrap.open .theme-caret {
+  transform: rotate(180deg);
+}
+
+.appearance-dropdown-menu,
+.theme-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  width: 275px;
+  padding: 6px;
+  display: none;
+  flex-direction: column;
+  gap: 3px;
+  z-index: 150;
+  animation: appearanceMenuFadeIn 0.15s ease-out;
+}
+
+.appearance-selector-wrap.open .appearance-dropdown-menu,
+.theme-selector-wrap.open .theme-dropdown-menu {
+  display: flex;
+}
+
+@keyframes appearanceMenuFadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.appearance-dropdown-header,
+.theme-dropdown-header {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 6px 8px 4px 8px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 3px;
+}
+
+.appearance-option-item,
+.theme-option-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: all var(--transition-fast);
+}
+
+.appearance-option-item:hover,
+.theme-option-item:hover {
+  background-color: var(--steam-accent);
+  color: var(--text-highlight);
+  border-color: var(--border-color-light);
+}
+
+.appearance-option-item.active,
+.theme-option-item.active {
+  background-color: var(--steam-accent);
+  border-color: var(--steam-blue);
+  box-shadow: 0 0 8px rgba(102, 192, 244, 0.2);
+}
+
+.appearance-option-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--steam-blue);
+  flex-shrink: 0;
+}
+
+.theme-swatch-dots {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  flex-shrink: 0;
+  width: 24px;
+  justify-content: center;
+}
+
+.theme-swatch-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: inline-block;
+}
+
+.appearance-option-text,
+.theme-option-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.appearance-option-name,
+.theme-option-name {
+  font-size: 0.83rem;
+  font-weight: 700;
+  color: var(--text-highlight);
+}
+
+.appearance-option-desc,
+.theme-option-desc {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.appearance-check-mark,
+.theme-check-mark {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--steam-blue);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.appearance-option-item.active .appearance-check-mark,
+.appearance-option-item.active .theme-check-mark,
+.theme-option-item.active .appearance-check-mark,
+.theme-option-item.active .theme-check-mark {
+  opacity: 1;
+}
+
+/* ==========================================
+   THEME-SPECIFIC ELEMENT CUSTOMIZATIONS
+   ========================================== */
+
+/* ------------------------------------------
+   1. STEAM 2003 (Classic Vintage Military Olive)
+   ------------------------------------------ */
+[data-theme="theme-steam2003"] .brand-logo {
+  border-color: #738466;
+  box-shadow: 0 0 10px rgba(196, 214, 147, 0.35);
+}
+
+[data-theme="theme-steam2003"] .brand-badge {
+  background-color: rgba(196, 214, 147, 0.18);
+  color: #dbe8b5;
+  border-color: rgba(196, 214, 147, 0.35);
+}
+
+[data-theme="theme-steam2003"] .btn-new-review {
+  background: linear-gradient(135deg, #5c6f44 0%, #3a4729 100%);
+  border-color: #8c9e5e;
+  color: #f4faea;
+}
+
+[data-theme="theme-steam2003"] .btn-new-review:hover {
+  background: linear-gradient(135deg, #6e844e 0%, #465732 100%);
+  border-color: #c4d693;
+  box-shadow: 0 0 10px rgba(196, 214, 147, 0.35);
+}
+
+[data-theme="theme-steam2003"] .btn-primary {
+  background: linear-gradient(135deg, #7c9443 0%, #4d6023 100%);
+  border-color: #a4be5c;
+  color: #f4faea;
+}
+
+[data-theme="theme-steam2003"] .btn-primary:hover {
+  background: linear-gradient(135deg, #91ad4e 0%, #5b712b 100%);
+  box-shadow: 0 0 10px rgba(164, 190, 92, 0.4);
+}
+
+[data-theme="theme-steam2003"] .nav-tab-btn.active {
+  background: linear-gradient(135deg, rgba(196, 214, 147, 0.25) 0%, rgba(56, 66, 51, 0.85) 100%);
+  border-color: #c4d693;
+  color: #f4faea;
+  box-shadow: 0 0 8px rgba(196, 214, 147, 0.2);
+}
+
+[data-theme="theme-steam2003"] .action-icon-new {
+  background: linear-gradient(135deg, #6c804e 0%, #425030 100%);
+  box-shadow: 0 2px 8px rgba(74, 87, 66, 0.5);
+}
+
+[data-theme="theme-steam2003"] .action-icon-backup {
+  background: linear-gradient(135deg, #7a7052 0%, #4c4530 100%);
+  box-shadow: 0 2px 8px rgba(92, 85, 60, 0.5);
+}
+
+[data-theme="theme-steam2003"] .action-icon-editor {
+  background: linear-gradient(135deg, #5c793f 0%, #364923 100%);
+  box-shadow: 0 2px 8px rgba(60, 80, 40, 0.5);
+}
+
+[data-theme="theme-steam2003"] .action-icon-reviews {
+  background: linear-gradient(135deg, #8a7a40 0%, #524720 100%);
+  box-shadow: 0 2px 8px rgba(100, 90, 40, 0.5);
+}
+
+[data-theme="theme-steam2003"] .home-view {
+  background: radial-gradient(circle at top center, #3c4837 0%, #20261d 100%);
+}
+
+[data-theme="theme-steam2003"] .home-hero-card {
+  background: linear-gradient(135deg, #444f3e 0%, #30392b 100%);
+  border-color: #5b6951;
+}
+
+[data-theme="theme-steam2003"] .home-hero-card::before {
+  background: radial-gradient(circle, rgba(196, 214, 147, 0.2) 0%, transparent 70%);
+}
+
+[data-theme="theme-steam2003"] .home-hero-logo {
+  border-color: #c4d693;
+  box-shadow: 0 0 14px rgba(196, 214, 147, 0.4);
+}
+
+[data-theme="theme-steam2003"] .home-badge-item {
+  background: rgba(196, 214, 147, 0.12);
+  border-color: rgba(196, 214, 147, 0.3);
+  color: #dbe8b5;
+}
+
+[data-theme="theme-steam2003"] .home-action-card {
+  background: linear-gradient(180deg, #404b3a 0%, #2c3527 100%);
+  border-color: #4f5c48;
+}
+
+[data-theme="theme-steam2003"] .home-action-card.home-card-primary {
+  background: linear-gradient(180deg, #4d5b46 0%, #343f2f 100%);
+  border-color: #c4d693;
+}
+
+[data-theme="theme-steam2003"] .home-resume-card {
+  background: linear-gradient(90deg, rgba(196, 214, 147, 0.15) 0%, rgba(56, 66, 51, 0.8) 100%);
+  border-color: #68795f;
+}
+
+[data-theme="theme-steam2003"] .home-about-card {
+  background: linear-gradient(135deg, #384233 0%, #283024 100%);
+  border-color: #4f5c48;
+}
+
+[data-theme="theme-steam2003"] .home-about-avatar {
+  background: rgba(196, 214, 147, 0.15);
+  border-color: rgba(196, 214, 147, 0.35);
+  color: #c4d693;
+}
+
+[data-theme="theme-steam2003"] .preview-body {
+  background: radial-gradient(circle at top right, #3c4837 0%, #20261d 100%);
+}
+
+[data-theme="theme-steam2003"] .steam-review-card {
+  background: linear-gradient(180deg, #444f3e 0%, #323b2d 100%);
+  border-color: #55644d;
+  color: #dbe4c8;
+}
+
+[data-theme="theme-steam2003"] .steam-thumb-icon.positive {
+  background: linear-gradient(135deg, #5b7332 0%, #3c4f20 100%);
+  box-shadow: 0 0 10px rgba(108, 138, 58, 0.4);
+}
+
+[data-theme="theme-steam2003"] .steam-blog-card {
+  background: linear-gradient(180deg, #3c4837 0%, #2a3325 100%);
+  border-color: #4f5c48;
+}
+
+[data-theme="theme-steam2003"] .steam-blog-header {
+  background: linear-gradient(90deg, #465440 0%, #323b2d 100%);
+}
+
+[data-theme="theme-steam2003"] .dash-review-card {
+  background: linear-gradient(180deg, #3e4a39 0%, #2c3527 100%);
+  border-color: #4f5c48;
+}
+
+[data-theme="theme-steam2003"] .dashboard-header-card {
+  background: linear-gradient(180deg, #3e4a39 0%, #2b3427 100%);
+  border-color: #4f5c48;
+}
+
+
+/* ------------------------------------------
+   2. STEAM 2011 (Coal / Gunmetal & Steel Blue)
+   ------------------------------------------ */
+[data-theme="theme-steam2011"] .brand-logo {
+  border-color: #388dc8;
+  box-shadow: 0 0 10px rgba(56, 141, 200, 0.4);
+}
+
+[data-theme="theme-steam2011"] .brand-badge {
+  background-color: rgba(56, 141, 200, 0.15);
+  color: #388dc8;
+  border-color: rgba(56, 141, 200, 0.35);
+}
+
+[data-theme="theme-steam2011"] .btn-new-review {
+  background: linear-gradient(135deg, #1f6ea8 0%, #133854 100%);
+  border-color: #388dc8;
+  color: #ffffff;
+}
+
+[data-theme="theme-steam2011"] .btn-new-review:hover {
+  background: linear-gradient(135deg, #2b84c7 0%, #18486d 100%);
+  box-shadow: 0 0 10px rgba(56, 141, 200, 0.4);
+}
+
+[data-theme="theme-steam2011"] .btn-primary {
+  background: linear-gradient(135deg, #75b022 0%, #446d10 100%);
+  border-color: #8ecc2b;
+  color: #ffffff;
+}
+
+[data-theme="theme-steam2011"] .btn-primary:hover {
+  background: linear-gradient(135deg, #8ecc2b 0%, #528214 100%);
+  box-shadow: 0 0 10px rgba(117, 176, 34, 0.4);
+}
+
+[data-theme="theme-steam2011"] .nav-tab-btn.active {
+  background: linear-gradient(135deg, rgba(56, 141, 200, 0.25) 0%, rgba(24, 27, 33, 0.9) 100%);
+  border-color: #388dc8;
+  color: #ffffff;
+  box-shadow: 0 0 8px rgba(56, 141, 200, 0.2);
+}
+
+[data-theme="theme-steam2011"] .action-icon-new {
+  background: linear-gradient(135deg, #1f6ea8 0%, #123753 100%);
+  box-shadow: 0 2px 8px rgba(31, 110, 168, 0.4);
+}
+
+[data-theme="theme-steam2011"] .action-icon-backup {
+  background: linear-gradient(135deg, #635882 0%, #37304f 100%);
+  box-shadow: 0 2px 8px rgba(99, 88, 130, 0.4);
+}
+
+[data-theme="theme-steam2011"] .action-icon-editor {
+  background: linear-gradient(135deg, #5b871c 0%, #33500d 100%);
+  box-shadow: 0 2px 8px rgba(91, 135, 28, 0.4);
+}
+
+[data-theme="theme-steam2011"] .action-icon-reviews {
+  background: linear-gradient(135deg, #a8782f 0%, #5e4014 100%);
+  box-shadow: 0 2px 8px rgba(168, 120, 47, 0.4);
+}
+
+[data-theme="theme-steam2011"] .home-view {
+  background: radial-gradient(circle at top center, #1e2229 0%, #0d0f12 100%);
+}
+
+[data-theme="theme-steam2011"] .home-hero-card {
+  background: linear-gradient(135deg, #22262e 0%, #15181d 100%);
+  border-color: #353b47;
+}
+
+[data-theme="theme-steam2011"] .home-hero-card::before {
+  background: radial-gradient(circle, rgba(56, 141, 200, 0.2) 0%, transparent 70%);
+}
+
+[data-theme="theme-steam2011"] .home-hero-logo {
+  border-color: #388dc8;
+  box-shadow: 0 0 14px rgba(56, 141, 200, 0.4);
+}
+
+[data-theme="theme-steam2011"] .home-badge-item {
+  background: rgba(56, 141, 200, 0.12);
+  border-color: rgba(56, 141, 200, 0.3);
+  color: #388dc8;
+}
+
+[data-theme="theme-steam2011"] .home-action-card {
+  background: linear-gradient(180deg, #20242b 0%, #14171c 100%);
+  border-color: #353b47;
+}
+
+[data-theme="theme-steam2011"] .home-action-card.home-card-primary {
+  background: linear-gradient(180deg, #28323f 0%, #181d24 100%);
+  border-color: #388dc8;
+}
+
+[data-theme="theme-steam2011"] .home-resume-card {
+  background: linear-gradient(90deg, rgba(56, 141, 200, 0.15) 0%, rgba(24, 27, 33, 0.8) 100%);
+  border-color: #353b47;
+}
+
+[data-theme="theme-steam2011"] .home-about-card {
+  background: linear-gradient(135deg, #1c1f24 0%, #131518 100%);
+  border-color: #353b47;
+}
+
+[data-theme="theme-steam2011"] .home-about-avatar {
+  background: rgba(56, 141, 200, 0.15);
+  border-color: rgba(56, 141, 200, 0.35);
+  color: #388dc8;
+}
+
+[data-theme="theme-steam2011"] .preview-body {
+  background: radial-gradient(circle at top right, #1e2229 0%, #0d0f12 100%);
+}
+
+[data-theme="theme-steam2011"] .steam-review-card {
+  background: linear-gradient(180deg, #20242c 0%, #16181e 100%);
+  border-color: #353b47;
+  color: #dcdedf;
+}
+
+[data-theme="theme-steam2011"] .steam-thumb-icon.positive {
+  background: linear-gradient(135deg, #4d7a18 0%, #304e0e 100%);
+  box-shadow: 0 0 10px rgba(77, 122, 24, 0.4);
+}
+
+[data-theme="theme-steam2011"] .steam-blog-card {
+  background: linear-gradient(180deg, #1d2127 0%, #13161a 100%);
+  border-color: #313742;
+}
+
+[data-theme="theme-steam2011"] .steam-blog-header {
+  background: linear-gradient(90deg, #252a32 0%, #191c21 100%);
+}
+
+[data-theme="theme-steam2011"] .dash-review-card {
+  background: linear-gradient(180deg, #1e2228 0%, #14161a 100%);
+  border-color: #313742;
+}
+
+[data-theme="theme-steam2011"] .dashboard-header-card {
+  background: linear-gradient(180deg, #1e2228 0%, #131519 100%);
+  border-color: #313742;
+}
+
+
+/* ------------------------------------------
+   3. FRUTIGER AERO (Glossy Aqua Crystal & Emerald Glass)
+   ------------------------------------------ */
+[data-theme="theme-frutiger-aero"] .brand-logo {
+  border-color: #38bdf8;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+}
+
+[data-theme="theme-frutiger-aero"] .brand-badge {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.25) 0%, rgba(16, 185, 129, 0.3) 100%);
+  color: #f0f9ff;
+  border-color: rgba(147, 218, 255, 0.5);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+}
+
+[data-theme="theme-frutiger-aero"] .btn-new-review {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  border-color: rgba(186, 235, 255, 0.6);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+[data-theme="theme-frutiger-aero"] .btn-new-review:hover {
+  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.6);
+}
+
+[data-theme="theme-frutiger-aero"] .btn-primary {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-color: rgba(167, 243, 208, 0.5);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+}
+
+[data-theme="theme-frutiger-aero"] .btn-primary:hover {
+  background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+  box-shadow: 0 0 16px rgba(52, 211, 153, 0.6);
+}
+
+[data-theme="theme-frutiger-aero"] .nav-tab-btn.active {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.35) 0%, rgba(7, 52, 82, 0.85) 100%);
+  border-color: #38bdf8;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+}
+
+[data-theme="theme-frutiger-aero"] .action-icon-new {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  box-shadow: 0 2px 10px rgba(2, 132, 199, 0.5);
+}
+
+[data-theme="theme-frutiger-aero"] .action-icon-backup {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+  box-shadow: 0 2px 10px rgba(6, 182, 212, 0.5);
+}
+
+[data-theme="theme-frutiger-aero"] .action-icon-editor {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.5);
+}
+
+[data-theme="theme-frutiger-aero"] .action-icon-reviews {
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  box-shadow: 0 2px 10px rgba(14, 165, 233, 0.5);
+}
+
+[data-theme="theme-frutiger-aero"] .home-view {
+  background: radial-gradient(circle at top center, #0a446c 0%, #031b2b 100%);
+}
+
+[data-theme="theme-frutiger-aero"] .home-hero-card {
+  background: linear-gradient(135deg, rgba(14, 65, 102, 0.95) 0%, rgba(8, 51, 79, 0.95) 100%);
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: 0 10px 30px rgba(2, 132, 199, 0.35);
+  backdrop-filter: blur(8px);
+}
+
+[data-theme="theme-frutiger-aero"] .home-hero-card::before {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.35) 0%, transparent 70%);
+}
+
+[data-theme="theme-frutiger-aero"] .home-hero-logo {
+  border-color: #38bdf8;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.5);
+}
+
+[data-theme="theme-frutiger-aero"] .home-badge-item {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: rgba(56, 189, 248, 0.35);
+  color: #bae6fd;
+}
+
+[data-theme="theme-frutiger-aero"] .home-action-card {
+  background: linear-gradient(180deg, rgba(14, 65, 102, 0.85) 0%, rgba(8, 51, 79, 0.85) 100%);
+  border-color: rgba(147, 218, 255, 0.3);
+  backdrop-filter: blur(6px);
+}
+
+[data-theme="theme-frutiger-aero"] .home-action-card.home-card-primary {
+  background: linear-gradient(180deg, rgba(2, 132, 199, 0.35) 0%, rgba(10, 56, 88, 0.95) 100%);
+  border-color: #38bdf8;
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.3);
+}
+
+[data-theme="theme-frutiger-aero"] .home-resume-card {
+  background: linear-gradient(90deg, rgba(2, 132, 199, 0.25) 0%, rgba(10, 56, 88, 0.85) 100%);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+[data-theme="theme-frutiger-aero"] .home-about-card {
+  background: linear-gradient(135deg, rgba(14, 65, 102, 0.9) 0%, rgba(8, 51, 79, 0.9) 100%);
+  border-color: rgba(147, 218, 255, 0.35);
+}
+
+[data-theme="theme-frutiger-aero"] .home-about-avatar {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+}
+
+[data-theme="theme-frutiger-aero"] .preview-body {
+  background: radial-gradient(circle at top right, #0a446c 0%, #031b2b 100%);
+}
+
+[data-theme="theme-frutiger-aero"] .steam-review-card {
+  background: linear-gradient(180deg, #0e4166 0%, #08334f 100%);
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.25);
+  color: #f0f9ff;
+}
+
+[data-theme="theme-frutiger-aero"] .steam-thumb-icon.positive {
+  background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+}
+
+[data-theme="theme-frutiger-aero"] .steam-blog-card {
+  background: linear-gradient(180deg, #0a3858 0%, #062b45 100%);
+  border-color: rgba(147, 218, 255, 0.35);
+}
+
+[data-theme="theme-frutiger-aero"] .steam-blog-header {
+  background: linear-gradient(90deg, #0f4870 0%, #0a3858 100%);
+}
+
+[data-theme="theme-frutiger-aero"] .dash-review-card {
+  background: linear-gradient(180deg, #0c3e62 0%, #072e4a 100%);
+  border-color: rgba(147, 218, 255, 0.3);
+}
+
+[data-theme="theme-frutiger-aero"] .dashboard-header-card {
+  background: linear-gradient(180deg, #0d436a 0%, #08314e 100%);
+  border-color: rgba(147, 218, 255, 0.35);
+}
+
+/* ------------------------------------------
+   4. TELA OLED (Pure Black #000000, Crisp Borders & High Contrast Neon)
+   ------------------------------------------ */
+[data-theme="theme-oled"] .brand-logo {
+  border-color: #00f0ff;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
+}
+
+[data-theme="theme-oled"] .brand-badge {
+  background: rgba(0, 240, 255, 0.12);
+  color: #00f0ff;
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
+}
+
+[data-theme="theme-oled"] .btn-new-review {
+  background: linear-gradient(135deg, #00f0ff 0%, #0099cc 100%);
+  border-color: #00f0ff;
+  color: #000000;
+  font-weight: 700;
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.4);
+}
+
+[data-theme="theme-oled"] .btn-new-review:hover {
+  background: linear-gradient(135deg, #38f4ff 0%, #00b4d8 100%);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.7);
+  color: #000000;
+}
+
+[data-theme="theme-oled"] .btn-primary {
+  background: linear-gradient(135deg, #00ff88 0%, #00b359 100%);
+  border-color: #00ff88;
+  color: #000000;
+  font-weight: 700;
+  box-shadow: 0 0 14px rgba(0, 255, 136, 0.35);
+}
+
+[data-theme="theme-oled"] .btn-primary:hover {
+  background: linear-gradient(135deg, #33ff9f 0%, #00cc6a 100%);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+  color: #000000;
+}
+
+[data-theme="theme-oled"] .nav-tab-btn.active {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: #00f0ff;
+  color: #00f0ff;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+}
+
+[data-theme="theme-oled"] .action-icon-new {
+  background: #000000;
+  border: 1px solid #00f0ff;
+  color: #00f0ff;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
+}
+
+[data-theme="theme-oled"] .action-icon-backup {
+  background: #000000;
+  border: 1px solid #00ff88;
+  color: #00ff88;
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.35);
+}
+
+[data-theme="theme-oled"] .action-icon-editor {
+  background: #000000;
+  border: 1px solid #ffd000;
+  color: #ffd000;
+  box-shadow: 0 0 12px rgba(255, 208, 0, 0.35);
+}
+
+[data-theme="theme-oled"] .action-icon-reviews {
+  background: #000000;
+  border: 1px solid #a855f7;
+  color: #c084fc;
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.35);
+}
+
+[data-theme="theme-oled"] .home-view {
+  background: #000000;
+}
+
+[data-theme="theme-oled"] .home-hero-card {
+  background: #050507;
+  border: 1px solid #222430;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.08);
+}
+
+[data-theme="theme-oled"] .home-hero-card::before {
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, transparent 70%);
+}
+
+[data-theme="theme-oled"] .home-hero-logo {
+  border-color: #00f0ff;
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.4);
+}
+
+[data-theme="theme-oled"] .home-badge-item {
+  background: #0c0c10;
+  border-color: #222430;
+  color: #00f0ff;
+}
+
+[data-theme="theme-oled"] .home-action-card {
+  background: #08080b;
+  border: 1px solid #1f2029;
+}
+
+[data-theme="theme-oled"] .home-action-card:hover {
+  border-color: #00f0ff;
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.2);
+}
+
+[data-theme="theme-oled"] .home-action-card.home-card-primary {
+  background: linear-gradient(180deg, #091218 0%, #060608 100%);
+  border-color: #00f0ff;
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.25);
+}
+
+[data-theme="theme-oled"] .home-resume-card {
+  background: linear-gradient(90deg, rgba(0, 240, 255, 0.08) 0%, #08080b 100%);
+  border-color: #222430;
+}
+
+[data-theme="theme-oled"] .home-about-card {
+  background: #08080b;
+  border: 1px solid #1f2029;
+}
+
+[data-theme="theme-oled"] .home-about-avatar {
+  background: #0c0c12;
+  border-color: #00f0ff;
+  color: #00f0ff;
+}
+
+[data-theme="theme-oled"] .preview-body {
+  background: #000000;
+}
+
+[data-theme="theme-oled"] .steam-review-card {
+  background: #09090c;
+  border-color: #222430;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.95);
+  color: #ffffff;
+}
+
+[data-theme="theme-oled"] .steam-thumb-icon.positive {
+  background: #00ff88;
+  color: #000000;
+  box-shadow: 0 0 14px rgba(0, 255, 136, 0.6);
+}
+
+[data-theme="theme-oled"] .steam-blog-card {
+  background: #09090c;
+  border-color: #1f2029;
+}
+
+[data-theme="theme-oled"] .steam-blog-header {
+  background: #0d0d12;
+  border-bottom: 1px solid #1f2029;
+}
+
+[data-theme="theme-oled"] .dash-review-card {
+  background: #08080b;
+  border-color: #1f2029;
+}
+
+[data-theme="theme-oled"] .dash-review-card:hover {
+  border-color: #00f0ff;
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.25);
+}
+
+[data-theme="theme-oled"] .dashboard-header-card {
+  background: #08080b;
+  border-color: #1f2029;
+}
+
+[data-theme="theme-oled"] .backup-dropzone {
+  background: #050507;
+  border-color: #222430;
+}
+
+[data-theme="theme-oled"] .backup-dropzone:hover {
+  border-color: #00f0ff;
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.25);
+}
+
+[data-theme="theme-oled"] .backup-stat-card {
+  background: #08080b;
+  border-color: #1f2029;
+}
+
+[data-theme="theme-oled"] .scratchpad-editor,
+[data-theme="theme-oled"] .review-textarea,
+[data-theme="theme-oled"] .form-input,
+[data-theme="theme-oled"] .form-select {
+  background-color: #000000;
+  border-color: #222430;
+  color: #ffffff;
+}
+
+[data-theme="theme-oled"] .scratchpad-editor:focus,
+[data-theme="theme-oled"] .review-textarea:focus,
+[data-theme="theme-oled"] .form-input:focus,
+[data-theme="theme-oled"] .form-select:focus {
+  border-color: #00f0ff;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.35);
+}
+
+[data-theme="theme-oled"] .toolbar-btn:hover {
+  background: rgba(0, 240, 255, 0.15);
+  color: #00f0ff;
+}
+
+[data-theme="theme-oled"] .tag-btn:hover,
+[data-theme="theme-oled"] .tag-btn.active {
+  background: rgba(0, 240, 255, 0.2);
+  border-color: #00f0ff;
+  color: #00f0ff;
+}
+
+
 
 
 

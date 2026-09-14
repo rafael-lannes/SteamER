@@ -40,11 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnHomeResumeActive = document.getElementById('btnHomeResumeActive');
 
   // Header Actions
-  const btnToggleLayout = document.getElementById('btnToggleLayout');
-  const layoutToggleText = document.getElementById('layoutToggleText');
   const btnOpenNewReviewModal = document.getElementById('btnOpenNewReviewModal');
   const btnOpenBackupModal = document.getElementById('btnOpenBackupModal');
   const btnManageTemplates = document.getElementById('btnManageTemplates');
+  const appearanceSelectorWrap = document.getElementById('appearanceSelectorWrap') || document.querySelector('.appearance-selector-wrap');
+  const btnAppearanceMenu = document.getElementById('btnAppearanceMenu') || document.getElementById('btnThemeSelector');
+  const layoutOptionItems = document.querySelectorAll('.layout-option-item');
+  const themeOptionItems = document.querySelectorAll('.theme-option-item');
 
   // Editor DOM Elements
   const activeGameTitleText = document.getElementById('activeGameTitleText');
@@ -201,11 +203,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let iconSvg = '';
     if (type === 'success') {
-      iconSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="#a4d007" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+      iconSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="var(--steam-green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
     } else if (type === 'warning') {
-      iconSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`;
+      iconSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="var(--status-warning)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`;
     } else {
-      iconSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>`;
+      iconSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="var(--status-danger)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>`;
     }
 
     toast.innerHTML = `${iconSvg} <span>${message}</span>`;
@@ -315,26 +317,100 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // Layout Preference & Toggle
+  // Layout Management (Side-by-Side vs Stacked)
   // ==========================================
-  function initLayout() {
-    const savedLayout = localStorage.getItem('steam_editor_layout_preference') || 'side-by-side';
-    if (savedLayout === 'stacked') {
+  function setLayout(mode, showNotification = false) {
+    const isStacked = mode === 'stacked';
+    if (isStacked) {
       appContainer.classList.add('layout-stacked');
-      if (layoutToggleText) layoutToggleText.textContent = 'Empilhado';
     } else {
       appContainer.classList.remove('layout-stacked');
-      if (layoutToggleText) layoutToggleText.textContent = 'Lado a Lado';
+    }
+
+    if (layoutOptionItems && layoutOptionItems.length > 0) {
+      layoutOptionItems.forEach(item => {
+        item.classList.toggle('active', item.dataset.layout === (isStacked ? 'stacked' : 'side-by-side'));
+      });
+    }
+
+    localStorage.setItem('steam_editor_layout_preference', isStacked ? 'stacked' : 'side-by-side');
+
+    if (showNotification) {
+      showToast(`Layout alterado para: ${isStacked ? 'Empilhado (1 Coluna)' : 'Lado a Lado (2 Colunas)'}`);
     }
   }
 
-  if (btnToggleLayout) {
-    btnToggleLayout.addEventListener('click', () => {
-      const isStacked = appContainer.classList.toggle('layout-stacked');
-      const mode = isStacked ? 'stacked' : 'side-by-side';
-      localStorage.setItem('steam_editor_layout_preference', mode);
-      if (layoutToggleText) layoutToggleText.textContent = isStacked ? 'Empilhado' : 'Lado a Lado';
-      showToast(`Layout alterado para: ${isStacked ? 'Empilhado (1 Coluna)' : 'Lado a Lado (2 Colunas)'}`);
+  // ==========================================
+  // Color Themes Management
+  // ==========================================
+  const THEME_NAMES = {
+    'theme-default': 'Tema Padrão',
+    'theme-steam2003': 'Steam 2003',
+    'theme-steam2011': 'Steam 2011',
+    'theme-frutiger-aero': 'Frutiger Aero',
+    'theme-oled': 'Tela OLED'
+  };
+
+  function setTheme(themeId, showNotification = false) {
+    const targetTheme = THEME_NAMES[themeId] ? themeId : 'theme-default';
+
+    document.documentElement.setAttribute('data-theme', targetTheme);
+    document.body.setAttribute('data-theme', targetTheme);
+
+    if (themeOptionItems && themeOptionItems.length > 0) {
+      themeOptionItems.forEach(item => {
+        item.classList.toggle('active', item.dataset.theme === targetTheme);
+      });
+    }
+
+    localStorage.setItem('steamer_theme_preference', targetTheme);
+
+    if (showNotification) {
+      showToast(`Tema alterado para: ${THEME_NAMES[targetTheme]}`);
+    }
+  }
+
+  // ==========================================
+  // Unified Appearance Dropdown Controller
+  // ==========================================
+  if (btnAppearanceMenu && appearanceSelectorWrap) {
+    btnAppearanceMenu.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = appearanceSelectorWrap.classList.toggle('open');
+      btnAppearanceMenu.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    if (appearanceSelectorWrap && !appearanceSelectorWrap.contains(e.target)) {
+      appearanceSelectorWrap.classList.remove('open');
+      if (btnAppearanceMenu) {
+        btnAppearanceMenu.setAttribute('aria-expanded', 'false');
+      }
+    }
+  });
+
+  if (layoutOptionItems && layoutOptionItems.length > 0) {
+    layoutOptionItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const layoutMode = item.dataset.layout;
+        if (layoutMode) {
+          setLayout(layoutMode, true);
+        }
+      });
+    });
+  }
+
+  if (themeOptionItems && themeOptionItems.length > 0) {
+    themeOptionItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const themeId = item.dataset.theme;
+        if (themeId) {
+          setTheme(themeId, true);
+        }
+      });
     });
   }
 
@@ -1484,8 +1560,9 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         ReviewManager.resetAllData();
         
-        // Reset layout preference
-        initLayout();
+        // Reset layout & theme preferences to defaults
+        setLayout('side-by-side', false);
+        setTheme('theme-default', false);
         
         // Refresh template select dropdown
         populateTemplateSelect();
@@ -2066,7 +2143,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // Initialization
   // ==========================================
-  initLayout();
+  const savedLayout = localStorage.getItem('steam_editor_layout_preference') || 'side-by-side';
+  setLayout(savedLayout, false);
+
+  const savedTheme = localStorage.getItem('steamer_theme_preference') || 'theme-default';
+  setTheme(savedTheme, false);
   populateTemplateSelect();
 
   // Load default template content if completely brand new

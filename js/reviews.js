@@ -359,6 +359,7 @@ class ReviewManager {
         localStorage.removeItem('steam_custom_templates');
       }
       localStorage.removeItem('steam_editor_layout_preference');
+      localStorage.removeItem('steamer_theme_preference');
       return true;
     } catch (e) {
       console.error('Error resetting application data:', e);

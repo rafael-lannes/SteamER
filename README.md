@@ -1,6 +1,6 @@
 # 🎮 SteamER - "Steam Easy Review"
 
-> **Criado por Rafael Lannes**
+> **Criado por Rafael Lannes** • [Repositório no GitHub](https://github.com/rafael-lannes/SteamER) • [Portfólio](https://rafael-lannes.github.io/)
 
 Uma aplicação web moderna, rápida e responsiva criada para facilitar a criação, formatação, organização e publicação de análises (reviews) de jogos na **Steam**.
 
@@ -67,7 +67,12 @@ Uma aplicação web moderna, rápida e responsiva criada para facilitar a criaç
 9. **Gerenciador de Moldes / Templates**:
    - Moldes padrão pré-carregados e criação/gerenciamento de moldes personalizados.
 
-10. **Visualização Steam Live & Exportação**:
+10. **Menu Unificado de Aparência (Layout & Paleta de Cores)**:
+    - Botão único `[ 🎨 Aparência ]` no cabeçalho com dropdown organizado em duas seções:
+      - **Modo de Layout**: Alternância entre **Lado a Lado** (2 colunas) e **Empilhado** (1 coluna).
+      - **Paleta de Cores**: Escolha entre **Tema Padrão**, **Steam 2003**, **Steam 2011**, **Frutiger Aero** e **Tela OLED** (preto puro `#000000` e alto contraste neon) com swatches e persistência automática.
+
+11. **Visualização Steam Live & Exportação**:
     - Pré-visualização idêntica aos cards de análise da Steam.
     - Botão em destaque **"Copiar Texto Formatado"** e botão para download em `.txt`.
 
