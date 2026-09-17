@@ -28,7 +28,7 @@
         <div>
           <h1 class="brand-title">
             SteamER
-            <span class="brand-badge">Steam Easy Review</span>
+            <span class="brand-badge">Steam Easy Review • v3.0</span>
           </h1>
           <p class="brand-subtitle">Crie, formate e exporte análises para a Steam <span class="brand-author-tag">• Criado por <strong>Rafael Lannes</strong></span></p>
         </div>
@@ -196,7 +196,7 @@
                 <div>
                   <h1 class="home-hero-title">
                     SteamER
-                    <span class="brand-badge">Steam Easy Review</span>
+                    <span class="brand-badge">Steam Easy Review • v3.0</span>
                   </h1>
                   <p class="home-hero-subtitle">
                     A ferramenta moderna e rápida para criar, formatar, organizar e exportar análises perfeitas para a <strong>Steam</strong>.
@@ -206,12 +206,20 @@
 
               <div class="home-hero-meta-strip">
                 <span class="home-meta-pill">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--steam-blue);"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                  Assistente de IA Integrado
+                </span>
+                <span class="home-meta-pill">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
                   BBCode Steam Nativo
                 </span>
                 <span class="home-meta-pill">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                   Prévia em Tempo Real
+                </span>
+                <span class="home-meta-pill">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                  Ditado por Voz
                 </span>
                 <span class="home-meta-pill">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
@@ -250,21 +258,7 @@
                 </button>
               </div>
 
-              <!-- Action 2: Importar Backup -->
-              <div class="home-action-card" id="btnHomeImportBackup">
-                <div class="home-action-icon-wrap action-icon-backup">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                </div>
-                <div class="home-action-info">
-                  <h3 class="home-action-title">Importar / Backup</h3>
-                  <p class="home-action-desc">Restaure, mescle ou faça download de todo o acervo de análises e notas em JSON.</p>
-                </div>
-                <button class="btn btn-secondary btn-sm home-card-btn">
-                  Abrir Backup &rarr;
-                </button>
-              </div>
-
-              <!-- Action 3: Ir para o Editor -->
+              <!-- Action 2: Ir para o Editor -->
               <div class="home-action-card" id="btnHomeGoEditor">
                 <div class="home-action-icon-wrap action-icon-editor">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
@@ -278,7 +272,7 @@
                 </button>
               </div>
 
-              <!-- Action 4: Minhas Reviews -->
+              <!-- Action 3: Minhas Reviews -->
               <div class="home-action-card" id="btnHomeGoReviews">
                 <div class="home-action-icon-wrap action-icon-reviews">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
@@ -289,6 +283,20 @@
                 </div>
                 <button class="btn btn-secondary btn-sm home-card-btn">
                   Ver Biblioteca (<span id="homeReviewsCountBadge">0</span>) &rarr;
+                </button>
+              </div>
+
+              <!-- Action 4: Importar Backup -->
+              <div class="home-action-card" id="btnHomeImportBackup">
+                <div class="home-action-icon-wrap action-icon-backup">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                </div>
+                <div class="home-action-info">
+                  <h3 class="home-action-title">Importar / Backup</h3>
+                  <p class="home-action-desc">Restaure, mescle ou faça download de todo o acervo de análises e notas em JSON.</p>
+                </div>
+                <button class="btn btn-secondary btn-sm home-card-btn">
+                  Abrir Backup &rarr;
                 </button>
               </div>
             </div>
@@ -320,7 +328,7 @@
             </div>
           </section>
 
-          <!-- Features Overview Section -->
+          <!-- Features Overview Section (8 Uniform Feature Cards) -->
           <section class="home-section">
             <div class="home-section-header">
               <h2 class="home-section-title">
@@ -331,6 +339,25 @@
             </div>
 
             <div class="home-features-grid">
+              <!-- Feature 1: Assistente IA -->
+              <div class="home-feature-box">
+                <div class="home-feature-icon-badge" style="color: var(--steam-blue); background-color: rgba(102, 192, 244, 0.1);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                </div>
+                <h3 class="home-feature-title">Assistente de IA Gamer</h3>
+                <p class="home-feature-text">Copilot integrado com Google Gemini (grátis), Groq (Llama 3.3 grátis) e OpenAI. Corrige gramática, modula tom, traduz e preserva rigorosamente todas as tags BBCode.</p>
+              </div>
+
+              <!-- Feature 2: Ditado por Voz -->
+              <div class="home-feature-box">
+                <div class="home-feature-icon-badge" style="color: var(--status-danger); background-color: rgba(239, 68, 68, 0.1);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                </div>
+                <h3 class="home-feature-title">Ditado por Voz Inteligente</h3>
+                <p class="home-feature-text">Fale no microfone para escrever análises e anotações com suporte a pontuação falada em português (<em>"ponto final"</em>, <em>"vírgula"</em>, <em>"novo parágrafo"</em>, etc.).</p>
+              </div>
+
+              <!-- Feature 3: Editor BBCode -->
               <div class="home-feature-box">
                 <div class="home-feature-icon-badge">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
@@ -339,14 +366,16 @@
                 <p class="home-feature-text">Negrito, itálico, títulos H1/H2/H3, citações, spoilers interativos, listas, tabelas e cores com atalhos de teclado ágeis.</p>
               </div>
 
+              <!-- Feature 4: Feed & Prévia -->
               <div class="home-feature-box">
                 <div class="home-feature-icon-badge">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
                 </div>
                 <h3 class="home-feature-title">Feed Steam & Prévia ao Vivo</h3>
-                <p class="home-feature-text">Veja como sua análise ficará exatamente na comunidade da Steam e leia seu acervo no modo Blog da Steam.</p>
+                <p class="home-feature-text">Veja como sua análise ficará exatamente na comunidade da Steam em tempo real e leia seu catálogo no modo Blog da Steam.</p>
               </div>
 
+              <!-- Feature 5: Bloco de Notas -->
               <div class="home-feature-box">
                 <div class="home-feature-icon-badge">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
@@ -355,12 +384,31 @@
                 <p class="home-feature-text">Guarde rascunhos dedicados para cada jogo sem consumir o limite de 8.000 caracteres, com opção de janela flutuante independente.</p>
               </div>
 
+              <!-- Feature 6: Estrelas & Moldes -->
               <div class="home-feature-box">
                 <div class="home-feature-icon-badge">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                 </div>
                 <h3 class="home-feature-title">Avaliação por Estrelas & Moldes</h3>
                 <p class="home-feature-text">Insira notas de 1 a 5 ou 1 a 10 estrelas formatadas para gráficos, gameplay e história, e gerencie seus moldes reutilizáveis.</p>
+              </div>
+
+              <!-- Feature 7: Limitador de 8.000 Caracteres -->
+              <div class="home-feature-box">
+                <div class="home-feature-icon-badge" style="color: var(--status-warning); background-color: rgba(245, 158, 11, 0.1);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+                <h3 class="home-feature-title">Limitador de 8.000 Caracteres</h3>
+                <p class="home-feature-text">Contagem contínua de caracteres, palavras e linhas em tempo real com barra de progresso colorida para você nunca estourar a cota da Steam.</p>
+              </div>
+
+              <!-- Feature 8: 5 Temas Visuais & Backup -->
+              <div class="home-feature-box">
+                <div class="home-feature-icon-badge" style="color: var(--steam-blue); background-color: rgba(102, 192, 244, 0.1);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"></path></svg>
+                </div>
+                <h3 class="home-feature-title">5 Temas Visuais & Backup JSON</h3>
+                <p class="home-feature-text">Personalize entre Tema Padrão, Tela OLED, Steam 2003, 2011 ou Frutiger Aero (2 layouts), com backup e restauração JSON 100% segura.</p>
               </div>
             </div>
           </section>
@@ -373,22 +421,27 @@
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                 </div>
                 <div>
-                  <h3 class="home-about-title">Sobre o SteamER</h3>
+                  <div class="home-about-title-row">
+                    <h3 class="home-about-title">Sobre o SteamER</h3>
+                    <span class="badge" style="font-size: 0.72rem; padding: 2px 7px; background: rgba(102, 192, 244, 0.15); color: var(--steam-blue); border: 1px solid rgba(102, 192, 244, 0.3); border-radius: 4px;">v3.0</span>
+                  </div>
                   <p class="home-about-author">Desenvolvido por <strong>Rafael Lannes</strong></p>
                   <p class="home-about-desc">
-                    O <strong>SteamER</strong> é um projeto de código aberto focado em simplificar a vida de gamers e criadores de conteúdo ao escrever e publicar análises na plataforma Steam. Seus dados ficam 100% seguros e armazenados no seu próprio navegador.
+                    O <strong>SteamER</strong> é um projeto open source criado para facilitar a escrita e formatação de análises na plataforma Steam. Com suporte a Inteligência Artificial, Ditado por Voz e 5 temas nostálgicos, seus dados ficam 100% seguros e armazenados no seu próprio navegador.
                   </p>
                 </div>
               </div>
-              <div class="home-about-right" style="display: flex; flex-direction: column; gap: 8px;">
-                <a href="https://github.com/rafael-lannes/SteamER" target="_blank" rel="noopener noreferrer" class="btn btn-primary home-github-btn" title="Acessar o repositório oficial do SteamER no GitHub">
-                  <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px;"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-                  <span>Projeto no GitHub</span>
-                </a>
-                <a href="https://rafael-lannes.github.io/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary home-github-btn" style="font-size: 0.8rem; padding: 6px 12px;" title="Acessar o portfólio de Rafael Lannes">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                  <span>Portfólio do Criador</span>
-                </a>
+              <div class="home-about-right">
+                <div class="home-about-actions">
+                  <a href="https://github.com/rafael-lannes/SteamER" target="_blank" rel="noopener noreferrer" class="btn btn-primary home-github-btn" title="Acessar o repositório oficial do SteamER no GitHub">
+                    <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px;"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                    <span>Projeto no GitHub</span>
+                  </a>
+                  <a href="https://rafael-lannes.github.io/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary home-github-btn" style="font-size: 0.8rem; padding: 7px 14px;" title="Acessar o portfólio de Rafael Lannes">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    <span>Portfólio do Criador</span>
+                  </a>
+                </div>
               </div>
             </div>
           </section>
@@ -532,6 +585,17 @@
                 <span>Inserir Avaliação / Nota</span>
               </button>
             </div>
+
+            <!-- AI Assistant Group -->
+            <div class="toolbar-group">
+              <button id="btnOpenAiAssistant" class="tool-btn btn-ai" data-tooltip="Assistente de IA (Ctrl+J)" title="Assistente de IA">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--steam-blue);"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                <span class="btn-ai-text">Assistente IA</span>
+              </button>
+              <button id="btnOpenAiSettings" class="tool-btn btn-ai-config" data-tooltip="Configurar Chave de IA (Gemini / Groq / OpenAI)" title="Configurar Chave de IA">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+              </button>
+            </div>
           </div>
 
           <!-- Editor Input Area -->
@@ -625,11 +689,19 @@
               <!-- Notes Main Area -->
               <div id="notesMainControls" style="display: flex; flex-direction: column; flex: 1; overflow: hidden;">
                 <div class="notes-toolbar">
-                  <div style="display: flex; gap: 6px; align-items: center;">
+                  <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
                     <button id="btnVoiceNotes" class="btn btn-secondary btn-sm btn-voice-notes" title="Ditar anotações por voz">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
                       <span>Voz</span>
                       <span class="voice-recording-dot"></span>
+                    </button>
+                    <button id="btnAiNotesAssistant" class="btn btn-secondary btn-sm btn-ai-notes" title="Assistente de IA para aprimorar, organizar ou traduzir as anotações">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--steam-blue);"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                      <span>IA Notas</span>
+                    </button>
+                    <button id="btnAiNotesToReview" class="btn btn-secondary btn-sm btn-ai-convert" title="Transformar anotações em rascunho de review completo via IA">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;color:var(--steam-blue);"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                      <span>Gerar Review</span>
                     </button>
                     <button id="btnPopoutNotes" class="btn btn-popout-notes btn-sm" title="Desprender bloco de notas em uma janela flutuante independente">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
@@ -840,7 +912,7 @@
 
   <!-- 0. Sobre o SteamER Modal -->
   <div id="aboutModal" class="modal-backdrop">
-    <div class="modal-card" style="max-width: 540px;">
+    <div class="modal-card" style="max-width: 560px;">
       <div class="modal-header">
         <h3 class="modal-title">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
@@ -853,22 +925,23 @@
           <img src="assets/logo.jpg" alt="SteamER Logo" class="about-logo-img" />
           <div>
             <h2 class="about-hero-title">SteamER</h2>
-            <span class="brand-badge">Steam Easy Review • v2.1</span>
+            <span class="brand-badge">Steam Easy Review • v3.0</span>
           </div>
         </div>
 
         <div class="about-description">
-          <p>O <strong>SteamER (Steam Easy Review)</strong> é uma aplicação web rápida desenvolvida para jogadores e curadores que desejam escrever, formatar e organizar análises para a plataforma <strong>Steam</strong>.</p>
+          <p>O <strong>SteamER (Steam Easy Review)</strong> é uma aplicação web rápida desenvolvida para jogadores e curadores escreverem, formatarem e organizarem análises para a plataforma Steam.</p>
           
-          <h3 style="color:var(--steam-blue); margin-top:14px; margin-bottom:8px; font-size:0.95rem; font-weight:700;">Recursos Principais:</h3>
+          <h3 class="about-features-heading">Recursos Principais</h3>
           <ul class="about-features-list">
-            <li>Editor com tags BBCode nativas da Steam e atalhos de teclado ágeis.</li>
-            <li>Pré-visualização ao vivo fiel ao design dos cards da comunidade Steam.</li>
-            <li>Visualização em Blog / Feed Steam de todo o seu catálogo de reviews.</li>
+            <li>Assistente de IA integrado (Google Gemini, Groq e OpenAI) com atalho <code>Ctrl+J</code> para aprimorar, traduzir e estruturar análises.</li>
+            <li>Ditado por voz em tempo real com suporte a comandos falados de pontuação em português.</li>
+            <li>Editor completo com formatação BBCode nativa da Steam, cores, spoilers e atalhos de teclado.</li>
+            <li>Pré-visualização ao vivo fiel ao design da comunidade Steam e modo de catálogo em feed/blog.</li>
             <li>Bloco de notas exclusivo por jogo com suporte a janela flutuante independente.</li>
-            <li>Construtor interativo de nota por estrelas e escalas de 1 a 10.</li>
-            <li>Sistema de backup completo (exportação e importação JSON com validação).</li>
-            <li>Armazenamento local privado e direto no navegador.</li>
+            <li>Construtor interativo de avaliação por estrelas (1 a 5 ou 1 a 10) e moldes personalizáveis.</li>
+            <li>Contador de caracteres em tempo real com alerta visual do limite oficial de 8.000 caracteres.</li>
+            <li>5 temas visuais (Padrão, Tela OLED, Steam 2003, Steam 2011 e Frutiger Aero) e backup seguro em arquivo JSON.</li>
           </ul>
         </div>
 
@@ -877,19 +950,19 @@
             <div class="about-author-avatar-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
             </div>
-            <div>
-              <strong style="color:#fff; font-size:0.95rem;">Desenvolvido por Rafael Lannes</strong>
-              <p style="color:var(--text-secondary); font-size:0.8rem;">Game Developer & Software Engineer</p>
+            <div style="flex: 1;">
+              <strong class="about-author-name">Rafael Lannes</strong>
+              <p class="about-author-role">Game Developer & Software Engineer</p>
             </div>
           </div>
-          <div style="display: flex; flex-direction: column; gap: 8px;">
-            <a href="https://github.com/rafael-lannes/SteamER" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm about-github-btn" style="gap: 8px;">
-              <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px;"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-              <span>Repositório do SteamER no GitHub</span>
+          <div class="about-author-actions">
+            <a href="https://github.com/rafael-lannes/SteamER" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm about-github-btn">
+              <svg viewBox="0 0 24 24" fill="currentColor" style="width:15px;height:15px;"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              <span>Repositório GitHub</span>
             </a>
-            <a href="https://rafael-lannes.github.io/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm about-github-btn" style="gap: 8px;">
+            <a href="https://rafael-lannes.github.io/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm about-github-btn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-              <span>Portfólio do Criador (rafael-lannes.github.io)</span>
+              <span>Portfólio</span>
             </a>
           </div>
         </div>
@@ -1265,6 +1338,325 @@
     </div>
   </div>
 
+  <!-- ==========================================
+       MODAL: Assistente de Inteligência Artificial
+       ========================================== -->
+  <div id="modalAiAssistant" class="modal-backdrop">
+    <div class="modal-card modal-ai-card">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <h3 class="modal-title" style="display: flex; align-items: center; gap: 8px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;color:var(--steam-blue);"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+            Assistente de IA
+          </h3>
+          <span id="aiActiveProviderBadge" class="ai-provider-badge">Gemini</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button id="btnAiOpenConfigFromModal" class="btn btn-secondary btn-sm" title="Configurar Provedor e Chave de IA" style="padding: 4px 8px; font-size: 0.75rem;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            Configurações
+          </button>
+          <button class="modal-close" data-modal-close>&times;</button>
+        </div>
+      </div>
+      <div class="modal-body" style="padding: 16px;">
+        <!-- Target Context Banner -->
+        <div class="ai-target-banner">
+          <span class="ai-target-icon">🎯</span>
+          <span id="aiTargetContextText">Aplicando em: <strong>Editor Principal da Review</strong></span>
+        </div>
+
+        <!-- Action Categories / Pills -->
+        <div class="ai-actions-container">
+          <!-- 1. Aprimorar & Corrigir -->
+          <div class="ai-category-section">
+            <span class="ai-category-title">⚡ Aprimorar & Corrigir</span>
+            <div class="ai-action-buttons">
+              <button class="btn-ai-action" data-ai-action="improve" title="Melhora a clareza, fluidez e vocabulário sem alterar o sentido">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                <span>Melhorar Escrita</span>
+              </button>
+              <button class="btn-ai-action" data-ai-action="fix_grammar" title="Corrige erros ortográficos, gramaticais e pontuação mantendo o estilo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Corrigir Gramática</span>
+              </button>
+              <button class="btn-ai-action" data-ai-action="shorten" title="Encurta o texto para economizar caracteres sem perder argumentos-chave">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="14" x2="10" y2="14"></line><line x1="4" y1="10" x2="20" y2="10"></line><line x1="4" y1="6" x2="20" y2="6"></line><line x1="4" y1="18" x2="14" y2="18"></line></svg>
+                <span>Encurtar</span>
+              </button>
+              <button class="btn-ai-action" data-ai-action="expand" title="Aprofunda argumentos e detalha aspectos da experiência de jogo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                <span>Expandir</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. Tradução com BBCode Preservado -->
+          <div class="ai-category-section">
+            <span class="ai-category-title">🌐 Traduzir (Preserva BBCode)</span>
+            <div class="ai-action-buttons">
+              <button class="btn-ai-action" data-ai-action="translate_en" title="Traduzir para Inglês natural e gamer">
+                <span>🇺🇸 Inglês</span>
+              </button>
+              <button class="btn-ai-action" data-ai-action="translate_pt" title="Traduzir para Português do Brasil">
+                <span>🇧🇷 Português</span>
+              </button>
+              <button class="btn-ai-action" data-ai-action="translate_es" title="Traduzir para Espanhol">
+                <span>🇪🇸 Espanhol</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 3. Mudar Tom de Voz -->
+          <div class="ai-category-section">
+            <span class="ai-category-title">🎭 Mudar Tom de Voz</span>
+            <div class="ai-action-buttons">
+              <button class="btn-ai-action" data-ai-action="tone_enthusiastic" title="Tom empolgante, apaixonado e dinâmico">
+                <span>🔥 Gamer Entusiasta</span>
+              </button>
+              <button class="btn-ai-action" data-ai-action="tone_critical" title="Tom técnico, jornalístico e focado em game design e performance">
+                <span>🧐 Crítico Técnico</span>
+              </button>
+              <button class="btn-ai-action" data-ai-action="tone_casual" title="Tom leve, descontraído e bem-humorado">
+                <span>😄 Casual & Divertido</span>
+              </button>
+              <button class="btn-ai-action" data-ai-action="tone_concise" title="Tom extremamente direto e sem enrolação">
+                <span>🎯 Conciso & Direto</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 4. Estruturação & Recursos Gamer -->
+          <div class="ai-category-section">
+            <span class="ai-category-title">🎮 Recursos Gamer Steam</span>
+            <div class="ai-action-buttons">
+              <button class="btn-ai-action" data-ai-action="pros_cons" title="Extrai uma seção estruturada de Prós e Contras em BBCode">
+                <span>⚖️ Gerar Prós & Contras</span>
+              </button>
+              <button class="btn-ai-action" data-ai-action="verdict_tldr" title="Gera um parágrafo conciso de Resumo / Veredito Final com citação">
+                <span>🏆 Resumo & Veredito</span>
+              </button>
+              <button class="btn-ai-action" data-ai-action="notes_to_review" title="Transforma anotações brutas do Bloco de Notas em uma análise completa">
+                <span>📝 Anotações &rarr; Review</span>
+              </button>
+              <button class="btn-ai-action" data-ai-action="format_notes" title="Organiza anotações soltas em categorias e tópicos">
+                <span>📋 Organizar Anotações</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Custom Prompt Input -->
+        <div class="ai-custom-prompt-wrap" style="margin-top: 12px;">
+          <label class="form-label" for="aiCustomPromptInput" style="font-size: 0.8rem; display: flex; justify-content: space-between;">
+            <span>💬 Ou faça um pedido personalizado:</span>
+            <span style="color: var(--text-muted); font-size: 0.75rem;">Pressione Enter para gerar</span>
+          </label>
+          <div style="display: flex; gap: 8px;">
+            <input
+              type="text"
+              id="aiCustomPromptInput"
+              class="form-input"
+              placeholder="Ex: 'Adicione uma introdução chamativa', 'Destaque a trilha sonora'..."
+              style="font-size: 0.85rem;"
+            />
+            <button id="btnAiSubmitCustomPrompt" class="btn btn-primary btn-sm" style="white-space: nowrap; padding: 0 14px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;margin-right:4px;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+              Gerar
+            </button>
+          </div>
+        </div>
+
+        <!-- AI Output & Preview Area -->
+        <div class="ai-output-section" style="margin-top: 14px;">
+          <div class="ai-output-header">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span class="ai-output-title">Sugestão da IA:</span>
+              <span id="aiGenerationSpinner" class="ai-spinner" style="display: none;"></span>
+              <span id="aiStatusMessage" class="ai-status-msg">Escolha uma ação acima para gerar</span>
+            </div>
+            <div id="aiOutputStats" class="ai-output-stats" style="display: none;">
+              <span id="aiResultCharCount">0</span> caracteres • <span id="aiResultWordCount">0</span> palavras
+            </div>
+          </div>
+
+          <div class="ai-textarea-wrapper">
+            <textarea
+              id="aiResultText"
+              class="ai-result-textarea"
+              placeholder="O resultado gerado pela IA aparecerá aqui..."
+              rows="6"
+            ></textarea>
+          </div>
+
+          <!-- Application Action Buttons -->
+          <div id="aiResultActions" class="ai-result-actions" style="display: none;">
+            <button id="btnAiApplyReplace" class="btn btn-primary btn-sm" title="Substitui o texto selecionado ou todo o conteúdo pelo resultado gerado">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;margin-right:4px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Substituir Texto
+            </button>
+            <button id="btnAiApplyAppend" class="btn btn-secondary btn-sm" title="Insere o resultado abaixo ou ao final do texto atual">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;margin-right:4px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              Inserir Abaixo
+            </button>
+            <button id="btnAiCopyResult" class="btn btn-secondary btn-sm" title="Copiar resultado para a área de transferência">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;margin-right:4px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              Copiar
+            </button>
+            <button id="btnAiRegenerate" class="btn btn-secondary btn-sm" title="Regenerar sugestão com a mesma ação">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;margin-right:4px;"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+              Tentar Novamente
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-modal-close>Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL: Configurações de IA (API Keys)
+       ========================================== -->
+  <div id="modalAiSettings" class="modal-backdrop">
+    <div class="modal-card" style="max-width: 580px;">
+      <div class="modal-header">
+        <h3 class="modal-title" style="display: flex; align-items: center; gap: 8px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;color:var(--steam-blue);"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          Configurações de IA
+        </h3>
+        <button class="modal-close" data-modal-close>&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 16px;">
+        <!-- Provider Selection Cards -->
+        <div class="form-group">
+          <label class="form-label">Escolha o Provedor de IA:</label>
+          <div class="ai-provider-selector">
+            <label class="ai-provider-option">
+              <input type="radio" name="aiProvider" value="gemini" checked />
+              <div class="ai-provider-card">
+                <div class="ai-provider-header">
+                  <strong>Google Gemini</strong>
+                  <span class="ai-badge-free">Recomendado • Grátis</span>
+                </div>
+                <p class="ai-provider-desc">15 requisições/min gratuitas. Excelente para português e preservação de BBCode.</p>
+              </div>
+            </label>
+            <label class="ai-provider-option">
+              <input type="radio" name="aiProvider" value="groq" />
+              <div class="ai-provider-card">
+                <div class="ai-provider-header">
+                  <strong>Groq (Llama 3.3)</strong>
+                  <span class="ai-badge-free">Ultrarrápido • Grátis</span>
+                </div>
+                <p class="ai-provider-desc">Centenas de palavras por segundo com o modelo Llama 3.3 70B Versatile.</p>
+              </div>
+            </label>
+            <label class="ai-provider-option">
+              <input type="radio" name="aiProvider" value="openai" />
+              <div class="ai-provider-card">
+                <div class="ai-provider-header">
+                  <strong>OpenAI</strong>
+                  <span class="ai-badge-paid">Requer Créditos</span>
+                </div>
+                <p class="ai-provider-desc">Modelo GPT-4o-mini rápido e confiável (pago por uso).</p>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- API Key Input Field -->
+        <div class="form-group" style="margin-top: 14px;">
+          <label class="form-label" for="aiApiKeyInput" style="display: flex; justify-content: space-between;">
+            <span>Chave de API (<span id="aiKeyProviderLabel">Google Gemini</span>):</span>
+            <span id="aiKeyStatusIndicator" class="ai-key-status unconfigured">Não configurada</span>
+          </label>
+          <div style="display: flex; gap: 8px;">
+            <input
+              type="password"
+              id="aiApiKeyInput"
+              class="form-input"
+              placeholder="Cole sua chave de API aqui..."
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <button id="btnToggleAiKeyVisibility" class="btn btn-secondary btn-sm" type="button" title="Mostrar/Ocultar chave" style="padding: 0 10px;">
+              <svg id="iconKeyEye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Provider Instructions / Help Box -->
+        <div id="aiHelpBoxGemini" class="ai-help-card">
+          <div style="display: flex; gap: 8px; align-items: flex-start;">
+            <span style="font-size: 1.1rem;">💡</span>
+            <div>
+              <strong style="color: var(--text-highlight);">Como pegar sua chave gratuita do Google Gemini:</strong>
+              <ol style="margin: 6px 0 0 18px; padding: 0; font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+                <li>Acesse o <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="color: var(--steam-blue); text-decoration: underline; font-weight: 600;">Google AI Studio</a> com sua conta Google.</li>
+                <li>Clique no botão azul <strong>"Create API key"</strong> e selecione <strong>"Create API key in new project"</strong> (ou escolha um projeto com a API ativada).</li>
+                <li>Copie o código gerado e cole no campo acima.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div id="aiHelpBoxGroq" class="ai-help-card" style="display: none;">
+          <div style="display: flex; gap: 8px; align-items: flex-start;">
+            <span style="font-size: 1.1rem;">⚡</span>
+            <div>
+              <strong style="color: var(--text-highlight);">Como pegar sua chave gratuita da Groq:</strong>
+              <ol style="margin: 6px 0 0 18px; padding: 0; font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+                <li>Acesse o <a href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer" style="color: var(--steam-blue); text-decoration: underline; font-weight: 600;">Console da Groq</a> e crie uma conta gratuita.</li>
+                <li>Clique em <strong>"Create API Key"</strong>.</li>
+                <li>Copie a chave e cole no campo acima.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div id="aiHelpBoxOpenAI" class="ai-help-card" style="display: none;">
+          <div style="display: flex; gap: 8px; align-items: flex-start;">
+            <span style="font-size: 1.1rem;">🔑</span>
+            <div>
+              <strong style="color: var(--text-highlight);">Como pegar sua chave da OpenAI:</strong>
+              <ol style="margin: 6px 0 0 18px; padding: 0; font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+                <li>Acesse a página de <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer" style="color: var(--steam-blue); text-decoration: underline; font-weight: 600;">API Keys da OpenAI</a>.</li>
+                <li>Crie uma nova chave secreta e cole acima.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <!-- Privacy & Security Notice -->
+        <div class="ai-security-notice" style="margin-top: 12px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;min-width:14px;color:var(--status-success);"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span>Sua chave é armazenada com segurança apenas no seu navegador local (<code>localStorage</code>) e chamada diretamente do seu browser para a API.</span>
+        </div>
+
+        <!-- Connection Test Status -->
+        <div id="aiTestResultBox" class="ai-test-result" style="display: none; margin-top: 10px;">
+          <span id="aiTestResultText"></span>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content: space-between;">
+        <button id="btnAiClearKey" class="btn btn-secondary btn-sm" style="color: var(--status-danger);">
+          Remover Chave
+        </button>
+        <div style="display: flex; gap: 8px;">
+          <button id="btnAiTestConnection" class="btn btn-secondary btn-sm">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;margin-right:4px;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+            Testar Conexão
+          </button>
+          <button id="btnAiSaveConfig" class="btn btn-primary btn-sm">
+            Salvar Configuração
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Container -->
   <div id="toastContainer" class="toast-container"></div>
 
@@ -1274,6 +1666,7 @@
   <script src="js/templates.js"></script>
   <script src="js/reviews.js"></script>
   <script src="js/voice.js"></script>
+  <script src="js/ai.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

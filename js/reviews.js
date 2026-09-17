@@ -9,7 +9,7 @@ class ReviewManager {
   static STORAGE_KEY = 'steam_reviews_history';
   static ACTIVE_REVIEW_KEY = 'steam_active_review_id';
   static APP_NAME = 'SteamER';
-  static BACKUP_VERSION = '2.0';
+  static BACKUP_VERSION = '3.0';
 
   /**
    * Get all reviews sorted by updatedAt descending (most recent first)

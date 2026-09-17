@@ -2229,6 +2229,476 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
+  // AI Assistant Controller (Gemini / Groq / OpenAI)
+  // ==========================================
+  function setupAiAssistant() {
+    const btnOpenAiAssistant = document.getElementById('btnOpenAiAssistant');
+    const btnOpenAiSettings = document.getElementById('btnOpenAiSettings');
+    const btnAiNotesAssistant = document.getElementById('btnAiNotesAssistant');
+    const btnAiNotesToReview = document.getElementById('btnAiNotesToReview');
+
+    const modalAiAssistant = document.getElementById('modalAiAssistant');
+    const modalAiSettings = document.getElementById('modalAiSettings');
+    const aiActiveProviderBadge = document.getElementById('aiActiveProviderBadge');
+    const btnAiOpenConfigFromModal = document.getElementById('btnAiOpenConfigFromModal');
+    const aiTargetContextText = document.getElementById('aiTargetContextText');
+
+    const aiCustomPromptInput = document.getElementById('aiCustomPromptInput');
+    const btnAiSubmitCustomPrompt = document.getElementById('btnAiSubmitCustomPrompt');
+
+    const aiGenerationSpinner = document.getElementById('aiGenerationSpinner');
+    const aiStatusMessage = document.getElementById('aiStatusMessage');
+    const aiOutputStats = document.getElementById('aiOutputStats');
+    const aiResultCharCount = document.getElementById('aiResultCharCount');
+    const aiResultWordCount = document.getElementById('aiResultWordCount');
+    const aiResultText = document.getElementById('aiResultText');
+    const aiResultActions = document.getElementById('aiResultActions');
+
+    const btnAiApplyReplace = document.getElementById('btnAiApplyReplace');
+    const btnAiApplyAppend = document.getElementById('btnAiApplyAppend');
+    const btnAiCopyResult = document.getElementById('btnAiCopyResult');
+    const btnAiRegenerate = document.getElementById('btnAiRegenerate');
+
+    // Settings Modal DOM Elements
+    const aiApiKeyInput = document.getElementById('aiApiKeyInput');
+    const btnToggleAiKeyVisibility = document.getElementById('btnToggleAiKeyVisibility');
+    const aiKeyProviderLabel = document.getElementById('aiKeyProviderLabel');
+    const aiKeyStatusIndicator = document.getElementById('aiKeyStatusIndicator');
+    const aiHelpBoxGemini = document.getElementById('aiHelpBoxGemini');
+    const aiHelpBoxGroq = document.getElementById('aiHelpBoxGroq');
+    const aiHelpBoxOpenAI = document.getElementById('aiHelpBoxOpenAI');
+    const btnAiClearKey = document.getElementById('btnAiClearKey');
+    const btnAiTestConnection = document.getElementById('btnAiTestConnection');
+    const btnAiSaveConfig = document.getElementById('btnAiSaveConfig');
+    const aiTestResultBox = document.getElementById('aiTestResultBox');
+    const aiTestResultText = document.getElementById('aiTestResultText');
+
+    let currentAiContext = {
+      target: 'editor', // 'editor' | 'notes'
+      isSelection: false,
+      text: '',
+      start: 0,
+      end: 0,
+      lastActionId: '',
+      lastCustomPrompt: ''
+    };
+
+    let isGenerating = false;
+
+    function getProviderDisplayName(provider) {
+      if (provider === 'gemini') return 'Google Gemini';
+      if (provider === 'groq') return 'Groq (Llama 3.3)';
+      if (provider === 'openai') return 'OpenAI';
+      return provider;
+    }
+
+    function updateAiBadges() {
+      const config = AiAssistant.getConfig();
+      if (aiActiveProviderBadge) {
+        aiActiveProviderBadge.textContent = getProviderDisplayName(config.provider);
+      }
+    }
+
+    function openAiAssistantModal(targetType = 'editor', preselectedAction = null) {
+      if (!AiAssistant.hasApiKey()) {
+        showToast('Configure sua chave de API para usar a IA (Temos opções 100% gratuitas!)', 'warning');
+        openAiSettingsModal();
+        return;
+      }
+
+      updateAiBadges();
+      const targetTextarea = targetType === 'notes' ? gameNotesArea : editor;
+
+      const selStart = targetTextarea.selectionStart ?? 0;
+      const selEnd = targetTextarea.selectionEnd ?? 0;
+      const hasSelection = selStart !== selEnd;
+      const selectedText = hasSelection ? targetTextarea.value.substring(selStart, selEnd) : targetTextarea.value;
+
+      currentAiContext = {
+        target: targetType,
+        isSelection: hasSelection,
+        text: selectedText,
+        start: selStart,
+        end: selEnd,
+        lastActionId: '',
+        lastCustomPrompt: ''
+      };
+
+      // Update Context Banner
+      if (aiTargetContextText) {
+        if (targetType === 'notes') {
+          aiTargetContextText.innerHTML = hasSelection
+            ? `Aplicando em: <strong>Bloco de Notas</strong> (Texto selecionado • ${selectedText.length} caracteres)`
+            : `Aplicando em: <strong>Todas as Anotações</strong> (${selectedText.length} caracteres)`;
+        } else {
+          aiTargetContextText.innerHTML = hasSelection
+            ? `Aplicando em: <strong>Editor de Review</strong> (Texto selecionado • ${selectedText.length} caracteres)`
+            : `Aplicando em: <strong>Toda a Análise</strong> (${selectedText.length} caracteres)`;
+        }
+      }
+
+      // Reset Output Area
+      if (aiResultText) aiResultText.value = '';
+      if (aiOutputStats) aiOutputStats.style.display = 'none';
+      if (aiResultActions) aiResultActions.style.display = 'none';
+      if (aiGenerationSpinner) aiGenerationSpinner.style.display = 'none';
+      if (aiStatusMessage) {
+        aiStatusMessage.textContent = selectedText.trim()
+          ? 'Escolha uma ação acima ou digite um pedido para gerar'
+          : '⚠️ O campo está vazio. Digite um pedido personalizado ou escolha uma ação';
+      }
+      if (aiCustomPromptInput) aiCustomPromptInput.value = '';
+
+      openModal(modalAiAssistant);
+
+      // Auto-trigger if preselected action provided (e.g. notes_to_review)
+      if (preselectedAction) {
+        executeAiAction(preselectedAction);
+      }
+    }
+
+    async function executeAiAction(actionId, customInstruction = '') {
+      if (isGenerating) return;
+
+      const inputText = currentAiContext.text || (currentAiContext.target === 'notes' ? gameNotesArea.value : editor.value);
+      const gameTitle = currentActiveReview ? currentActiveReview.title : 'Jogo';
+      const isNotes = currentAiContext.target === 'notes';
+
+      if (!inputText.trim() && actionId !== 'notes_to_review' && actionId !== 'custom') {
+        showToast('Não há texto suficiente para aplicar esta ação.', 'warning');
+        return;
+      }
+
+      currentAiContext.lastActionId = actionId;
+      currentAiContext.lastCustomPrompt = customInstruction;
+
+      isGenerating = true;
+      if (aiGenerationSpinner) aiGenerationSpinner.style.display = 'inline-block';
+      if (aiStatusMessage) aiStatusMessage.textContent = 'Gerando sugestão com IA... Por favor, aguarde.';
+      if (aiResultActions) aiResultActions.style.display = 'none';
+
+      // Disable action buttons during generation
+      document.querySelectorAll('.btn-ai-action, #btnAiSubmitCustomPrompt').forEach(b => b.disabled = true);
+
+      try {
+        const prompt = AiAssistant.buildActionPrompt(actionId, inputText, {
+          gameTitle,
+          isNotesContext: isNotes,
+          customInstruction
+        });
+
+        const result = await AiAssistant.generate(prompt, { isNotesContext: isNotes });
+
+        if (aiResultText) {
+          aiResultText.value = result;
+          updateResultStats(result);
+        }
+
+        if (aiStatusMessage) aiStatusMessage.textContent = '✨ Sugestão gerada com sucesso!';
+        if (aiResultActions) aiResultActions.style.display = 'flex';
+        showToast('Sugestão de IA gerada!');
+      } catch (err) {
+        console.error('AI Generation Error:', err);
+        if (aiStatusMessage) aiStatusMessage.textContent = '❌ Erro: ' + (err.message || 'Falha na geração');
+        showToast(err.message || 'Erro ao comunicar com a IA', 'danger');
+      } finally {
+        isGenerating = false;
+        if (aiGenerationSpinner) aiGenerationSpinner.style.display = 'none';
+        document.querySelectorAll('.btn-ai-action, #btnAiSubmitCustomPrompt').forEach(b => b.disabled = false);
+      }
+    }
+
+    function updateResultStats(text) {
+      if (!aiOutputStats) return;
+      aiOutputStats.style.display = 'block';
+      const chars = text.length;
+      const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+      if (aiResultCharCount) aiResultCharCount.textContent = chars.toLocaleString('pt-BR');
+      if (aiResultWordCount) aiResultWordCount.textContent = words.toLocaleString('pt-BR');
+    }
+
+    // Action button clicks inside AI Assistant Modal
+    document.querySelectorAll('.btn-ai-action').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const actionId = btn.getAttribute('data-ai-action');
+        if (actionId) {
+          executeAiAction(actionId);
+        }
+      });
+    });
+
+    // Custom prompt submission
+    if (btnAiSubmitCustomPrompt) {
+      btnAiSubmitCustomPrompt.addEventListener('click', () => {
+        const customText = (aiCustomPromptInput?.value || '').trim();
+        if (!customText) {
+          showToast('Digite seu pedido no campo de texto.', 'warning');
+          aiCustomPromptInput?.focus();
+          return;
+        }
+        executeAiAction('custom', customText);
+      });
+    }
+
+    if (aiCustomPromptInput) {
+      aiCustomPromptInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          btnAiSubmitCustomPrompt?.click();
+        }
+      });
+    }
+
+    // Result actions: Replace
+    if (btnAiApplyReplace) {
+      btnAiApplyReplace.addEventListener('click', () => {
+        const generated = aiResultText?.value || '';
+        if (!generated) return;
+
+        const targetTextarea = currentAiContext.target === 'notes' ? gameNotesArea : editor;
+        if (currentAiContext.isSelection) {
+          const currentVal = targetTextarea.value;
+          const newVal = currentVal.substring(0, currentAiContext.start) + generated + currentVal.substring(currentAiContext.end);
+          targetTextarea.value = newVal;
+          targetTextarea.setSelectionRange(currentAiContext.start + generated.length, currentAiContext.start + generated.length);
+        } else {
+          targetTextarea.value = generated;
+        }
+
+        targetTextarea.dispatchEvent(new Event('input', { bubbles: true }));
+        closeModal(modalAiAssistant);
+        showToast('Texto substituído com sucesso!');
+      });
+    }
+
+    // Result actions: Append
+    if (btnAiApplyAppend) {
+      btnAiApplyAppend.addEventListener('click', () => {
+        const generated = aiResultText?.value || '';
+        if (!generated) return;
+
+        const targetTextarea = currentAiContext.target === 'notes' ? gameNotesArea : editor;
+        const currentVal = targetTextarea.value;
+        const separator = currentVal.trim().length > 0 ? '\n\n' : '';
+        targetTextarea.value = currentVal + separator + generated;
+
+        targetTextarea.dispatchEvent(new Event('input', { bubbles: true }));
+        closeModal(modalAiAssistant);
+        showToast('Texto inserido abaixo!');
+      });
+    }
+
+    // Result actions: Copy
+    if (btnAiCopyResult) {
+      btnAiCopyResult.addEventListener('click', () => {
+        const generated = aiResultText?.value || '';
+        if (!generated) return;
+        navigator.clipboard.writeText(generated).then(() => {
+          showToast('Sugestão copiada para a área de transferência!');
+        });
+      });
+    }
+
+    // Result actions: Regenerate
+    if (btnAiRegenerate) {
+      btnAiRegenerate.addEventListener('click', () => {
+        if (currentAiContext.lastActionId) {
+          executeAiAction(currentAiContext.lastActionId, currentAiContext.lastCustomPrompt);
+        }
+      });
+    }
+
+    // Open Config from modal button
+    if (btnAiOpenConfigFromModal) {
+      btnAiOpenConfigFromModal.addEventListener('click', () => {
+        closeModal(modalAiAssistant);
+        openAiSettingsModal();
+      });
+    }
+
+    // Toolbar triggers
+    if (btnOpenAiAssistant) {
+      btnOpenAiAssistant.addEventListener('click', () => openAiAssistantModal('editor'));
+    }
+    if (btnOpenAiSettings) {
+      btnOpenAiSettings.addEventListener('click', openAiSettingsModal);
+    }
+    if (btnAiNotesAssistant) {
+      btnAiNotesAssistant.addEventListener('click', () => openAiAssistantModal('notes'));
+    }
+    if (btnAiNotesToReview) {
+      btnAiNotesToReview.addEventListener('click', () => {
+        currentAiContext.target = 'editor';
+        currentAiContext.text = gameNotesArea.value;
+        openAiAssistantModal('editor', 'notes_to_review');
+      });
+    }
+
+    // Keyboard shortcut: Ctrl + J
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'j') {
+        e.preventDefault();
+        const activeEl = document.activeElement;
+        if (activeEl === gameNotesArea) {
+          openAiAssistantModal('notes');
+        } else {
+          openAiAssistantModal('editor');
+        }
+      }
+    });
+
+    // ==========================================
+    // AI Settings Modal Logic
+    // ==========================================
+    function openAiSettingsModal() {
+      const config = AiAssistant.getConfig();
+
+      // Set radio
+      const radio = document.querySelector(`input[name="aiProvider"][value="${config.provider}"]`);
+      if (radio) radio.checked = true;
+
+      syncSettingsUIForProvider(config.provider);
+      if (aiTestResultBox) aiTestResultBox.style.display = 'none';
+
+      openModal(modalAiSettings);
+    }
+
+    function syncSettingsUIForProvider(provider) {
+      const config = AiAssistant.getConfig();
+      let keyVal = '';
+      if (provider === 'gemini') keyVal = config.geminiKey || '';
+      else if (provider === 'groq') keyVal = config.groqKey || '';
+      else if (provider === 'openai') keyVal = config.openaiKey || '';
+
+      if (aiApiKeyInput) aiApiKeyInput.value = keyVal;
+      if (aiKeyProviderLabel) aiKeyProviderLabel.textContent = getProviderDisplayName(provider);
+
+      if (aiKeyStatusIndicator) {
+        if (keyVal.trim()) {
+          aiKeyStatusIndicator.textContent = '● Configurada';
+          aiKeyStatusIndicator.className = 'ai-key-status configured';
+        } else {
+          aiKeyStatusIndicator.textContent = '○ Não configurada';
+          aiKeyStatusIndicator.className = 'ai-key-status unconfigured';
+        }
+      }
+
+      if (aiHelpBoxGemini) aiHelpBoxGemini.style.display = provider === 'gemini' ? 'block' : 'none';
+      if (aiHelpBoxGroq) aiHelpBoxGroq.style.display = provider === 'groq' ? 'block' : 'none';
+      if (aiHelpBoxOpenAI) aiHelpBoxOpenAI.style.display = provider === 'openai' ? 'block' : 'none';
+    }
+
+    // Provider radio change
+    document.querySelectorAll('input[name="aiProvider"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        syncSettingsUIForProvider(radio.value);
+        if (aiTestResultBox) aiTestResultBox.style.display = 'none';
+      });
+    });
+
+    // Show/Hide password toggle
+    if (btnToggleAiKeyVisibility && aiApiKeyInput) {
+      btnToggleAiKeyVisibility.addEventListener('click', () => {
+        if (aiApiKeyInput.type === 'password') {
+          aiApiKeyInput.type = 'text';
+          btnToggleAiKeyVisibility.classList.add('active');
+        } else {
+          aiApiKeyInput.type = 'password';
+          btnToggleAiKeyVisibility.classList.remove('active');
+        }
+      });
+    }
+
+    // Save configuration
+    if (btnAiSaveConfig) {
+      btnAiSaveConfig.addEventListener('click', () => {
+        const selectedProvider = document.querySelector('input[name="aiProvider"]:checked')?.value || 'gemini';
+        const key = (aiApiKeyInput?.value || '').trim();
+
+        const updateObj = { provider: selectedProvider };
+        if (selectedProvider === 'gemini') updateObj.geminiKey = key;
+        else if (selectedProvider === 'groq') updateObj.groqKey = key;
+        else if (selectedProvider === 'openai') updateObj.openaiKey = key;
+
+        AiAssistant.saveConfig(updateObj);
+        updateAiBadges();
+        closeModal(modalAiSettings);
+        showToast('Configurações de IA salvas com sucesso!');
+      });
+    }
+
+    // Remove key
+    if (btnAiClearKey) {
+      btnAiClearKey.addEventListener('click', () => {
+        const selectedProvider = document.querySelector('input[name="aiProvider"]:checked')?.value || 'gemini';
+        if (confirm(`Remover a chave de API de ${getProviderDisplayName(selectedProvider)}?`)) {
+          const updateObj = { provider: selectedProvider };
+          if (selectedProvider === 'gemini') updateObj.geminiKey = '';
+          else if (selectedProvider === 'groq') updateObj.groqKey = '';
+          else if (selectedProvider === 'openai') updateObj.openaiKey = '';
+
+          AiAssistant.saveConfig(updateObj);
+          if (aiApiKeyInput) aiApiKeyInput.value = '';
+          syncSettingsUIForProvider(selectedProvider);
+          updateAiBadges();
+          showToast('Chave de IA removida.');
+        }
+      });
+    }
+
+    // Test connection
+    if (btnAiTestConnection) {
+      btnAiTestConnection.addEventListener('click', async () => {
+        const selectedProvider = document.querySelector('input[name="aiProvider"]:checked')?.value || 'gemini';
+        const key = (aiApiKeyInput?.value || '').trim();
+
+        if (!key) {
+          showToast('Informe uma chave de API antes de testar.', 'warning');
+          aiApiKeyInput?.focus();
+          return;
+        }
+
+        const tempConfig = {
+          provider: selectedProvider,
+          geminiKey: selectedProvider === 'gemini' ? key : '',
+          groqKey: selectedProvider === 'groq' ? key : '',
+          openaiKey: selectedProvider === 'openai' ? key : ''
+        };
+
+        btnAiTestConnection.disabled = true;
+        btnAiTestConnection.textContent = 'Testando...';
+        if (aiTestResultBox) aiTestResultBox.style.display = 'none';
+
+        try {
+          await AiAssistant.testConnection(tempConfig);
+          if (aiTestResultBox && aiTestResultText) {
+            aiTestResultBox.className = 'ai-test-result success';
+            aiTestResultText.textContent = `✅ Conexão bem-sucedida! Provedor ${getProviderDisplayName(selectedProvider)} respondeu perfeitamente.`;
+            aiTestResultBox.style.display = 'block';
+          }
+          showToast('Conexão testada com sucesso!');
+        } catch (err) {
+          if (aiTestResultBox && aiTestResultText) {
+            aiTestResultBox.className = 'ai-test-result error';
+            aiTestResultText.textContent = `❌ Falha no teste: ${err.message || 'Chave inválida ou erro de rede'}`;
+            aiTestResultBox.style.display = 'block';
+          }
+          showToast('Falha no teste de conexão.', 'danger');
+        } finally {
+          btnAiTestConnection.disabled = false;
+          btnAiTestConnection.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;margin-right:4px;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+            Testar Conexão
+          `;
+        }
+      });
+    }
+
+    // Initial badge update
+    updateAiBadges();
+  }
+
+  // ==========================================
   // Initialization
   // ==========================================
   const savedLayout = localStorage.getItem('steam_editor_layout_preference') || 'side-by-side';
@@ -2238,6 +2708,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setTheme(savedTheme, false);
   populateTemplateSelect();
   setupVoiceDictation();
+  setupAiAssistant();
 
   // Load default template content if completely brand new
   const defaultTpl = TemplateManager.getTemplateById('builtin-prompt-standard');
