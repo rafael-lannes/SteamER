@@ -59,6 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const progressBar = document.getElementById('progressBar');
   const wordCounter = document.getElementById('wordCounter');
   const lineCounter = document.getElementById('lineCounter');
+  const btnVoiceDictation = document.getElementById('btnVoiceDictation');
+  const btnVoiceNotes = document.getElementById('btnVoiceNotes');
+  const voiceStatusIndicator = document.getElementById('voiceStatusIndicator');
+  const voiceStatusText = document.getElementById('voiceStatusText');
 
   // Recommendation Selector
   const btnRecommendPositive = document.getElementById('btnRecommendPositive');
@@ -226,6 +230,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   function switchMainView(viewName) {
     currentMainView = viewName;
+
+    // Stop active voice dictation if leaving editor
+    if (viewName !== 'editor' && typeof VoiceDictation !== 'undefined' && VoiceDictation.isListening()) {
+      VoiceDictation.stop();
+    }
 
     // Toggle Nav Button States
     if (navBtnHome) navBtnHome.classList.toggle('active', viewName === 'home');
@@ -2144,6 +2153,82 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================
+  // Voice Dictation Controller (Web Speech API)
+  // ==========================================
+  function setupVoiceDictation() {
+    if (!VoiceDictation.isSupported()) {
+      if (btnVoiceDictation) {
+        btnVoiceDictation.setAttribute('data-tooltip', 'Ditado por voz não suportado neste navegador (Recomendamos Chrome, Edge, Opera ou Safari)');
+        btnVoiceDictation.classList.add('disabled-feature');
+      }
+      if (btnVoiceNotes) {
+        btnVoiceNotes.title = 'Ditado por voz não suportado neste navegador';
+        btnVoiceNotes.classList.add('disabled-feature');
+      }
+      return;
+    }
+
+    // 1. Voice Dictation on Main Review Editor
+    if (btnVoiceDictation) {
+      btnVoiceDictation.addEventListener('click', () => {
+        VoiceDictation.toggle({
+          targetTextarea: editor,
+          maxChars: MAX_STEAM_CHARS,
+          onStart: () => {
+            btnVoiceDictation.classList.add('recording');
+            if (btnVoiceNotes) btnVoiceNotes.classList.remove('recording');
+            if (voiceStatusIndicator) {
+              voiceStatusIndicator.style.display = 'inline-flex';
+              if (voiceStatusText) voiceStatusText.textContent = 'Ouvindo análise... Fale agora';
+            }
+            showToast('Ditado por voz iniciado. Fale sua análise!');
+          },
+          onEnd: () => {
+            btnVoiceDictation.classList.remove('recording');
+            if (voiceStatusIndicator) {
+              voiceStatusIndicator.style.display = 'none';
+            }
+          },
+          onError: (errType, errMsg) => {
+            btnVoiceDictation.classList.remove('recording');
+            if (voiceStatusIndicator) {
+              voiceStatusIndicator.style.display = 'none';
+            }
+            showToast(errMsg, errType === 'not-allowed' ? 'warning' : 'danger');
+          },
+          onLimitReached: (limit) => {
+            showToast(`Limite máximo de ${limit.toLocaleString('pt-BR')} caracteres atingido!`, 'warning');
+          }
+        });
+      });
+    }
+
+    // 2. Voice Dictation on Game Notes Area
+    if (btnVoiceNotes) {
+      btnVoiceNotes.addEventListener('click', () => {
+        VoiceDictation.toggle({
+          targetTextarea: gameNotesArea,
+          onStart: () => {
+            btnVoiceNotes.classList.add('recording');
+            if (btnVoiceDictation) btnVoiceDictation.classList.remove('recording');
+            if (voiceStatusIndicator) {
+              voiceStatusIndicator.style.display = 'none';
+            }
+            showToast('Ditado de anotações iniciado. Fale suas notas!');
+          },
+          onEnd: () => {
+            btnVoiceNotes.classList.remove('recording');
+          },
+          onError: (errType, errMsg) => {
+            btnVoiceNotes.classList.remove('recording');
+            showToast(errMsg, errType === 'not-allowed' ? 'warning' : 'danger');
+          }
+        });
+      });
+    }
+  }
+
+  // ==========================================
   // Initialization
   // ==========================================
   const savedLayout = localStorage.getItem('steam_editor_layout_preference') || 'side-by-side';
@@ -2152,6 +2237,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const savedTheme = localStorage.getItem('steamer_theme_preference') || 'theme-default';
   setTheme(savedTheme, false);
   populateTemplateSelect();
+  setupVoiceDictation();
 
   // Load default template content if completely brand new
   const defaultTpl = TemplateManager.getTemplateById('builtin-prompt-standard');

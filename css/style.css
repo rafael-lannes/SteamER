@@ -624,6 +624,91 @@ html, body {
   box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
 }
 
+/* Voice Dictation Buttons & Recording Status */
+.tool-btn.btn-voice {
+  background-color: var(--bg-surface-elevated);
+  border-color: var(--border-color-light);
+  color: var(--text-primary);
+  padding: 0 10px;
+  gap: 6px;
+  position: relative;
+}
+
+.tool-btn.btn-voice svg {
+  color: var(--steam-blue);
+  fill: none;
+}
+
+.tool-btn.btn-voice:hover {
+  background-color: var(--steam-accent);
+  color: var(--text-highlight);
+  border-color: var(--steam-blue);
+}
+
+.tool-btn.btn-voice.recording,
+.btn-voice-notes.recording {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.25) 0%, rgba(185, 28, 28, 0.35) 100%) !important;
+  border-color: #ef4444 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.4) !important;
+}
+
+.tool-btn.btn-voice.recording svg,
+.btn-voice-notes.recording svg {
+  color: #ffffff !important;
+}
+
+.voice-recording-dot {
+  display: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #ef4444;
+}
+
+.tool-btn.btn-voice.recording .voice-recording-dot,
+.btn-voice-notes.recording .voice-recording-dot {
+  display: inline-block;
+}
+
+.btn-voice-notes {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-voice-notes svg {
+  fill: none;
+  color: var(--steam-blue);
+}
+
+.voice-status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  margin-left: 8px;
+}
+
+.voice-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #ef4444;
+}
+
+.btn-voice.disabled-feature,
+.btn-voice-notes.disabled-feature {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 /* Tooltip on hover */
 [data-tooltip] {
   position: relative;
