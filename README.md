@@ -1,8 +1,12 @@
-# SteamER - Steam Easy Review (v3.0)
+<div align="center">
+  <img src="assets/logo.jpg" alt="SteamER Logo" width="100" />
 
-> **Desenvolvido por Rafael Lannes** • [Repositório no GitHub](https://github.com/rafael-lannes/SteamER) • [Portfólio](https://rafael-lannes.github.io/)
+  # SteamER - Steam Easy Review (v3.0)
 
-Aplicação web para escrever, formatar e organizar análises de jogos para a Steam, com suporte a BBCode nativo, contagem de caracteres e armazenamento local.
+  <p><strong>Desenvolvido por Rafael Lannes</strong> • <a href="https://github.com/rafael-lannes/SteamER">Repositório no GitHub</a> • <a href="https://rafael-lannes.github.io/">Portfólio</a></p>
+
+  <p>Aplicação web para escrever, formatar e organizar análises de jogos para a Steam, com suporte a BBCode nativo, contagem de caracteres e armazenamento local.</p>
+</div>
 
 ---
 
